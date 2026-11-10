@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "dev.pages.chitatdaily.twa",
+      "sha256_cert_fingerprints": [
+        "99:8C:8B:47:3F:5B:DB:BC:51:18:5C:2B:8D:F7:49:A3:03:28:A6:88:FD:A9:1A:73:F5:64:EF:60:6C:40:FA:1D"
+      ]
+    }
+  }
+]

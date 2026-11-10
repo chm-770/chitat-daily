@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#451a03" />
+      <stop offset="50%" stop-color="#78350f" />
+      <stop offset="100%" stop-color="#271003" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7" />
+      <stop offset="50%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+
+  <!-- Inner ornamental gold border -->
+  <rect x="24" y="24" width="464" height="464" rx="92" fill="none" stroke="url(#gold)" stroke-width="4" stroke-opacity="0.6" />
+  <rect x="36" y="36" width="440" height="440" rx="80" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="8 6" />
+
+  <!-- Center Emblem: Crown & Holy Sefer -->
+  <g transform="translate(256, 175)" filter="url(#shadow)" text-anchor="middle">
+    <!-- Torah Crown -->
+    <path d="M-60,-35 L-40,10 L0,-15 L40,10 L60,-35 L45,-40 L0,-25 L-45,-40 Z" fill="url(#gold)" />
+    <circle cx="-60" cy="-35" r="5" fill="#fef3c7" />
+    <circle cx="0" cy="-15" r="6" fill="#fef3c7" />
+    <circle cx="60" cy="-35" r="5" fill="#fef3c7" />
+    <circle cx="-30" cy="-25" r="4" fill="#fbbf24" />
+    <circle cx="30" cy="-25" r="4" fill="#fbbf24" />
+
+    <!-- Open Book / Sefer -->
+    <path d="M-90,25 C-50,15 -10,30 0,45 C10,30 50,15 90,25 L85,90 C45,80 10,95 0,105 C-10,95 -45,80 -85,90 Z" fill="#fffbeb" />
+    <path d="M0,45 L0,105" stroke="#78350f" stroke-width="3" />
+    <!-- Book pages lines -->
+    <path d="M-75,42 C-45,35 -15,48 0,55" stroke="#b45309" stroke-width="2" stroke-linecap="round" opacity="0.6" fill="none" />
+    <path d="M-75,58 C-45,51 -15,64 0,71" stroke="#b45309" stroke-width="2" stroke-linecap="round" opacity="0.6" fill="none" />
+    <path d="M-75,74 C-45,67 -15,80 0,87" stroke="#b45309" stroke-width="2" stroke-linecap="round" opacity="0.6" fill="none" />
+    <path d="M75,42 C45,35 15,48 0,55" stroke="#b45309" stroke-width="2" stroke-linecap="round" opacity="0.6" fill="none" />
+    <path d="M75,58 C45,51 15,64 0,71" stroke="#b45309" stroke-width="2" stroke-linecap="round" opacity="0.6" fill="none" />
+    <path d="M75,74 C45,67 15,80 0,87" stroke="#b45309" stroke-width="2" stroke-linecap="round" opacity="0.6" fill="none" />
+  </g>
+
+  <!-- Title Text: חִתַּ״ת -->
+  <text x="256" y="375" text-anchor="middle" font-family="'Frank Ruhl Libre', serif" font-weight="900" font-size="105" fill="url(#gold)" filter="url(#shadow)">
+    חִתַּ״ת
+  </text>
+
+  <!-- Subtitle Text: הלימוד היומי -->
+  <text x="256" y="435" text-anchor="middle" font-family="'Heebo', sans-serif" font-weight="700" font-size="28" fill="#fde68a" letter-spacing="4" opacity="0.95">
+    הַלִּמּוּד הַיּוֹמִי
+  </text>
+</svg>

@@ -1,0 +1,7542 @@
+{
+  "1_1": {
+    "dayNumber": 1,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "1 ניסן",
+    "mitzvotDisplay": "מל\"ת שנב. שמז. שמו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 352,
+        "codeStr": "מל\"ת שנב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 347,
+        "codeStr": "מל\"ת שמז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 346,
+        "codeStr": "מל\"ת שמו"
+      }
+    ]
+  },
+  "2_1": {
+    "dayNumber": 2,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "2 ניסן",
+    "mitzvotDisplay": "מל\"ת נב. נג. נה. נד. שנד. שס. שסא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 52,
+        "codeStr": "מל\"ת נב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 53,
+        "codeStr": "מל\"ת נג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 55,
+        "codeStr": "מל\"ת נה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 54,
+        "codeStr": "מל\"ת נד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 354,
+        "codeStr": "מל\"ת שנד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 360,
+        "codeStr": "מל\"ת שס"
+      },
+      {
+        "type": "lotaseh",
+        "number": 361,
+        "codeStr": "מל\"ת שסא"
+      }
+    ]
+  },
+  "3_1": {
+    "dayNumber": 3,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "3 ניסן",
+    "mitzvotDisplay": "מל\"ת קסא. קסב. מ\"ע לח. מל\"ת קס. קנח. קנט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 161,
+        "codeStr": "מל\"ת קסא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 162,
+        "codeStr": "מל\"ת קסב"
+      },
+      {
+        "type": "aseh",
+        "number": 38,
+        "codeStr": "מ\"ע לח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 160,
+        "codeStr": "מל\"ת קס"
+      },
+      {
+        "type": "lotaseh",
+        "number": 158,
+        "codeStr": "מל\"ת קנח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 159,
+        "codeStr": "מל\"ת קנט"
+      }
+    ]
+  },
+  "4_1": {
+    "dayNumber": 4,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "4 ניסן",
+    "mitzvotDisplay": "מל\"ת שנג. מ\"ע קמט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 353,
+        "codeStr": "מל\"ת שנג"
+      },
+      {
+        "type": "aseh",
+        "number": 149,
+        "codeStr": "מ\"ע קמט"
+      }
+    ]
+  },
+  "5_1": {
+    "dayNumber": 5,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "5 ניסן",
+    "mitzvotDisplay": "מ\"ע קנ. קנא. קנב. מל\"ת קעב. קעד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 150,
+        "codeStr": "מ\"ע קנ"
+      },
+      {
+        "type": "aseh",
+        "number": 151,
+        "codeStr": "מ\"ע קנא"
+      },
+      {
+        "type": "aseh",
+        "number": 152,
+        "codeStr": "מ\"ע קנב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 172,
+        "codeStr": "מל\"ת קעב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 174,
+        "codeStr": "מל\"ת קעד"
+      }
+    ]
+  },
+  "6_1": {
+    "dayNumber": 6,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "6 ניסן",
+    "mitzvotDisplay": "מל\"ת קעג. קעה. קעו. קעז. קעח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 173,
+        "codeStr": "מל\"ת קעג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 175,
+        "codeStr": "מל\"ת קעה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 176,
+        "codeStr": "מל\"ת קעו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 177,
+        "codeStr": "מל\"ת קעז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 178,
+        "codeStr": "מל\"ת קעח"
+      }
+    ]
+  },
+  "7_1": {
+    "dayNumber": 7,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "7 ניסן",
+    "mitzvotDisplay": "מל\"ת קעט. קפ. קפח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 179,
+        "codeStr": "מל\"ת קעט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 180,
+        "codeStr": "מל\"ת קפ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 188,
+        "codeStr": "מל\"ת קפח"
+      }
+    ]
+  },
+  "8_1": {
+    "dayNumber": 8,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "8 ניסן",
+    "mitzvotDisplay": "מל\"ת קפא. קפב. קפד. קפה. קפג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 181,
+        "codeStr": "מל\"ת קפא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 182,
+        "codeStr": "מל\"ת קפב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 184,
+        "codeStr": "מל\"ת קפד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 185,
+        "codeStr": "מל\"ת קפה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 183,
+        "codeStr": "מל\"ת קפג"
+      }
+    ]
+  },
+  "9_1": {
+    "dayNumber": 9,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "9 ניסן",
+    "mitzvotDisplay": "מל\"ת קפז. קפו. קפט. קצ. קצא. קצב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 187,
+        "codeStr": "מל\"ת קפז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 186,
+        "codeStr": "מל\"ת קפו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 189,
+        "codeStr": "מל\"ת קפט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 190,
+        "codeStr": "מל\"ת קצ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 191,
+        "codeStr": "מל\"ת קצא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 192,
+        "codeStr": "מל\"ת קצב"
+      }
+    ]
+  },
+  "10_1": {
+    "dayNumber": 10,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "10 ניסן",
+    "mitzvotDisplay": "מל\"ת קצג. קנג. קצד. מ\"ע קמו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 193,
+        "codeStr": "מל\"ת קצג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 153,
+        "codeStr": "מל\"ת קנג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 194,
+        "codeStr": "מל\"ת קצד"
+      },
+      {
+        "type": "aseh",
+        "number": 146,
+        "codeStr": "מ\"ע קמו"
+      }
+    ]
+  },
+  "11_1": {
+    "dayNumber": 11,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "11 ניסן",
+    "mitzvotDisplay": "מל\"ת קא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 101,
+        "codeStr": "מל\"ת קא"
+      }
+    ]
+  },
+  "12_1": {
+    "dayNumber": 12,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "12 ניסן",
+    "mitzvotDisplay": "מ\"ע קמז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 147,
+        "codeStr": "מ\"ע קמז"
+      }
+    ]
+  },
+  "13_1": {
+    "dayNumber": 13,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "13 ניסן",
+    "mitzvotDisplay": "מל\"ת שו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 306,
+        "codeStr": "מל\"ת שו"
+      }
+    ]
+  },
+  "14_1": {
+    "dayNumber": 14,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "14 ניסן",
+    "mitzvotDisplay": "מ\"ע קמח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 148,
+        "codeStr": "מ\"ע קמח"
+      }
+    ]
+  },
+  "15_1": {
+    "dayNumber": 15,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "15 ניסן",
+    "mitzvotDisplay": "מל\"ת סא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 61,
+        "codeStr": "מל\"ת סא"
+      }
+    ]
+  },
+  "16_1": {
+    "dayNumber": 16,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "16 ניסן",
+    "mitzvotDisplay": "מל\"ת סב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 62,
+        "codeStr": "מל\"ת סב"
+      }
+    ]
+  },
+  "17_1": {
+    "dayNumber": 17,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "17 ניסן",
+    "mitzvotDisplay": "מל\"ת רמח. רמט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 248,
+        "codeStr": "מל\"ת רמח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 249,
+        "codeStr": "מל\"ת רמט"
+      }
+    ]
+  },
+  "18_1": {
+    "dayNumber": 18,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "18 ניסן",
+    "mitzvotDisplay": "מ\"ע ז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 7,
+        "codeStr": "מ\"ע ז"
+      }
+    ]
+  },
+  "19_1": {
+    "dayNumber": 19,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "19 ניסן",
+    "mitzvotDisplay": "מ\"ע צד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 94,
+        "codeStr": "מ\"ע צד"
+      }
+    ]
+  },
+  "20_1": {
+    "dayNumber": 20,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "20 ניסן",
+    "mitzvotDisplay": "מ\"ע צד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 94,
+        "codeStr": "מ\"ע צד"
+      }
+    ]
+  },
+  "21_1": {
+    "dayNumber": 21,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "21 ניסן",
+    "mitzvotDisplay": "מל\"ת קנז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 157,
+        "codeStr": "מל\"ת קנז"
+      }
+    ]
+  },
+  "22_1": {
+    "dayNumber": 22,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "22 ניסן",
+    "mitzvotDisplay": "מ\"ע צה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 95,
+        "codeStr": "מ\"ע צה"
+      }
+    ]
+  },
+  "23_1": {
+    "dayNumber": 23,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "23 ניסן",
+    "mitzvotDisplay": "מ\"ע צה. צב. מל\"ת רט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 95,
+        "codeStr": "מ\"ע צה"
+      },
+      {
+        "type": "aseh",
+        "number": 92,
+        "codeStr": "מ\"ע צב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 209,
+        "codeStr": "מל\"ת רט"
+      }
+    ]
+  },
+  "24_1": {
+    "dayNumber": 24,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "24 ניסן",
+    "mitzvotDisplay": "מל\"ת רב. רג. רד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 202,
+        "codeStr": "מל\"ת רב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 203,
+        "codeStr": "מל\"ת רג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 204,
+        "codeStr": "מל\"ת רד"
+      }
+    ]
+  },
+  "25_1": {
+    "dayNumber": 25,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "25 ניסן",
+    "mitzvotDisplay": "מל\"ת רה. רו. רח. רז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 205,
+        "codeStr": "מל\"ת רה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 206,
+        "codeStr": "מל\"ת רו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 208,
+        "codeStr": "מל\"ת רח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 207,
+        "codeStr": "מל\"ת רז"
+      }
+    ]
+  },
+  "26_1": {
+    "dayNumber": 26,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "26 ניסן",
+    "mitzvotDisplay": "מ\"ע צג. קיד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 93,
+        "codeStr": "מ\"ע צג"
+      },
+      {
+        "type": "aseh",
+        "number": 114,
+        "codeStr": "מ\"ע קיד"
+      }
+    ]
+  },
+  "27_1": {
+    "dayNumber": 27,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "27 ניסן",
+    "mitzvotDisplay": "מ\"ע קטו. קטז. קיז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 115,
+        "codeStr": "מ\"ע קטו"
+      },
+      {
+        "type": "aseh",
+        "number": 116,
+        "codeStr": "מ\"ע קטז"
+      },
+      {
+        "type": "aseh",
+        "number": 117,
+        "codeStr": "מ\"ע קיז"
+      }
+    ]
+  },
+  "28_1": {
+    "dayNumber": 28,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "28 ניסן",
+    "mitzvotDisplay": "מ\"ע קמה. מל\"ת קי",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 145,
+        "codeStr": "מ\"ע קמה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 110,
+        "codeStr": "מל\"ת קי"
+      }
+    ]
+  },
+  "29_1": {
+    "dayNumber": 29,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "29 ניסן",
+    "mitzvotDisplay": "מל\"ת קיא. רטו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 111,
+        "codeStr": "מל\"ת קיא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 215,
+        "codeStr": "מל\"ת רטו"
+      }
+    ]
+  },
+  "30_1": {
+    "dayNumber": 30,
+    "monthNumber": 1,
+    "monthName": "ניסן",
+    "hebrewDate": "30 ניסן",
+    "mitzvotDisplay": "מל\"ת רטז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 216,
+        "codeStr": "מל\"ת רטז"
+      }
+    ]
+  },
+  "1_2": {
+    "dayNumber": 1,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "1 אייר",
+    "mitzvotDisplay": "מל\"ת ריז. ריח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 217,
+        "codeStr": "מל\"ת ריז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 218,
+        "codeStr": "מל\"ת ריח"
+      }
+    ]
+  },
+  "2_2": {
+    "dayNumber": 2,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "2 אייר",
+    "mitzvotDisplay": "מל\"ת מב. מ\"ע קכ. מל\"ת רי",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 42,
+        "codeStr": "מל\"ת מב"
+      },
+      {
+        "type": "aseh",
+        "number": 120,
+        "codeStr": "מ\"ע קכ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 210,
+        "codeStr": "מל\"ת רי"
+      }
+    ]
+  },
+  "3_2": {
+    "dayNumber": 3,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "3 אייר",
+    "mitzvotDisplay": "מ\"ע קכא. מל\"ת ריא. מ\"ע קכג. מל\"ת ריב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 121,
+        "codeStr": "מ\"ע קכא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 211,
+        "codeStr": "מל\"ת ריא"
+      },
+      {
+        "type": "aseh",
+        "number": 123,
+        "codeStr": "מ\"ע קכג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 212,
+        "codeStr": "מל\"ת ריב"
+      }
+    ]
+  },
+  "4_2": {
+    "dayNumber": 4,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "4 אייר",
+    "mitzvotDisplay": "מ\"ע קכד. מל\"ת ריג. מ\"ע קכב. מל\"ת ריד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 124,
+        "codeStr": "מ\"ע קכד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 213,
+        "codeStr": "מל\"ת ריג"
+      },
+      {
+        "type": "aseh",
+        "number": 122,
+        "codeStr": "מ\"ע קכב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 214,
+        "codeStr": "מל\"ת ריד"
+      }
+    ]
+  },
+  "5_2": {
+    "dayNumber": 5,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "5 אייר",
+    "mitzvotDisplay": "מ\"ע קל. קצה. מל\"ת רלב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 130,
+        "codeStr": "מ\"ע קל"
+      },
+      {
+        "type": "aseh",
+        "number": 195,
+        "codeStr": "מ\"ע קצה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 232,
+        "codeStr": "מל\"ת רלב"
+      }
+    ]
+  },
+  "6_2": {
+    "dayNumber": 6,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "6 אייר",
+    "mitzvotDisplay": "מ\"ע קכו. קכט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 126,
+        "codeStr": "מ\"ע קכו"
+      },
+      {
+        "type": "aseh",
+        "number": 129,
+        "codeStr": "מ\"ע קכט"
+      }
+    ]
+  },
+  "7_2": {
+    "dayNumber": 7,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "7 אייר",
+    "mitzvotDisplay": "מל\"ת קנד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 154,
+        "codeStr": "מל\"ת קנד"
+      }
+    ]
+  },
+  "8_2": {
+    "dayNumber": 8,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "8 אייר",
+    "mitzvotDisplay": "מל\"ת קלג. קלד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 133,
+        "codeStr": "מל\"ת קלג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 134,
+        "codeStr": "מל\"ת קלד"
+      }
+    ]
+  },
+  "9_2": {
+    "dayNumber": 9,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "9 אייר",
+    "mitzvotDisplay": "מל\"ת קלה. קלו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 135,
+        "codeStr": "מל\"ת קלה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 136,
+        "codeStr": "מל\"ת קלו"
+      }
+    ]
+  },
+  "10_2": {
+    "dayNumber": 10,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "10 אייר",
+    "mitzvotDisplay": "מל\"ת קלז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 137,
+        "codeStr": "מל\"ת קלז"
+      }
+    ]
+  },
+  "11_2": {
+    "dayNumber": 11,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "11 אייר",
+    "mitzvotDisplay": "מ\"ע קכז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 127,
+        "codeStr": "מ\"ע קכז"
+      }
+    ]
+  },
+  "12_2": {
+    "dayNumber": 12,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "12 אייר",
+    "mitzvotDisplay": "מ\"ע קכז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 127,
+        "codeStr": "מ\"ע קכז"
+      }
+    ]
+  },
+  "13_2": {
+    "dayNumber": 13,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "13 אייר",
+    "mitzvotDisplay": "מ\"ע קכז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 127,
+        "codeStr": "מ\"ע קכז"
+      }
+    ]
+  },
+  "14_2": {
+    "dayNumber": 14,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "14 אייר",
+    "mitzvotDisplay": "מ\"ע קכז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 127,
+        "codeStr": "מ\"ע קכז"
+      }
+    ]
+  },
+  "15_2": {
+    "dayNumber": 15,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "15 אייר",
+    "mitzvotDisplay": "מ\"ע קכז. קכח. מל\"ת קנב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 127,
+        "codeStr": "מ\"ע קכז"
+      },
+      {
+        "type": "aseh",
+        "number": 128,
+        "codeStr": "מ\"ע קכח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 152,
+        "codeStr": "מל\"ת קנב"
+      }
+    ]
+  },
+  "16_2": {
+    "dayNumber": 16,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "16 אייר",
+    "mitzvotDisplay": "מל\"ת קנ. קנא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 150,
+        "codeStr": "מל\"ת קנ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 151,
+        "codeStr": "מל\"ת קנא"
+      }
+    ]
+  },
+  "17_2": {
+    "dayNumber": 17,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "17 אייר",
+    "mitzvotDisplay": "מל\"ת קמא. קמב. קמג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 141,
+        "codeStr": "מל\"ת קמא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 142,
+        "codeStr": "מל\"ת קמב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 143,
+        "codeStr": "מל\"ת קמג"
+      }
+    ]
+  },
+  "18_2": {
+    "dayNumber": 18,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "18 אייר",
+    "mitzvotDisplay": "מ\"ע קיט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 119,
+        "codeStr": "מ\"ע קיט"
+      }
+    ]
+  },
+  "19_2": {
+    "dayNumber": 19,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "19 אייר",
+    "mitzvotDisplay": "מ\"ע קלא. קכה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 131,
+        "codeStr": "מ\"ע קלא"
+      },
+      {
+        "type": "aseh",
+        "number": 125,
+        "codeStr": "מ\"ע קכה"
+      }
+    ]
+  },
+  "20_2": {
+    "dayNumber": 20,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "20 אייר",
+    "mitzvotDisplay": "מל\"ת קמט. מ\"ע קלב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 149,
+        "codeStr": "מל\"ת קמט"
+      },
+      {
+        "type": "aseh",
+        "number": 132,
+        "codeStr": "מ\"ע קלב"
+      }
+    ]
+  },
+  "21_2": {
+    "dayNumber": 21,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "21 אייר",
+    "mitzvotDisplay": "מ\"ע קלג. קמג. קמד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 133,
+        "codeStr": "מ\"ע קלג"
+      },
+      {
+        "type": "aseh",
+        "number": 143,
+        "codeStr": "מ\"ע קמג"
+      },
+      {
+        "type": "aseh",
+        "number": 144,
+        "codeStr": "מ\"ע קמד"
+      }
+    ]
+  },
+  "22_2": {
+    "dayNumber": 22,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "22 אייר",
+    "mitzvotDisplay": "מ\"ע פ. פא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 80,
+        "codeStr": "מ\"ע פ"
+      },
+      {
+        "type": "aseh",
+        "number": 81,
+        "codeStr": "מ\"ע פא"
+      }
+    ]
+  },
+  "23_2": {
+    "dayNumber": 23,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "23 אייר",
+    "mitzvotDisplay": "מ\"ע פב. קלה. מל\"ת רכ. רכא. רכב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 82,
+        "codeStr": "מ\"ע פב"
+      },
+      {
+        "type": "aseh",
+        "number": 135,
+        "codeStr": "מ\"ע קלה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 220,
+        "codeStr": "מל\"ת רכ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 221,
+        "codeStr": "מל\"ת רכא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 222,
+        "codeStr": "מל\"ת רכב"
+      }
+    ]
+  },
+  "24_2": {
+    "dayNumber": 24,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "24 אייר",
+    "mitzvotDisplay": "מל\"ת רכג. מ\"ע קלד. קמא. מל\"ת רל. רלא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 223,
+        "codeStr": "מל\"ת רכג"
+      },
+      {
+        "type": "aseh",
+        "number": 134,
+        "codeStr": "מ\"ע קלד"
+      },
+      {
+        "type": "aseh",
+        "number": 141,
+        "codeStr": "מ\"ע קמא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 230,
+        "codeStr": "מל\"ת רל"
+      },
+      {
+        "type": "lotaseh",
+        "number": 231,
+        "codeStr": "מל\"ת רלא"
+      }
+    ]
+  },
+  "25_2": {
+    "dayNumber": 25,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "25 אייר",
+    "mitzvotDisplay": "מ\"ע קמ. קלו. קלז. מל\"ת רכד. רכה. רכו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 140,
+        "codeStr": "מ\"ע קמ"
+      },
+      {
+        "type": "aseh",
+        "number": 136,
+        "codeStr": "מ\"ע קלו"
+      },
+      {
+        "type": "aseh",
+        "number": 137,
+        "codeStr": "מ\"ע קלז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 224,
+        "codeStr": "מל\"ת רכד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 225,
+        "codeStr": "מל\"ת רכה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 226,
+        "codeStr": "מל\"ת רכו"
+      }
+    ]
+  },
+  "26_2": {
+    "dayNumber": 26,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "26 אייר",
+    "mitzvotDisplay": "מ\"ע קלח. מל\"ת רכז. מ\"ע קלט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 138,
+        "codeStr": "מ\"ע קלח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 227,
+        "codeStr": "מל\"ת רכז"
+      },
+      {
+        "type": "aseh",
+        "number": 139,
+        "codeStr": "מ\"ע קלט"
+      }
+    ]
+  },
+  "27_2": {
+    "dayNumber": 27,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "27 אייר",
+    "mitzvotDisplay": "מל\"ת קסט. קע. מ\"ע קפג. מל\"ת רכח. מ\"ע כ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 169,
+        "codeStr": "מל\"ת קסט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 170,
+        "codeStr": "מל\"ת קע"
+      },
+      {
+        "type": "aseh",
+        "number": 183,
+        "codeStr": "מ\"ע קפג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 228,
+        "codeStr": "מל\"ת רכח"
+      },
+      {
+        "type": "aseh",
+        "number": 20,
+        "codeStr": "מ\"ע כ"
+      }
+    ]
+  },
+  "28_2": {
+    "dayNumber": 28,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "28 אייר",
+    "mitzvotDisplay": "מל\"ת עט. פ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 79,
+        "codeStr": "מל\"ת עט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 80,
+        "codeStr": "מל\"ת פ"
+      }
+    ]
+  },
+  "29_2": {
+    "dayNumber": 29,
+    "monthNumber": 2,
+    "monthName": "אייר",
+    "hebrewDate": "29 אייר",
+    "mitzvotDisplay": "מ\"ע כא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 21,
+        "codeStr": "מ\"ע כא"
+      }
+    ]
+  },
+  "1_3": {
+    "dayNumber": 1,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "1 סיוון",
+    "mitzvotDisplay": "מ\"ע כב. מל\"ת סז. מ\"ע לה. מל\"ת פג. פד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 22,
+        "codeStr": "מ\"ע כב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 67,
+        "codeStr": "מל\"ת סז"
+      },
+      {
+        "type": "aseh",
+        "number": 35,
+        "codeStr": "מ\"ע לה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 83,
+        "codeStr": "מל\"ת פג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 84,
+        "codeStr": "מל\"ת פד"
+      }
+    ]
+  },
+  "2_3": {
+    "dayNumber": 2,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "2 סיוון",
+    "mitzvotDisplay": "מל\"ת פה. פב. מ\"ע לד. מל\"ת פו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 85,
+        "codeStr": "מל\"ת פה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 82,
+        "codeStr": "מל\"ת פב"
+      },
+      {
+        "type": "aseh",
+        "number": 34,
+        "codeStr": "מ\"ע לד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 86,
+        "codeStr": "מל\"ת פו"
+      }
+    ]
+  },
+  "3_3": {
+    "dayNumber": 3,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "3 סיוון",
+    "mitzvotDisplay": "מ\"ע כג. מל\"ת עב. מ\"ע לב. לו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 23,
+        "codeStr": "מ\"ע כג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 72,
+        "codeStr": "מל\"ת עב"
+      },
+      {
+        "type": "aseh",
+        "number": 32,
+        "codeStr": "מ\"ע לב"
+      },
+      {
+        "type": "aseh",
+        "number": 36,
+        "codeStr": "מ\"ע לו"
+      }
+    ]
+  },
+  "4_3": {
+    "dayNumber": 4,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "4 סיוון",
+    "mitzvotDisplay": "מ\"ע לג. מל\"ת פח. פז. עג. קסג. קסד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 33,
+        "codeStr": "מ\"ע לג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 88,
+        "codeStr": "מל\"ת פח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 87,
+        "codeStr": "מל\"ת פז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 73,
+        "codeStr": "מל\"ת עג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 163,
+        "codeStr": "מל\"ת קסג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 164,
+        "codeStr": "מל\"ת קסד"
+      }
+    ]
+  },
+  "5_3": {
+    "dayNumber": 5,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "5 סיוון",
+    "mitzvotDisplay": "מל\"ת סח. קסה. מ\"ע לא. מל\"ת עז. עח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 68,
+        "codeStr": "מל\"ת סח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 165,
+        "codeStr": "מל\"ת קסה"
+      },
+      {
+        "type": "aseh",
+        "number": 31,
+        "codeStr": "מ\"ע לא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 77,
+        "codeStr": "מל\"ת עז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 78,
+        "codeStr": "מל\"ת עח"
+      }
+    ]
+  },
+  "6_3": {
+    "dayNumber": 6,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "6 סיוון",
+    "mitzvotDisplay": "מל\"ת עה. עו. מ\"ע כד. מל\"ת סט. ע. עא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 75,
+        "codeStr": "מל\"ת עה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 76,
+        "codeStr": "מל\"ת עו"
+      },
+      {
+        "type": "aseh",
+        "number": 24,
+        "codeStr": "מ\"ע כד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 69,
+        "codeStr": "מל\"ת סט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 70,
+        "codeStr": "מל\"ת ע"
+      },
+      {
+        "type": "lotaseh",
+        "number": 71,
+        "codeStr": "מל\"ת עא"
+      }
+    ]
+  },
+  "7_3": {
+    "dayNumber": 7,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "7 סיוון",
+    "mitzvotDisplay": "מל\"ת עד. מ\"ע סא. מל\"ת צא. צב. צג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 74,
+        "codeStr": "מל\"ת עד"
+      },
+      {
+        "type": "aseh",
+        "number": 61,
+        "codeStr": "מ\"ע סא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 91,
+        "codeStr": "מל\"ת צא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 92,
+        "codeStr": "מל\"ת צב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 93,
+        "codeStr": "מל\"ת צג"
+      }
+    ]
+  },
+  "8_3": {
+    "dayNumber": 8,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "8 סיוון",
+    "mitzvotDisplay": "מל\"ת צד. צה. צו. צז. מ\"ע פו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 94,
+        "codeStr": "מל\"ת צד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 95,
+        "codeStr": "מל\"ת צה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 96,
+        "codeStr": "מל\"ת צו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 97,
+        "codeStr": "מל\"ת צז"
+      },
+      {
+        "type": "aseh",
+        "number": 86,
+        "codeStr": "מ\"ע פו"
+      }
+    ]
+  },
+  "9_3": {
+    "dayNumber": 9,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "9 סיוון",
+    "mitzvotDisplay": "מ\"ע ס. מל\"ת ק. צח. מ\"ע סב. מל\"ת צט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 60,
+        "codeStr": "מ\"ע ס"
+      },
+      {
+        "type": "lotaseh",
+        "number": 100,
+        "codeStr": "מל\"ת ק"
+      },
+      {
+        "type": "lotaseh",
+        "number": 98,
+        "codeStr": "מל\"ת צח"
+      },
+      {
+        "type": "aseh",
+        "number": 62,
+        "codeStr": "מ\"ע סב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 99,
+        "codeStr": "מל\"ת צט"
+      }
+    ]
+  },
+  "10_3": {
+    "dayNumber": 10,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "10 סיוון",
+    "mitzvotDisplay": "מ\"ע סג. מל\"ת קמו. מ\"ע סד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 63,
+        "codeStr": "מ\"ע סג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 146,
+        "codeStr": "מל\"ת קמו"
+      },
+      {
+        "type": "aseh",
+        "number": 64,
+        "codeStr": "מ\"ע סד"
+      }
+    ]
+  },
+  "11_3": {
+    "dayNumber": 11,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "11 סיוון",
+    "mitzvotDisplay": "מל\"ת קלט. קיב. מ\"ע סה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 139,
+        "codeStr": "מל\"ת קלט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 112,
+        "codeStr": "מל\"ת קיב"
+      },
+      {
+        "type": "aseh",
+        "number": 65,
+        "codeStr": "מ\"ע סה"
+      }
+    ]
+  },
+  "12_3": {
+    "dayNumber": 12,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "12 סיוון",
+    "mitzvotDisplay": "מ\"ע פט. מל\"ת קמה. קמח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 89,
+        "codeStr": "מ\"ע פט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 145,
+        "codeStr": "מל\"ת קמה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 148,
+        "codeStr": "מל\"ת קמח"
+      }
+    ]
+  },
+  "13_3": {
+    "dayNumber": 13,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "13 סיוון",
+    "mitzvotDisplay": "מ\"ע סו. מל\"ת קמז. מ\"ע סז. מל\"ת קב. קג. קלח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 66,
+        "codeStr": "מ\"ע סו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 147,
+        "codeStr": "מל\"ת קמז"
+      },
+      {
+        "type": "aseh",
+        "number": 67,
+        "codeStr": "מ\"ע סז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 102,
+        "codeStr": "מל\"ת קב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 103,
+        "codeStr": "מל\"ת קג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 138,
+        "codeStr": "מל\"ת קלח"
+      }
+    ]
+  },
+  "14_3": {
+    "dayNumber": 14,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "14 סיוון",
+    "mitzvotDisplay": "מל\"ת קכד. מ\"ע פח. פג. מל\"ת קנה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 124,
+        "codeStr": "מל\"ת קכד"
+      },
+      {
+        "type": "aseh",
+        "number": 88,
+        "codeStr": "מ\"ע פח"
+      },
+      {
+        "type": "aseh",
+        "number": 83,
+        "codeStr": "מ\"ע פג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 155,
+        "codeStr": "מל\"ת קנה"
+      }
+    ]
+  },
+  "15_3": {
+    "dayNumber": 15,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "15 סיוון",
+    "mitzvotDisplay": "מ\"ע פד. פה. מל\"ת צ",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 84,
+        "codeStr": "מ\"ע פד"
+      },
+      {
+        "type": "aseh",
+        "number": 85,
+        "codeStr": "מ\"ע פה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 90,
+        "codeStr": "מל\"ת צ"
+      }
+    ]
+  },
+  "16_3": {
+    "dayNumber": 16,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "16 סיוון",
+    "mitzvotDisplay": "מל\"ת פט. מ\"ע לט. כט. מל\"ת פא. מ\"ע ל",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 89,
+        "codeStr": "מל\"ת פט"
+      },
+      {
+        "type": "aseh",
+        "number": 39,
+        "codeStr": "מ\"ע לט"
+      },
+      {
+        "type": "aseh",
+        "number": 29,
+        "codeStr": "מ\"ע כט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 81,
+        "codeStr": "מל\"ת פא"
+      },
+      {
+        "type": "aseh",
+        "number": 30,
+        "codeStr": "מ\"ע ל"
+      }
+    ]
+  },
+  "17_3": {
+    "dayNumber": 17,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "17 סיוון",
+    "mitzvotDisplay": "מ\"ע כח. כה. מ. מא. כז. מב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 28,
+        "codeStr": "מ\"ע כח"
+      },
+      {
+        "type": "aseh",
+        "number": 25,
+        "codeStr": "מ\"ע כה"
+      },
+      {
+        "type": "aseh",
+        "number": 40,
+        "codeStr": "מ\"ע מ"
+      },
+      {
+        "type": "aseh",
+        "number": 41,
+        "codeStr": "מ\"ע מא"
+      },
+      {
+        "type": "aseh",
+        "number": 27,
+        "codeStr": "מ\"ע כז"
+      },
+      {
+        "type": "aseh",
+        "number": 42,
+        "codeStr": "מ\"ע מב"
+      }
+    ]
+  },
+  "18_3": {
+    "dayNumber": 18,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "18 סיוון",
+    "mitzvotDisplay": "מ\"ע מג. מד. מה. מו. מז. מח. נ. נא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 43,
+        "codeStr": "מ\"ע מג"
+      },
+      {
+        "type": "aseh",
+        "number": 44,
+        "codeStr": "מ\"ע מד"
+      },
+      {
+        "type": "aseh",
+        "number": 45,
+        "codeStr": "מ\"ע מה"
+      },
+      {
+        "type": "aseh",
+        "number": 46,
+        "codeStr": "מ\"ע מו"
+      },
+      {
+        "type": "aseh",
+        "number": 47,
+        "codeStr": "מ\"ע מז"
+      },
+      {
+        "type": "aseh",
+        "number": 48,
+        "codeStr": "מ\"ע מח"
+      },
+      {
+        "type": "aseh",
+        "number": 50,
+        "codeStr": "מ\"ע נ"
+      },
+      {
+        "type": "aseh",
+        "number": 51,
+        "codeStr": "מ\"ע נא"
+      }
+    ]
+  },
+  "19_3": {
+    "dayNumber": 19,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "19 סיוון",
+    "mitzvotDisplay": "מ\"ע קסא. מל\"ת קמ",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 161,
+        "codeStr": "מ\"ע קסא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 140,
+        "codeStr": "מל\"ת קמ"
+      }
+    ]
+  },
+  "20_3": {
+    "dayNumber": 20,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "20 סיוון",
+    "mitzvotDisplay": "מל\"ת קלב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 132,
+        "codeStr": "מל\"ת קלב"
+      }
+    ]
+  },
+  "21_3": {
+    "dayNumber": 21,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "21 סיוון",
+    "mitzvotDisplay": "מל\"ת קכ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 120,
+        "codeStr": "מל\"ת קכ"
+      }
+    ]
+  },
+  "22_3": {
+    "dayNumber": 22,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "22 סיוון",
+    "mitzvotDisplay": "מל\"ת קלא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 131,
+        "codeStr": "מל\"ת קלא"
+      }
+    ]
+  },
+  "23_3": {
+    "dayNumber": 23,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "23 סיוון",
+    "mitzvotDisplay": "מל\"ת קל. קכט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 130,
+        "codeStr": "מל\"ת קל"
+      },
+      {
+        "type": "lotaseh",
+        "number": 129,
+        "codeStr": "מל\"ת קכט"
+      }
+    ]
+  },
+  "24_3": {
+    "dayNumber": 24,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "24 סיוון",
+    "mitzvotDisplay": "מ\"ע צא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 91,
+        "codeStr": "מ\"ע צא"
+      }
+    ]
+  },
+  "25_3": {
+    "dayNumber": 25,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "25 סיוון",
+    "mitzvotDisplay": "מ\"ע צ",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 90,
+        "codeStr": "מ\"ע צ"
+      }
+    ]
+  },
+  "26_3": {
+    "dayNumber": 26,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "26 סיוון",
+    "mitzvotDisplay": "מ\"ע מט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 49,
+        "codeStr": "מ\"ע מט"
+      }
+    ]
+  },
+  "27_3": {
+    "dayNumber": 27,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "27 סיוון",
+    "mitzvotDisplay": "מ\"ע מט. קיח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 49,
+        "codeStr": "מ\"ע מט"
+      },
+      {
+        "type": "aseh",
+        "number": 118,
+        "codeStr": "מ\"ע קיח"
+      }
+    ]
+  },
+  "28_3": {
+    "dayNumber": 28,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "28 סיוון",
+    "mitzvotDisplay": "מל\"ת קיג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 113,
+        "codeStr": "מל\"ת קיג"
+      }
+    ]
+  },
+  "29_3": {
+    "dayNumber": 29,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "29 סיוון",
+    "mitzvotDisplay": "מל\"ת קיד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 114,
+        "codeStr": "מל\"ת קיד"
+      }
+    ]
+  },
+  "30_3": {
+    "dayNumber": 30,
+    "monthNumber": 3,
+    "monthName": "סיוון",
+    "hebrewDate": "30 סיוון",
+    "mitzvotDisplay": "מל\"ת קיד. מ\"ע נה. מל\"ת קטו. קטז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 114,
+        "codeStr": "מל\"ת קיד"
+      },
+      {
+        "type": "aseh",
+        "number": 55,
+        "codeStr": "מ\"ע נה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 115,
+        "codeStr": "מל\"ת קטו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 116,
+        "codeStr": "מל\"ת קטז"
+      }
+    ]
+  },
+  "1_4": {
+    "dayNumber": 1,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "1 תמוז",
+    "mitzvotDisplay": "מ\"ע נז. נו. נח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 57,
+        "codeStr": "מ\"ע נז"
+      },
+      {
+        "type": "aseh",
+        "number": 56,
+        "codeStr": "מ\"ע נו"
+      },
+      {
+        "type": "aseh",
+        "number": 58,
+        "codeStr": "מ\"ע נח"
+      }
+    ]
+  },
+  "2_4": {
+    "dayNumber": 2,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "2 תמוז",
+    "mitzvotDisplay": "מל\"ת קכה. קכג. קכח. קכו. קכז. קכא. קכב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 125,
+        "codeStr": "מל\"ת קכה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 123,
+        "codeStr": "מל\"ת קכג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 128,
+        "codeStr": "מל\"ת קכח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 126,
+        "codeStr": "מל\"ת קכו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 127,
+        "codeStr": "מל\"ת קכז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 121,
+        "codeStr": "מל\"ת קכא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 122,
+        "codeStr": "מל\"ת קכב"
+      }
+    ]
+  },
+  "3_4": {
+    "dayNumber": 3,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "3 תמוז",
+    "mitzvotDisplay": "מל\"ת קיז. קיט. קיח. מ\"ע נג. נב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 117,
+        "codeStr": "מל\"ת קיז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 119,
+        "codeStr": "מל\"ת קיט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 118,
+        "codeStr": "מל\"ת קיח"
+      },
+      {
+        "type": "aseh",
+        "number": 53,
+        "codeStr": "מ\"ע נג"
+      },
+      {
+        "type": "aseh",
+        "number": 52,
+        "codeStr": "מ\"ע נב"
+      }
+    ]
+  },
+  "4_4": {
+    "dayNumber": 4,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "4 תמוז",
+    "mitzvotDisplay": "מ\"ע נד. מל\"ת קנו. רכט. מ\"ע טז. עט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 54,
+        "codeStr": "מ\"ע נד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 156,
+        "codeStr": "מל\"ת קנו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 229,
+        "codeStr": "מל\"ת רכט"
+      },
+      {
+        "type": "aseh",
+        "number": 16,
+        "codeStr": "מ\"ע טז"
+      },
+      {
+        "type": "aseh",
+        "number": 79,
+        "codeStr": "מ\"ע עט"
+      }
+    ]
+  },
+  "5_4": {
+    "dayNumber": 5,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "5 תמוז",
+    "mitzvotDisplay": "מל\"ת קמד. קח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 144,
+        "codeStr": "מל\"ת קמד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 108,
+        "codeStr": "מל\"ת קח"
+      }
+    ]
+  },
+  "6_4": {
+    "dayNumber": 6,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "6 תמוז",
+    "mitzvotDisplay": "מ\"ע עח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 78,
+        "codeStr": "מ\"ע עח"
+      }
+    ]
+  },
+  "7_4": {
+    "dayNumber": 7,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "7 תמוז",
+    "mitzvotDisplay": "מל\"ת קט. מ\"ע סט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 109,
+        "codeStr": "מל\"ת קט"
+      },
+      {
+        "type": "aseh",
+        "number": 69,
+        "codeStr": "מ\"ע סט"
+      }
+    ]
+  },
+  "8_4": {
+    "dayNumber": 8,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "8 תמוז",
+    "mitzvotDisplay": "מ\"ע ע",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 70,
+        "codeStr": "מ\"ע ע"
+      }
+    ]
+  },
+  "9_4": {
+    "dayNumber": 9,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "9 תמוז",
+    "mitzvotDisplay": "מ\"ע ע",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 70,
+        "codeStr": "מ\"ע ע"
+      }
+    ]
+  },
+  "10_4": {
+    "dayNumber": 10,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "10 תמוז",
+    "mitzvotDisplay": "מ\"ע עא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 71,
+        "codeStr": "מ\"ע עא"
+      }
+    ]
+  },
+  "11_4": {
+    "dayNumber": 11,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "11 תמוז",
+    "mitzvotDisplay": "מ\"ע מט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 49,
+        "codeStr": "מ\"ע מט"
+      }
+    ]
+  },
+  "12_4": {
+    "dayNumber": 12,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "12 תמוז",
+    "mitzvotDisplay": "מ\"ע סח. עה. עו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 68,
+        "codeStr": "מ\"ע סח"
+      },
+      {
+        "type": "aseh",
+        "number": 75,
+        "codeStr": "מ\"ע עה"
+      },
+      {
+        "type": "aseh",
+        "number": 76,
+        "codeStr": "מ\"ע עו"
+      }
+    ]
+  },
+  "13_4": {
+    "dayNumber": 13,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "13 תמוז",
+    "mitzvotDisplay": "מ\"ע עד. עז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 74,
+        "codeStr": "מ\"ע עד"
+      },
+      {
+        "type": "aseh",
+        "number": 77,
+        "codeStr": "מ\"ע עז"
+      }
+    ]
+  },
+  "14_4": {
+    "dayNumber": 14,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "14 תמוז",
+    "mitzvotDisplay": "מל\"ת קו. מ\"ע פז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 106,
+        "codeStr": "מל\"ת קו"
+      },
+      {
+        "type": "aseh",
+        "number": 87,
+        "codeStr": "מ\"ע פז"
+      }
+    ]
+  },
+  "15_4": {
+    "dayNumber": 15,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "15 תמוז",
+    "mitzvotDisplay": "מל\"ת קז. מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 107,
+        "codeStr": "מל\"ת קז"
+      },
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "16_4": {
+    "dayNumber": 16,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "16 תמוז",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "17_4": {
+    "dayNumber": 17,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "17 תמוז",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "18_4": {
+    "dayNumber": 18,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "18 תמוז",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "19_4": {
+    "dayNumber": 19,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "19 תמוז",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "20_4": {
+    "dayNumber": 20,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "20 תמוז",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "21_4": {
+    "dayNumber": 21,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "21 תמוז",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "22_4": {
+    "dayNumber": 22,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "22 תמוז",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "23_4": {
+    "dayNumber": 23,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "23 תמוז",
+    "mitzvotDisplay": "מ\"ע קז. קיג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      },
+      {
+        "type": "aseh",
+        "number": 113,
+        "codeStr": "מ\"ע קיג"
+      }
+    ]
+  },
+  "24_4": {
+    "dayNumber": 24,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "24 תמוז",
+    "mitzvotDisplay": "מ\"ע קיג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 113,
+        "codeStr": "מ\"ע קיג"
+      }
+    ]
+  },
+  "25_4": {
+    "dayNumber": 25,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "25 תמוז",
+    "mitzvotDisplay": "מ\"ע קיג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 113,
+        "codeStr": "מ\"ע קיג"
+      }
+    ]
+  },
+  "26_4": {
+    "dayNumber": 26,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "26 תמוז",
+    "mitzvotDisplay": "מ\"ע קח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 108,
+        "codeStr": "מ\"ע קח"
+      }
+    ]
+  },
+  "27_4": {
+    "dayNumber": 27,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "27 תמוז",
+    "mitzvotDisplay": "מ\"ע קח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 108,
+        "codeStr": "מ\"ע קח"
+      }
+    ]
+  },
+  "28_4": {
+    "dayNumber": 28,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "28 תמוז",
+    "mitzvotDisplay": "מ\"ע קח. קא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 108,
+        "codeStr": "מ\"ע קח"
+      },
+      {
+        "type": "aseh",
+        "number": 101,
+        "codeStr": "מ\"ע קא"
+      }
+    ]
+  },
+  "29_4": {
+    "dayNumber": 29,
+    "monthNumber": 4,
+    "monthName": "תמוז",
+    "hebrewDate": "29 תמוז",
+    "mitzvotDisplay": "מל\"ת שח. שז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 308,
+        "codeStr": "מל\"ת שח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 307,
+        "codeStr": "מל\"ת שז"
+      }
+    ]
+  },
+  "1_5": {
+    "dayNumber": 1,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "1 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קיב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 112,
+        "codeStr": "מ\"ע קיב"
+      }
+    ]
+  },
+  "2_5": {
+    "dayNumber": 2,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "2 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קי. קיא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 110,
+        "codeStr": "מ\"ע קי"
+      },
+      {
+        "type": "aseh",
+        "number": 111,
+        "codeStr": "מ\"ע קיא"
+      }
+    ]
+  },
+  "3_5": {
+    "dayNumber": 3,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "3 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קב. קג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 102,
+        "codeStr": "מ\"ע קב"
+      },
+      {
+        "type": "aseh",
+        "number": 103,
+        "codeStr": "מ\"ע קג"
+      }
+    ]
+  },
+  "4_5": {
+    "dayNumber": 4,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "4 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קב. קג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 102,
+        "codeStr": "מ\"ע קב"
+      },
+      {
+        "type": "aseh",
+        "number": 103,
+        "codeStr": "מ\"ע קג"
+      }
+    ]
+  },
+  "5_5": {
+    "dayNumber": 5,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "5 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 99,
+        "codeStr": "מ\"ע צט"
+      }
+    ]
+  },
+  "6_5": {
+    "dayNumber": 6,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "6 מנחם אב",
+    "mitzvotDisplay": "מ\"ע ק",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 100,
+        "codeStr": "מ\"ע ק"
+      }
+    ]
+  },
+  "7_5": {
+    "dayNumber": 7,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "7 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 106,
+        "codeStr": "מ\"ע קו"
+      }
+    ]
+  },
+  "8_5": {
+    "dayNumber": 8,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "8 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 104,
+        "codeStr": "מ\"ע קד"
+      }
+    ]
+  },
+  "9_5": {
+    "dayNumber": 9,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "9 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קד. צו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 104,
+        "codeStr": "מ\"ע קד"
+      },
+      {
+        "type": "aseh",
+        "number": 96,
+        "codeStr": "מ\"ע צו"
+      }
+    ]
+  },
+  "10_5": {
+    "dayNumber": 10,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "10 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 96,
+        "codeStr": "מ\"ע צו"
+      }
+    ]
+  },
+  "11_5": {
+    "dayNumber": 11,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "11 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 97,
+        "codeStr": "מ\"ע צז"
+      }
+    ]
+  },
+  "12_5": {
+    "dayNumber": 12,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "12 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 97,
+        "codeStr": "מ\"ע צז"
+      }
+    ]
+  },
+  "13_5": {
+    "dayNumber": 13,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "13 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 105,
+        "codeStr": "מ\"ע קה"
+      }
+    ]
+  },
+  "14_5": {
+    "dayNumber": 14,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "14 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 105,
+        "codeStr": "מ\"ע קה"
+      }
+    ]
+  },
+  "15_5": {
+    "dayNumber": 15,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "15 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "16_5": {
+    "dayNumber": 16,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "16 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "17_5": {
+    "dayNumber": 17,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "17 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "18_5": {
+    "dayNumber": 18,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "18 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "19_5": {
+    "dayNumber": 19,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "19 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "20_5": {
+    "dayNumber": 20,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "20 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "21_5": {
+    "dayNumber": 21,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "21 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "22_5": {
+    "dayNumber": 22,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "22 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "23_5": {
+    "dayNumber": 23,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "23 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 108,
+        "codeStr": "מ\"ע קח"
+      }
+    ]
+  },
+  "24_5": {
+    "dayNumber": 24,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "24 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 101,
+        "codeStr": "מ\"ע קא"
+      }
+    ]
+  },
+  "25_5": {
+    "dayNumber": 25,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "25 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 99,
+        "codeStr": "מ\"ע צט"
+      }
+    ]
+  },
+  "26_5": {
+    "dayNumber": 26,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "26 מנחם אב",
+    "mitzvotDisplay": "מ\"ע ק",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 100,
+        "codeStr": "מ\"ע ק"
+      }
+    ]
+  },
+  "27_5": {
+    "dayNumber": 27,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "27 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 106,
+        "codeStr": "מ\"ע קו"
+      }
+    ]
+  },
+  "28_5": {
+    "dayNumber": 28,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "28 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 104,
+        "codeStr": "מ\"ע קד"
+      }
+    ]
+  },
+  "29_5": {
+    "dayNumber": 29,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "29 מנחם אב",
+    "mitzvotDisplay": "מ\"ע צו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 96,
+        "codeStr": "מ\"ע צו"
+      }
+    ]
+  },
+  "30_5": {
+    "dayNumber": 30,
+    "monthNumber": 5,
+    "monthName": "מנחם אב",
+    "hebrewDate": "30 מנחם אב",
+    "mitzvotDisplay": "מ\"ע קט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      }
+    ]
+  },
+  "1_6": {
+    "dayNumber": 1,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "1 אלול",
+    "mitzvotDisplay": "מ\"ע קט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      }
+    ]
+  },
+  "2_6": {
+    "dayNumber": 2,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "2 אלול",
+    "mitzvotDisplay": "מ\"ע קט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      }
+    ]
+  },
+  "3_6": {
+    "dayNumber": 3,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "3 אלול",
+    "mitzvotDisplay": "מ\"ע קט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      }
+    ]
+  },
+  "4_6": {
+    "dayNumber": 4,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "4 אלול",
+    "mitzvotDisplay": "מ\"ע קט. רלז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      },
+      {
+        "type": "aseh",
+        "number": 237,
+        "codeStr": "מ\"ע רלז"
+      }
+    ]
+  },
+  "5_6": {
+    "dayNumber": 5,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "5 אלול",
+    "mitzvotDisplay": "מ\"ע רמ",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 240,
+        "codeStr": "מ\"ע רמ"
+      }
+    ]
+  },
+  "6_6": {
+    "dayNumber": 6,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "6 אלול",
+    "mitzvotDisplay": "מ\"ע רלח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 238,
+        "codeStr": "מ\"ע רלח"
+      }
+    ]
+  },
+  "7_6": {
+    "dayNumber": 7,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "7 אלול",
+    "mitzvotDisplay": "מ\"ע רמא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 241,
+        "codeStr": "מ\"ע רמא"
+      }
+    ]
+  },
+  "8_6": {
+    "dayNumber": 8,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "8 אלול",
+    "mitzvotDisplay": "מ\"ע רמא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 241,
+        "codeStr": "מ\"ע רמא"
+      }
+    ]
+  },
+  "9_6": {
+    "dayNumber": 9,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "9 אלול",
+    "mitzvotDisplay": "מל\"ת רמד. מ\"ע רלט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 244,
+        "codeStr": "מל\"ת רמד"
+      },
+      {
+        "type": "aseh",
+        "number": 239,
+        "codeStr": "מ\"ע רלט"
+      }
+    ]
+  },
+  "10_6": {
+    "dayNumber": 10,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "10 אלול",
+    "mitzvotDisplay": "מ\"ע רח. מל\"ת רעא. ערב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 208,
+        "codeStr": "מ\"ע רח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 271,
+        "codeStr": "מל\"ת רעא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 272,
+        "codeStr": "מל\"ת ערב"
+      }
+    ]
+  },
+  "11_6": {
+    "dayNumber": 11,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "11 אלול",
+    "mitzvotDisplay": "מל\"ת רמו. רמג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 246,
+        "codeStr": "מל\"ת רמו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 243,
+        "codeStr": "מל\"ת רמג"
+      }
+    ]
+  },
+  "12_6": {
+    "dayNumber": 12,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "12 אלול",
+    "mitzvotDisplay": "מל\"ת רמה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 245,
+        "codeStr": "מל\"ת רמה"
+      }
+    ]
+  },
+  "13_6": {
+    "dayNumber": 13,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "13 אלול",
+    "mitzvotDisplay": "מל\"ת רמז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 247,
+        "codeStr": "מל\"ת רמז"
+      }
+    ]
+  },
+  "14_6": {
+    "dayNumber": 14,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "14 אלול",
+    "mitzvotDisplay": "מל\"ת רסה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 265,
+        "codeStr": "מל\"ת רסה"
+      }
+    ]
+  },
+  "15_6": {
+    "dayNumber": 15,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "15 אלול",
+    "mitzvotDisplay": "מל\"ת רסו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 266,
+        "codeStr": "מל\"ת רסו"
+      }
+    ]
+  },
+  "16_6": {
+    "dayNumber": 16,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "16 אלול",
+    "mitzvotDisplay": "מ\"ע קצד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 194,
+        "codeStr": "מ\"ע קצד"
+      }
+    ]
+  },
+  "17_6": {
+    "dayNumber": 17,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "17 אלול",
+    "mitzvotDisplay": "מל\"ת רסט. מ\"ע רד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 269,
+        "codeStr": "מל\"ת רסט"
+      },
+      {
+        "type": "aseh",
+        "number": 204,
+        "codeStr": "מ\"ע רד"
+      }
+    ]
+  },
+  "18_6": {
+    "dayNumber": 18,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "18 אלול",
+    "mitzvotDisplay": "מ\"ע רלו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      }
+    ]
+  },
+  "19_6": {
+    "dayNumber": 19,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "19 אלול",
+    "mitzvotDisplay": "מ\"ע רלו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      }
+    ]
+  },
+  "20_6": {
+    "dayNumber": 20,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "20 אלול",
+    "mitzvotDisplay": "מ\"ע רלו. מל\"ת רפט. רצו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 289,
+        "codeStr": "מל\"ת רפט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 296,
+        "codeStr": "מל\"ת רצו"
+      }
+    ]
+  },
+  "21_6": {
+    "dayNumber": 21,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "21 אלול",
+    "mitzvotDisplay": "מ\"ע רכה. מל\"ת רצה. רצב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 225,
+        "codeStr": "מ\"ע רכה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 295,
+        "codeStr": "מל\"ת רצה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 292,
+        "codeStr": "מל\"ת רצב"
+      }
+    ]
+  },
+  "22_6": {
+    "dayNumber": 22,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "22 אלול",
+    "mitzvotDisplay": "מ\"ע רמז. מל\"ת רצג. רצז. מ\"ע קפב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 247,
+        "codeStr": "מ\"ע רמז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 293,
+        "codeStr": "מל\"ת רצג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 297,
+        "codeStr": "מל\"ת רצז"
+      },
+      {
+        "type": "aseh",
+        "number": 182,
+        "codeStr": "מ\"ע קפב"
+      }
+    ]
+  },
+  "23_6": {
+    "dayNumber": 23,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "23 אלול",
+    "mitzvotDisplay": "מ\"ע קפא. מל\"ת שט. רחצ. מ\"ע קפד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 181,
+        "codeStr": "מ\"ע קפא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 309,
+        "codeStr": "מל\"ת שט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 298,
+        "codeStr": "מל\"ת רחצ"
+      },
+      {
+        "type": "aseh",
+        "number": 184,
+        "codeStr": "מ\"ע קפד"
+      }
+    ]
+  },
+  "24_6": {
+    "dayNumber": 24,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "24 אלול",
+    "mitzvotDisplay": "מל\"ת רצט. מ\"ע רב. רג. מל\"ת ער",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 299,
+        "codeStr": "מל\"ת רצט"
+      },
+      {
+        "type": "aseh",
+        "number": 202,
+        "codeStr": "מ\"ע רב"
+      },
+      {
+        "type": "aseh",
+        "number": 203,
+        "codeStr": "מ\"ע רג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 270,
+        "codeStr": "מל\"ת ער"
+      }
+    ]
+  },
+  "25_6": {
+    "dayNumber": 25,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "25 אלול",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "26_6": {
+    "dayNumber": 26,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "26 אלול",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "27_6": {
+    "dayNumber": 27,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "27 אלול",
+    "mitzvotDisplay": "מל\"ת רנ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 250,
+        "codeStr": "מל\"ת רנ"
+      }
+    ]
+  },
+  "28_6": {
+    "dayNumber": 28,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "28 אלול",
+    "mitzvotDisplay": "מל\"ת רנ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 250,
+        "codeStr": "מל\"ת רנ"
+      }
+    ]
+  },
+  "29_6": {
+    "dayNumber": 29,
+    "monthNumber": 6,
+    "monthName": "אלול",
+    "hebrewDate": "29 אלול",
+    "mitzvotDisplay": "מל\"ת רנא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 251,
+        "codeStr": "מל\"ת רנא"
+      }
+    ]
+  },
+  "1_7": {
+    "dayNumber": 1,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "1 תשרי",
+    "mitzvotDisplay": "מ\"ע קה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 105,
+        "codeStr": "מ\"ע קה"
+      }
+    ]
+  },
+  "2_7": {
+    "dayNumber": 2,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "2 תשרי",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "3_7": {
+    "dayNumber": 3,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "3 תשרי",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "4_7": {
+    "dayNumber": 4,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "4 תשרי",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "5_7": {
+    "dayNumber": 5,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "5 תשרי",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "6_7": {
+    "dayNumber": 6,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "6 תשרי",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "7_7": {
+    "dayNumber": 7,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "7 תשרי",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "8_7": {
+    "dayNumber": 8,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "8 תשרי",
+    "mitzvotDisplay": "מ\"ע צח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 98,
+        "codeStr": "מ\"ע צח"
+      }
+    ]
+  },
+  "9_7": {
+    "dayNumber": 9,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "9 תשרי",
+    "mitzvotDisplay": "מ\"ע קז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 107,
+        "codeStr": "מ\"ע קז"
+      }
+    ]
+  },
+  "10_7": {
+    "dayNumber": 10,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "10 תשרי",
+    "mitzvotDisplay": "מ\"ע קח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 108,
+        "codeStr": "מ\"ע קח"
+      }
+    ]
+  },
+  "11_7": {
+    "dayNumber": 11,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "11 תשרי",
+    "mitzvotDisplay": "מ\"ע קא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 101,
+        "codeStr": "מ\"ע קא"
+      }
+    ]
+  },
+  "12_7": {
+    "dayNumber": 12,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "12 תשרי",
+    "mitzvotDisplay": "מ\"ע צט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 99,
+        "codeStr": "מ\"ע צט"
+      }
+    ]
+  },
+  "13_7": {
+    "dayNumber": 13,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "13 תשרי",
+    "mitzvotDisplay": "מ\"ע ק",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 100,
+        "codeStr": "מ\"ע ק"
+      }
+    ]
+  },
+  "14_7": {
+    "dayNumber": 14,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "14 תשרי",
+    "mitzvotDisplay": "מ\"ע קו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 106,
+        "codeStr": "מ\"ע קו"
+      }
+    ]
+  },
+  "15_7": {
+    "dayNumber": 15,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "15 תשרי",
+    "mitzvotDisplay": "מ\"ע קד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 104,
+        "codeStr": "מ\"ע קד"
+      }
+    ]
+  },
+  "16_7": {
+    "dayNumber": 16,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "16 תשרי",
+    "mitzvotDisplay": "מ\"ע צו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 96,
+        "codeStr": "מ\"ע צו"
+      }
+    ]
+  },
+  "17_7": {
+    "dayNumber": 17,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "17 תשרי",
+    "mitzvotDisplay": "מ\"ע קט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      }
+    ]
+  },
+  "18_7": {
+    "dayNumber": 18,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "18 תשרי",
+    "mitzvotDisplay": "מ\"ע קט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      }
+    ]
+  },
+  "19_7": {
+    "dayNumber": 19,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "19 תשרי",
+    "mitzvotDisplay": "מ\"ע קט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      }
+    ]
+  },
+  "20_7": {
+    "dayNumber": 20,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "20 תשרי",
+    "mitzvotDisplay": "מ\"ע קט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      }
+    ]
+  },
+  "21_7": {
+    "dayNumber": 21,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "21 תשרי",
+    "mitzvotDisplay": "מ\"ע קט. רלז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 109,
+        "codeStr": "מ\"ע קט"
+      },
+      {
+        "type": "aseh",
+        "number": 237,
+        "codeStr": "מ\"ע רלז"
+      }
+    ]
+  },
+  "22_7": {
+    "dayNumber": 22,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "22 תשרי",
+    "mitzvotDisplay": "מ\"ע רמ",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 240,
+        "codeStr": "מ\"ע רמ"
+      }
+    ]
+  },
+  "23_7": {
+    "dayNumber": 23,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "23 תשרי",
+    "mitzvotDisplay": "מ\"ע רלח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 238,
+        "codeStr": "מ\"ע רלח"
+      }
+    ]
+  },
+  "24_7": {
+    "dayNumber": 24,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "24 תשרי",
+    "mitzvotDisplay": "מ\"ע רמא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 241,
+        "codeStr": "מ\"ע רמא"
+      }
+    ]
+  },
+  "25_7": {
+    "dayNumber": 25,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "25 תשרי",
+    "mitzvotDisplay": "מ\"ע רמא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 241,
+        "codeStr": "מ\"ע רמא"
+      }
+    ]
+  },
+  "26_7": {
+    "dayNumber": 26,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "26 תשרי",
+    "mitzvotDisplay": "מל\"ת רמד. מ\"ע רלט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 244,
+        "codeStr": "מל\"ת רמד"
+      },
+      {
+        "type": "aseh",
+        "number": 239,
+        "codeStr": "מ\"ע רלט"
+      }
+    ]
+  },
+  "27_7": {
+    "dayNumber": 27,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "27 תשרי",
+    "mitzvotDisplay": "מ\"ע רח. מל\"ת רעא. ערב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 208,
+        "codeStr": "מ\"ע רח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 271,
+        "codeStr": "מל\"ת רעא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 272,
+        "codeStr": "מל\"ת ערב"
+      }
+    ]
+  },
+  "28_7": {
+    "dayNumber": 28,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "28 תשרי",
+    "mitzvotDisplay": "מל\"ת רמו. רמג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 246,
+        "codeStr": "מל\"ת רמו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 243,
+        "codeStr": "מל\"ת רמג"
+      }
+    ]
+  },
+  "29_7": {
+    "dayNumber": 29,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "29 תשרי",
+    "mitzvotDisplay": "מל\"ת רמה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 245,
+        "codeStr": "מל\"ת רמה"
+      }
+    ]
+  },
+  "30_7": {
+    "dayNumber": 30,
+    "monthNumber": 7,
+    "monthName": "תשרי",
+    "hebrewDate": "30 תשרי",
+    "mitzvotDisplay": "מל\"ת רמז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 247,
+        "codeStr": "מל\"ת רמז"
+      }
+    ]
+  },
+  "1_8": {
+    "dayNumber": 1,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "1 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רסה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 265,
+        "codeStr": "מל\"ת רסה"
+      }
+    ]
+  },
+  "2_8": {
+    "dayNumber": 2,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "2 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רסו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 266,
+        "codeStr": "מל\"ת רסו"
+      }
+    ]
+  },
+  "3_8": {
+    "dayNumber": 3,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "3 מרחשוון",
+    "mitzvotDisplay": "מ\"ע קצד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 194,
+        "codeStr": "מ\"ע קצד"
+      }
+    ]
+  },
+  "4_8": {
+    "dayNumber": 4,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "4 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רסט. מ\"ע רד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 269,
+        "codeStr": "מל\"ת רסט"
+      },
+      {
+        "type": "aseh",
+        "number": 204,
+        "codeStr": "מ\"ע רד"
+      }
+    ]
+  },
+  "5_8": {
+    "dayNumber": 5,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "5 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רלו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      }
+    ]
+  },
+  "6_8": {
+    "dayNumber": 6,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "6 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רלו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      }
+    ]
+  },
+  "7_8": {
+    "dayNumber": 7,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "7 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רלו. מל\"ת רפט. רצו [רצה]",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 289,
+        "codeStr": "מל\"ת רפט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 296,
+        "codeStr": "מל\"ת רצו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 295,
+        "codeStr": "מל\"ת [רצה]"
+      }
+    ]
+  },
+  "8_8": {
+    "dayNumber": 8,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "8 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רכה. מל\"ת רצה [רצו]. רצב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 225,
+        "codeStr": "מ\"ע רכה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 295,
+        "codeStr": "מל\"ת רצה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 296,
+        "codeStr": "מל\"ת [רצו]"
+      },
+      {
+        "type": "lotaseh",
+        "number": 292,
+        "codeStr": "מל\"ת רצב"
+      }
+    ]
+  },
+  "9_8": {
+    "dayNumber": 9,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "9 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רמז. מל\"ת רצג. רצז. מ\"ע קפב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 247,
+        "codeStr": "מ\"ע רמז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 293,
+        "codeStr": "מל\"ת רצג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 297,
+        "codeStr": "מל\"ת רצז"
+      },
+      {
+        "type": "aseh",
+        "number": 182,
+        "codeStr": "מ\"ע קפב"
+      }
+    ]
+  },
+  "10_8": {
+    "dayNumber": 10,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "10 מרחשוון",
+    "mitzvotDisplay": "מ\"ע קפא. מל\"ת שט. רחצ. מ\"ע קפד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 181,
+        "codeStr": "מ\"ע קפא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 309,
+        "codeStr": "מל\"ת שט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 298,
+        "codeStr": "מל\"ת רחצ"
+      },
+      {
+        "type": "aseh",
+        "number": 184,
+        "codeStr": "מ\"ע קפד"
+      }
+    ]
+  },
+  "11_8": {
+    "dayNumber": 11,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "11 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רצט. מ\"ע רב. רג. מל\"ת ער",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 299,
+        "codeStr": "מל\"ת רצט"
+      },
+      {
+        "type": "aseh",
+        "number": 202,
+        "codeStr": "מ\"ע רב"
+      },
+      {
+        "type": "aseh",
+        "number": 203,
+        "codeStr": "מ\"ע רג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 270,
+        "codeStr": "מל\"ת ער"
+      }
+    ]
+  },
+  "12_8": {
+    "dayNumber": 12,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "12 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "13_8": {
+    "dayNumber": 13,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "13 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "14_8": {
+    "dayNumber": 14,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "14 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רנ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 250,
+        "codeStr": "מל\"ת רנ"
+      }
+    ]
+  },
+  "15_8": {
+    "dayNumber": 15,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "15 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רנ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 250,
+        "codeStr": "מל\"ת רנ"
+      }
+    ]
+  },
+  "16_8": {
+    "dayNumber": 16,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "16 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רנא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 251,
+        "codeStr": "מל\"ת רנא"
+      }
+    ]
+  },
+  "17_8": {
+    "dayNumber": 17,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "17 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רנא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 251,
+        "codeStr": "מל\"ת רנא"
+      }
+    ]
+  },
+  "18_8": {
+    "dayNumber": 18,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "18 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רנג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 253,
+        "codeStr": "מל\"ת רנג"
+      }
+    ]
+  },
+  "19_8": {
+    "dayNumber": 19,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "19 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רנג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 253,
+        "codeStr": "מל\"ת רנג"
+      }
+    ]
+  },
+  "20_8": {
+    "dayNumber": 20,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "20 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רנב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 252,
+        "codeStr": "מל\"ת רנב"
+      }
+    ]
+  },
+  "21_8": {
+    "dayNumber": 21,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "21 מרחשוון",
+    "mitzvotDisplay": "מל\"ת רנב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 252,
+        "codeStr": "מל\"ת רנב"
+      }
+    ]
+  },
+  "22_8": {
+    "dayNumber": 22,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "22 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "23_8": {
+    "dayNumber": 23,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "23 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "24_8": {
+    "dayNumber": 24,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "24 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "25_8": {
+    "dayNumber": 25,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "25 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "26_8": {
+    "dayNumber": 26,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "26 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רלו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      }
+    ]
+  },
+  "27_8": {
+    "dayNumber": 27,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "27 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רלו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      }
+    ]
+  },
+  "28_8": {
+    "dayNumber": 28,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "28 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רלו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      }
+    ]
+  },
+  "29_8": {
+    "dayNumber": 29,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "29 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רלו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 236,
+        "codeStr": "מ\"ע רלו"
+      }
+    ]
+  },
+  "30_8": {
+    "dayNumber": 30,
+    "monthNumber": 8,
+    "monthName": "מרחשוון",
+    "hebrewDate": "30 מרחשוון",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "1_9": {
+    "dayNumber": 1,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "1 כסלו",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "2_9": {
+    "dayNumber": 2,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "2 כסלו",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "3_9": {
+    "dayNumber": 3,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "3 כסלו",
+    "mitzvotDisplay": "מ\"ע רמה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 245,
+        "codeStr": "מ\"ע רמה"
+      }
+    ]
+  },
+  "4_9": {
+    "dayNumber": 4,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "4 כסלו",
+    "mitzvotDisplay": "מ\"ע רלב. מל\"ת רנח. רנט. רנז. רס",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 232,
+        "codeStr": "מ\"ע רלב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 258,
+        "codeStr": "מל\"ת רנח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 259,
+        "codeStr": "מל\"ת רנט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 257,
+        "codeStr": "מל\"ת רנז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 260,
+        "codeStr": "מל\"ת רס"
+      }
+    ]
+  },
+  "5_9": {
+    "dayNumber": 5,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "5 כסלו",
+    "mitzvotDisplay": "מ\"ע קצו. מל\"ת רלג. מ\"ע רלד. רלג. מל\"ת רסא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 196,
+        "codeStr": "מ\"ע קצו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 233,
+        "codeStr": "מל\"ת רלג"
+      },
+      {
+        "type": "aseh",
+        "number": 234,
+        "codeStr": "מ\"ע רלד"
+      },
+      {
+        "type": "aseh",
+        "number": 233,
+        "codeStr": "מ\"ע רלג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 261,
+        "codeStr": "מל\"ת רסא"
+      }
+    ]
+  },
+  "6_9": {
+    "dayNumber": 6,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "6 כסלו",
+    "mitzvotDisplay": "מ\"ע רלה. מל\"ת רנד. רנה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 235,
+        "codeStr": "מ\"ע רלה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 254,
+        "codeStr": "מל\"ת רנד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 255,
+        "codeStr": "מל\"ת רנה"
+      }
+    ]
+  },
+  "7_9": {
+    "dayNumber": 7,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "7 כסלו",
+    "mitzvotDisplay": "מ\"ע רמג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 243,
+        "codeStr": "מ\"ע רמג"
+      }
+    ]
+  },
+  "8_9": {
+    "dayNumber": 8,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "8 כסלו",
+    "mitzvotDisplay": "מ\"ע ר. מל\"ת רלח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 200,
+        "codeStr": "מ\"ע ר"
+      },
+      {
+        "type": "lotaseh",
+        "number": 238,
+        "codeStr": "מל\"ת רלח"
+      }
+    ]
+  },
+  "9_9": {
+    "dayNumber": 9,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "9 כסלו",
+    "mitzvotDisplay": "מ\"ע רא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 201,
+        "codeStr": "מ\"ע רא"
+      }
+    ]
+  },
+  "10_9": {
+    "dayNumber": 10,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "10 כסלו",
+    "mitzvotDisplay": "מל\"ת רסז. רסח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 267,
+        "codeStr": "מל\"ת רסז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 268,
+        "codeStr": "מל\"ת רסח"
+      }
+    ]
+  },
+  "11_9": {
+    "dayNumber": 11,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "11 כסלו",
+    "mitzvotDisplay": "מל\"ת ריט. מ\"ע רמד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 219,
+        "codeStr": "מל\"ת ריט"
+      },
+      {
+        "type": "aseh",
+        "number": 244,
+        "codeStr": "מ\"ע רמד"
+      }
+    ]
+  },
+  "12_9": {
+    "dayNumber": 12,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "12 כסלו",
+    "mitzvotDisplay": "מ\"ע רמד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 244,
+        "codeStr": "מ\"ע רמד"
+      }
+    ]
+  },
+  "13_9": {
+    "dayNumber": 13,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "13 כסלו",
+    "mitzvotDisplay": "מ\"ע רמב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 242,
+        "codeStr": "מ\"ע רמב"
+      }
+    ]
+  },
+  "14_9": {
+    "dayNumber": 14,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "14 כסלו",
+    "mitzvotDisplay": "מ\"ע קצז. מל\"ת רלד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 197,
+        "codeStr": "מ\"ע קצז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 234,
+        "codeStr": "מל\"ת רלד"
+      }
+    ]
+  },
+  "15_9": {
+    "dayNumber": 15,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "15 כסלו",
+    "mitzvotDisplay": "מ\"ע קמב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 142,
+        "codeStr": "מ\"ע קמב"
+      }
+    ]
+  },
+  "16_9": {
+    "dayNumber": 16,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "16 כסלו",
+    "mitzvotDisplay": "מל\"ת רלט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 239,
+        "codeStr": "מל\"ת רלט"
+      }
+    ]
+  },
+  "17_9": {
+    "dayNumber": 17,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "17 כסלו",
+    "mitzvotDisplay": "מ\"ע קצט. מל\"ת רמ",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 199,
+        "codeStr": "מ\"ע קצט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 240,
+        "codeStr": "מל\"ת רמ"
+      }
+    ]
+  },
+  "18_9": {
+    "dayNumber": 18,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "18 כסלו",
+    "mitzvotDisplay": "מל\"ת רמא. רמב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 241,
+        "codeStr": "מל\"ת רמא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 242,
+        "codeStr": "מל\"ת רמב"
+      }
+    ]
+  },
+  "19_9": {
+    "dayNumber": 19,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "19 כסלו",
+    "mitzvotDisplay": "מל\"ת רלה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 235,
+        "codeStr": "מל\"ת רלה"
+      }
+    ]
+  },
+  "20_9": {
+    "dayNumber": 20,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "20 כסלו",
+    "mitzvotDisplay": "מל\"ת רלו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 236,
+        "codeStr": "מל\"ת רלו"
+      }
+    ]
+  },
+  "21_9": {
+    "dayNumber": 21,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "21 כסלו",
+    "mitzvotDisplay": "מל\"ת רלז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 237,
+        "codeStr": "מל\"ת רלז"
+      }
+    ]
+  },
+  "22_9": {
+    "dayNumber": 22,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "22 כסלו",
+    "mitzvotDisplay": "מ\"ע קצח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 198,
+        "codeStr": "מ\"ע קצח"
+      }
+    ]
+  },
+  "23_9": {
+    "dayNumber": 23,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "23 כסלו",
+    "mitzvotDisplay": "מ\"ע רמו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 246,
+        "codeStr": "מ\"ע רמו"
+      }
+    ]
+  },
+  "24_9": {
+    "dayNumber": 24,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "24 כסלו",
+    "mitzvotDisplay": "מ\"ע רמו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 246,
+        "codeStr": "מ\"ע רמו"
+      }
+    ]
+  },
+  "25_9": {
+    "dayNumber": 25,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "25 כסלו",
+    "mitzvotDisplay": "מ\"ע רמו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 246,
+        "codeStr": "מ\"ע רמו"
+      }
+    ]
+  },
+  "26_9": {
+    "dayNumber": 26,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "26 כסלו",
+    "mitzvotDisplay": "מ\"ע רמו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 246,
+        "codeStr": "מ\"ע רמו"
+      }
+    ]
+  },
+  "27_9": {
+    "dayNumber": 27,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "27 כסלו",
+    "mitzvotDisplay": "מ\"ע רמו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 246,
+        "codeStr": "מ\"ע רמו"
+      }
+    ]
+  },
+  "28_9": {
+    "dayNumber": 28,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "28 כסלו",
+    "mitzvotDisplay": "מ\"ע רמו. רמח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 246,
+        "codeStr": "מ\"ע רמו"
+      },
+      {
+        "type": "aseh",
+        "number": 248,
+        "codeStr": "מ\"ע רמח"
+      }
+    ]
+  },
+  "29_9": {
+    "dayNumber": 29,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "29 כסלו",
+    "mitzvotDisplay": "מ\"ע רמח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 248,
+        "codeStr": "מ\"ע רמח"
+      }
+    ]
+  },
+  "30_9": {
+    "dayNumber": 30,
+    "monthNumber": 9,
+    "monthName": "כסלו",
+    "hebrewDate": "30 כסלו",
+    "mitzvotDisplay": "מ\"ע רמח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 248,
+        "codeStr": "מ\"ע רמח"
+      }
+    ]
+  },
+  "1_10": {
+    "dayNumber": 1,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "1 טבת",
+    "mitzvotDisplay": "מ\"ע רמח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 248,
+        "codeStr": "מ\"ע רמח"
+      }
+    ]
+  },
+  "2_10": {
+    "dayNumber": 2,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "2 טבת",
+    "mitzvotDisplay": "מ\"ע קעו. מל\"ת רפד. מ\"ע קעה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 176,
+        "codeStr": "מ\"ע קעו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 284,
+        "codeStr": "מל\"ת רפד"
+      },
+      {
+        "type": "aseh",
+        "number": 175,
+        "codeStr": "מ\"ע קעה"
+      }
+    ]
+  },
+  "3_10": {
+    "dayNumber": 3,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "3 טבת",
+    "mitzvotDisplay": "מל\"ת רפב. רפג. מ\"ע רכט. רכח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 282,
+        "codeStr": "מל\"ת רפב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 283,
+        "codeStr": "מל\"ת רפג"
+      },
+      {
+        "type": "aseh",
+        "number": 229,
+        "codeStr": "מ\"ע רכט"
+      },
+      {
+        "type": "aseh",
+        "number": 228,
+        "codeStr": "מ\"ע רכח"
+      }
+    ]
+  },
+  "4_10": {
+    "dayNumber": 4,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "4 טבת",
+    "mitzvotDisplay": "מ\"ע רכו. רכז. רל. רלא. מל\"ת סו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 226,
+        "codeStr": "מ\"ע רכו"
+      },
+      {
+        "type": "aseh",
+        "number": 227,
+        "codeStr": "מ\"ע רכז"
+      },
+      {
+        "type": "aseh",
+        "number": 230,
+        "codeStr": "מ\"ע רל"
+      },
+      {
+        "type": "aseh",
+        "number": 231,
+        "codeStr": "מ\"ע רלא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 66,
+        "codeStr": "מל\"ת סו"
+      }
+    ]
+  },
+  "5_10": {
+    "dayNumber": 5,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "5 טבת",
+    "mitzvotDisplay": "מל\"ת שי. מ\"ע רכד. מל\"ת ש",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 310,
+        "codeStr": "מל\"ת שי"
+      },
+      {
+        "type": "aseh",
+        "number": 224,
+        "codeStr": "מ\"ע רכד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 300,
+        "codeStr": "מל\"ת ש"
+      }
+    ]
+  },
+  "6_10": {
+    "dayNumber": 6,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "6 טבת",
+    "mitzvotDisplay": "מל\"ת רצד. רצ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 294,
+        "codeStr": "מל\"ת רצד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 290,
+        "codeStr": "מל\"ת רצ"
+      }
+    ]
+  },
+  "7_10": {
+    "dayNumber": 7,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "7 טבת",
+    "mitzvotDisplay": "מל\"ת רעט. רעז. ערה. רעח. רעג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 279,
+        "codeStr": "מל\"ת רעט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 277,
+        "codeStr": "מל\"ת רעז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 275,
+        "codeStr": "מל\"ת ערה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 278,
+        "codeStr": "מל\"ת רעח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 273,
+        "codeStr": "מל\"ת רעג"
+      }
+    ]
+  },
+  "8_10": {
+    "dayNumber": 8,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "8 טבת",
+    "mitzvotDisplay": "מל\"ת רפ. מ\"ע קעז. מל\"ת רעו. עדר",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 280,
+        "codeStr": "מל\"ת רפ"
+      },
+      {
+        "type": "aseh",
+        "number": 177,
+        "codeStr": "מ\"ע קעז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 276,
+        "codeStr": "מל\"ת רעו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 274,
+        "codeStr": "מל\"ת עדר"
+      }
+    ]
+  },
+  "9_10": {
+    "dayNumber": 9,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "9 טבת",
+    "mitzvotDisplay": "מל\"ת שטו. רפא. שטז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 315,
+        "codeStr": "מל\"ת שטו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 281,
+        "codeStr": "מל\"ת רפא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 316,
+        "codeStr": "מל\"ת שטז"
+      }
+    ]
+  },
+  "10_10": {
+    "dayNumber": 10,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "10 טבת",
+    "mitzvotDisplay": "מל\"ת שיז. מ\"ע קעח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 317,
+        "codeStr": "מל\"ת שיז"
+      },
+      {
+        "type": "aseh",
+        "number": 178,
+        "codeStr": "מ\"ע קעח"
+      }
+    ]
+  },
+  "11_10": {
+    "dayNumber": 11,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "11 טבת",
+    "mitzvotDisplay": "מ\"ע קעט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 179,
+        "codeStr": "מ\"ע קעט"
+      }
+    ]
+  },
+  "12_10": {
+    "dayNumber": 12,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "12 טבת",
+    "mitzvotDisplay": "מל\"ת רצא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 291,
+        "codeStr": "מל\"ת רצא"
+      }
+    ]
+  },
+  "13_10": {
+    "dayNumber": 13,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "13 טבת",
+    "mitzvotDisplay": "מל\"ת רפח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 288,
+        "codeStr": "מל\"ת רפח"
+      }
+    ]
+  },
+  "14_10": {
+    "dayNumber": 14,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "14 טבת",
+    "mitzvotDisplay": "מל\"ת רפו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 286,
+        "codeStr": "מל\"ת רפו"
+      }
+    ]
+  },
+  "15_10": {
+    "dayNumber": 15,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "15 טבת",
+    "mitzvotDisplay": "מל\"ת רפז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 287,
+        "codeStr": "מל\"ת רפז"
+      }
+    ]
+  },
+  "16_10": {
+    "dayNumber": 16,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "16 טבת",
+    "mitzvotDisplay": "מל\"ת רפה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 285,
+        "codeStr": "מל\"ת רפה"
+      }
+    ]
+  },
+  "17_10": {
+    "dayNumber": 17,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "17 טבת",
+    "mitzvotDisplay": "מ\"ע קפ",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 180,
+        "codeStr": "מ\"ע קפ"
+      }
+    ]
+  },
+  "18_10": {
+    "dayNumber": 18,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "18 טבת",
+    "mitzvotDisplay": "מ\"ע קעד. מל\"ת שיב. שיג. שיד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 174,
+        "codeStr": "מ\"ע קעד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 312,
+        "codeStr": "מל\"ת שיב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 313,
+        "codeStr": "מל\"ת שיג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 314,
+        "codeStr": "מל\"ת שיד"
+      }
+    ]
+  },
+  "19_10": {
+    "dayNumber": 19,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "19 טבת",
+    "mitzvotDisplay": "מל\"ת שיח. שיט. מ\"ע רי. ריא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 318,
+        "codeStr": "מל\"ת שיח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 319,
+        "codeStr": "מל\"ת שיט"
+      },
+      {
+        "type": "aseh",
+        "number": 210,
+        "codeStr": "מ\"ע רי"
+      },
+      {
+        "type": "aseh",
+        "number": 211,
+        "codeStr": "מ\"ע ריא"
+      }
+    ]
+  },
+  "20_10": {
+    "dayNumber": 20,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "20 טבת",
+    "mitzvotDisplay": "מל\"ת קצה. מ\"ע לז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 195,
+        "codeStr": "מל\"ת קצה"
+      },
+      {
+        "type": "aseh",
+        "number": 37,
+        "codeStr": "מ\"ע לז"
+      }
+    ]
+  },
+  "21_10": {
+    "dayNumber": 21,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "21 טבת",
+    "mitzvotDisplay": "מל\"ת קסח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 168,
+        "codeStr": "מל\"ת קסח"
+      }
+    ]
+  },
+  "22_10": {
+    "dayNumber": 22,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "22 טבת",
+    "mitzvotDisplay": "מל\"ת קסז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 167,
+        "codeStr": "מל\"ת קסז"
+      }
+    ]
+  },
+  "23_10": {
+    "dayNumber": 23,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "23 טבת",
+    "mitzvotDisplay": "מל\"ת קסו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 166,
+        "codeStr": "מל\"ת קסו"
+      }
+    ]
+  },
+  "24_10": {
+    "dayNumber": 24,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "24 טבת",
+    "mitzvotDisplay": "מל\"ת קסו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 166,
+        "codeStr": "מל\"ת קסו"
+      }
+    ]
+  },
+  "25_10": {
+    "dayNumber": 25,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "25 טבת",
+    "mitzvotDisplay": "מ\"ע קעג. מל\"ת שסב. שסד. שסג. שסה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 173,
+        "codeStr": "מ\"ע קעג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 362,
+        "codeStr": "מל\"ת שסב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 364,
+        "codeStr": "מל\"ת שסד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 363,
+        "codeStr": "מל\"ת שסג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 365,
+        "codeStr": "מל\"ת שסה"
+      }
+    ]
+  },
+  "26_10": {
+    "dayNumber": 26,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "26 טבת",
+    "mitzvotDisplay": "מ\"ע קפז. מל\"ת מט. מ\"ע קפח. קפט. מל\"ת נט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 187,
+        "codeStr": "מ\"ע קפז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 49,
+        "codeStr": "מל\"ת מט"
+      },
+      {
+        "type": "aseh",
+        "number": 188,
+        "codeStr": "מ\"ע קפח"
+      },
+      {
+        "type": "aseh",
+        "number": 189,
+        "codeStr": "מ\"ע קפט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 59,
+        "codeStr": "מל\"ת נט"
+      }
+    ]
+  },
+  "27_10": {
+    "dayNumber": 27,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "27 טבת",
+    "mitzvotDisplay": "מל\"ת מו. מ\"ע קצ. מל\"ת נו. נז. מ\"ע קצב. קצג",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 46,
+        "codeStr": "מל\"ת מו"
+      },
+      {
+        "type": "aseh",
+        "number": 190,
+        "codeStr": "מ\"ע קצ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 56,
+        "codeStr": "מל\"ת נו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 57,
+        "codeStr": "מל\"ת נז"
+      },
+      {
+        "type": "aseh",
+        "number": 192,
+        "codeStr": "מ\"ע קצב"
+      },
+      {
+        "type": "aseh",
+        "number": 193,
+        "codeStr": "מ\"ע קצג"
+      }
+    ]
+  },
+  "28_10": {
+    "dayNumber": 28,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "28 טבת",
+    "mitzvotDisplay": "מ\"ע קצא. ריד. מל\"ת שיא. נח. מ\"ע רכא. מל\"ת רסג. רסד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 191,
+        "codeStr": "מ\"ע קצא"
+      },
+      {
+        "type": "aseh",
+        "number": 214,
+        "codeStr": "מ\"ע ריד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 311,
+        "codeStr": "מל\"ת שיא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 58,
+        "codeStr": "מל\"ת נח"
+      },
+      {
+        "type": "aseh",
+        "number": 221,
+        "codeStr": "מ\"ע רכא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 263,
+        "codeStr": "מל\"ת רסג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 264,
+        "codeStr": "מל\"ת רסד"
+      }
+    ]
+  },
+  "29_10": {
+    "dayNumber": 29,
+    "monthNumber": 10,
+    "monthName": "טבת",
+    "hebrewDate": "29 טבת",
+    "mitzvotDisplay": "הקדמת הרמב\"ם לספר המצוות / שרשים",
+    "mitzvotCodes": [
+      {
+        "type": "intro",
+        "codeStr": "הקדמת"
+      },
+      {
+        "type": "intro",
+        "number": 247,
+        "codeStr": "מל\"ת הרמב\"ם"
+      },
+      {
+        "type": "intro",
+        "number": 370,
+        "codeStr": "מל\"ת לספר"
+      },
+      {
+        "type": "intro",
+        "number": 547,
+        "codeStr": "מל\"ת המצוות"
+      },
+      {
+        "type": "intro",
+        "codeStr": "שרשים"
+      }
+    ]
+  },
+  "1_11": {
+    "dayNumber": 1,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "1 שבט",
+    "mitzvotDisplay": "שרשים",
+    "mitzvotCodes": [
+      {
+        "type": "intro",
+        "codeStr": "שרשים"
+      }
+    ]
+  },
+  "2_11": {
+    "dayNumber": 2,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "2 שבט",
+    "mitzvotDisplay": "שרשים",
+    "mitzvotCodes": [
+      {
+        "type": "intro",
+        "codeStr": "שרשים"
+      }
+    ]
+  },
+  "3_11": {
+    "dayNumber": 3,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "3 שבט",
+    "mitzvotDisplay": "שרשים",
+    "mitzvotCodes": [
+      {
+        "type": "intro",
+        "codeStr": "שרשים"
+      }
+    ]
+  },
+  "4_11": {
+    "dayNumber": 4,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "4 שבט",
+    "mitzvotDisplay": "מ\"ע א. מל\"ת א. מ\"ע ב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 1,
+        "codeStr": "מ\"ע א"
+      },
+      {
+        "type": "lotaseh",
+        "number": 1,
+        "codeStr": "מל\"ת א"
+      },
+      {
+        "type": "aseh",
+        "number": 2,
+        "codeStr": "מ\"ע ב"
+      }
+    ]
+  },
+  "5_11": {
+    "dayNumber": 5,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "5 שבט",
+    "mitzvotDisplay": "מ\"ע ג. ד. ט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 3,
+        "codeStr": "מ\"ע ג"
+      },
+      {
+        "type": "aseh",
+        "number": 4,
+        "codeStr": "מ\"ע ד"
+      },
+      {
+        "type": "aseh",
+        "number": 9,
+        "codeStr": "מ\"ע ט"
+      }
+    ]
+  },
+  "6_11": {
+    "dayNumber": 6,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "6 שבט",
+    "mitzvotDisplay": "מל\"ת סג. סה. מ\"ע קעב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 63,
+        "codeStr": "מל\"ת סג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 65,
+        "codeStr": "מל\"ת סה"
+      },
+      {
+        "type": "aseh",
+        "number": 172,
+        "codeStr": "מ\"ע קעב"
+      }
+    ]
+  },
+  "7_11": {
+    "dayNumber": 7,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "7 שבט",
+    "mitzvotDisplay": "מל\"ת סד. מ\"ע ח. ו. רו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 64,
+        "codeStr": "מל\"ת סד"
+      },
+      {
+        "type": "aseh",
+        "number": 8,
+        "codeStr": "מ\"ע ח"
+      },
+      {
+        "type": "aseh",
+        "number": 6,
+        "codeStr": "מ\"ע ו"
+      },
+      {
+        "type": "aseh",
+        "number": 206,
+        "codeStr": "מ\"ע רו"
+      }
+    ]
+  },
+  "8_11": {
+    "dayNumber": 8,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "8 שבט",
+    "mitzvotDisplay": "מ\"ע רז. מל\"ת שב. מ\"ע רה. מל\"ת שג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 207,
+        "codeStr": "מ\"ע רז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 302,
+        "codeStr": "מל\"ת שב"
+      },
+      {
+        "type": "aseh",
+        "number": 205,
+        "codeStr": "מ\"ע רה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 303,
+        "codeStr": "מל\"ת שג"
+      }
+    ]
+  },
+  "9_11": {
+    "dayNumber": 9,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "9 שבט",
+    "mitzvotDisplay": "מל\"ת רנו. שא. דש. שה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 256,
+        "codeStr": "מל\"ת רנו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 301,
+        "codeStr": "מל\"ת שא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 304,
+        "codeStr": "מל\"ת דש"
+      },
+      {
+        "type": "lotaseh",
+        "number": 305,
+        "codeStr": "מל\"ת שה"
+      }
+    ]
+  },
+  "10_11": {
+    "dayNumber": 10,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "10 שבט",
+    "mitzvotDisplay": "מ\"ע יא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 11,
+        "codeStr": "מ\"ע יא"
+      }
+    ]
+  },
+  "11_11": {
+    "dayNumber": 11,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "11 שבט",
+    "mitzvotDisplay": "מ\"ע רט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 209,
+        "codeStr": "מ\"ע רט"
+      }
+    ]
+  },
+  "12_11": {
+    "dayNumber": 12,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "12 שבט",
+    "mitzvotDisplay": "מל\"ת י. מז. ס. ו. ה. ב. ג. ד. טו. מ\"ע קפו. מל\"ת כג. כד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 10,
+        "codeStr": "מל\"ת י"
+      },
+      {
+        "type": "lotaseh",
+        "number": 47,
+        "codeStr": "מל\"ת מז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 60,
+        "codeStr": "מל\"ת ס"
+      },
+      {
+        "type": "lotaseh",
+        "number": 6,
+        "codeStr": "מל\"ת ו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 5,
+        "codeStr": "מל\"ת ה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 2,
+        "codeStr": "מל\"ת ב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 3,
+        "codeStr": "מל\"ת ג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 4,
+        "codeStr": "מל\"ת ד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 15,
+        "codeStr": "מל\"ת טו"
+      },
+      {
+        "type": "aseh",
+        "number": 186,
+        "codeStr": "מ\"ע קפו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 23,
+        "codeStr": "מל\"ת כג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 24,
+        "codeStr": "מל\"ת כד"
+      }
+    ]
+  },
+  "13_11": {
+    "dayNumber": 13,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "13 שבט",
+    "mitzvotDisplay": "מל\"ת טז. יז. יח. יט. כ. כא. כו. כח. כז. כט. יד. ח. ט. ז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 16,
+        "codeStr": "מל\"ת טז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 17,
+        "codeStr": "מל\"ת יז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 18,
+        "codeStr": "מל\"ת יח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 19,
+        "codeStr": "מל\"ת יט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 20,
+        "codeStr": "מל\"ת כ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 21,
+        "codeStr": "מל\"ת כא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 26,
+        "codeStr": "מל\"ת כו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 28,
+        "codeStr": "מל\"ת כח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 27,
+        "codeStr": "מל\"ת כז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 29,
+        "codeStr": "מל\"ת כט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 14,
+        "codeStr": "מל\"ת יד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 8,
+        "codeStr": "מל\"ת ח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 9,
+        "codeStr": "מל\"ת ט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 7,
+        "codeStr": "מל\"ת ז"
+      }
+    ]
+  },
+  "14_11": {
+    "dayNumber": 14,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "14 שבט",
+    "mitzvotDisplay": "מל\"ת יא. יב. יג. מ\"ע קפה. מל\"ת כה. כב. מח. נ. נא. ל. לג. לא. לב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 11,
+        "codeStr": "מל\"ת יא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 12,
+        "codeStr": "מל\"ת יב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 13,
+        "codeStr": "מל\"ת יג"
+      },
+      {
+        "type": "aseh",
+        "number": 185,
+        "codeStr": "מ\"ע קפה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 25,
+        "codeStr": "מל\"ת כה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 22,
+        "codeStr": "מל\"ת כב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 48,
+        "codeStr": "מל\"ת מח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 50,
+        "codeStr": "מל\"ת נ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 51,
+        "codeStr": "מל\"ת נא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 30,
+        "codeStr": "מל\"ת ל"
+      },
+      {
+        "type": "lotaseh",
+        "number": 33,
+        "codeStr": "מל\"ת לג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 31,
+        "codeStr": "מל\"ת לא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 32,
+        "codeStr": "מל\"ת לב"
+      }
+    ]
+  },
+  "15_11": {
+    "dayNumber": 15,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "15 שבט",
+    "mitzvotDisplay": "מל\"ת לה. לח. לו. לז. לד. מג. מד. מ. לט. מא. מה. קעא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 35,
+        "codeStr": "מל\"ת לה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 38,
+        "codeStr": "מל\"ת לח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 36,
+        "codeStr": "מל\"ת לו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 37,
+        "codeStr": "מל\"ת לז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 34,
+        "codeStr": "מל\"ת לד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 43,
+        "codeStr": "מל\"ת מג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 44,
+        "codeStr": "מל\"ת מד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 40,
+        "codeStr": "מל\"ת מ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 39,
+        "codeStr": "מל\"ת לט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 41,
+        "codeStr": "מל\"ת מא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 45,
+        "codeStr": "מל\"ת מה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 171,
+        "codeStr": "מל\"ת קעא"
+      }
+    ]
+  },
+  "16_11": {
+    "dayNumber": 16,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "16 שבט",
+    "mitzvotDisplay": "מ\"ע עג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 73,
+        "codeStr": "מ\"ע עג"
+      }
+    ]
+  },
+  "17_11": {
+    "dayNumber": 17,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "17 שבט",
+    "mitzvotDisplay": "מ\"ע עג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 73,
+        "codeStr": "מ\"ע עג"
+      }
+    ]
+  },
+  "18_11": {
+    "dayNumber": 18,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "18 שבט",
+    "mitzvotDisplay": "מ\"ע עג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 73,
+        "codeStr": "מ\"ע עג"
+      }
+    ]
+  },
+  "19_11": {
+    "dayNumber": 19,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "19 שבט",
+    "mitzvotDisplay": "מ\"ע עג. י",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 73,
+        "codeStr": "מ\"ע עג"
+      },
+      {
+        "type": "aseh",
+        "number": 10,
+        "codeStr": "מ\"ע י"
+      }
+    ]
+  },
+  "20_11": {
+    "dayNumber": 20,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "20 שבט",
+    "mitzvotDisplay": "מ\"ע י. ה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 10,
+        "codeStr": "מ\"ע י"
+      },
+      {
+        "type": "aseh",
+        "number": 5,
+        "codeStr": "מ\"ע ה"
+      }
+    ]
+  },
+  "21_11": {
+    "dayNumber": 21,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "21 שבט",
+    "mitzvotDisplay": "מ\"ע ה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 5,
+        "codeStr": "מ\"ע ה"
+      }
+    ]
+  },
+  "22_11": {
+    "dayNumber": 22,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "22 שבט",
+    "mitzvotDisplay": "מ\"ע ה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 5,
+        "codeStr": "מ\"ע ה"
+      }
+    ]
+  },
+  "23_11": {
+    "dayNumber": 23,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "23 שבט",
+    "mitzvotDisplay": "מ\"ע ה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 5,
+        "codeStr": "מ\"ע ה"
+      }
+    ]
+  },
+  "24_11": {
+    "dayNumber": 24,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "24 שבט",
+    "mitzvotDisplay": "מ\"ע ה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 5,
+        "codeStr": "מ\"ע ה"
+      }
+    ]
+  },
+  "25_11": {
+    "dayNumber": 25,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "25 שבט",
+    "mitzvotDisplay": "מ\"ע כו. יב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 26,
+        "codeStr": "מ\"ע כו"
+      },
+      {
+        "type": "aseh",
+        "number": 12,
+        "codeStr": "מ\"ע יב"
+      }
+    ]
+  },
+  "26_11": {
+    "dayNumber": 26,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "26 שבט",
+    "mitzvotDisplay": "מ\"ע יג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 13,
+        "codeStr": "מ\"ע יג"
+      }
+    ]
+  },
+  "27_11": {
+    "dayNumber": 27,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "27 שבט",
+    "mitzvotDisplay": "מ\"ע טו. יח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 15,
+        "codeStr": "מ\"ע טו"
+      },
+      {
+        "type": "aseh",
+        "number": 18,
+        "codeStr": "מ\"ע יח"
+      }
+    ]
+  },
+  "28_11": {
+    "dayNumber": 28,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "28 שבט",
+    "mitzvotDisplay": "מ\"ע יז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 17,
+        "codeStr": "מ\"ע יז"
+      }
+    ]
+  },
+  "29_11": {
+    "dayNumber": 29,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "29 שבט",
+    "mitzvotDisplay": "מ\"ע יד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 14,
+        "codeStr": "מ\"ע יד"
+      }
+    ]
+  },
+  "30_11": {
+    "dayNumber": 30,
+    "monthNumber": 11,
+    "monthName": "שבט",
+    "hebrewDate": "30 שבט",
+    "mitzvotDisplay": "מ\"ע יט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 19,
+        "codeStr": "מ\"ע יט"
+      }
+    ]
+  },
+  "1_12": {
+    "dayNumber": 1,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "1 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע יט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 19,
+        "codeStr": "מ\"ע יט"
+      }
+    ]
+  },
+  "2_12": {
+    "dayNumber": 2,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "2 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע יט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 19,
+        "codeStr": "מ\"ע יט"
+      }
+    ]
+  },
+  "3_12": {
+    "dayNumber": 3,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "3 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע יט. רטו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 19,
+        "codeStr": "מ\"ע יט"
+      },
+      {
+        "type": "aseh",
+        "number": 215,
+        "codeStr": "מ\"ע רטו"
+      }
+    ]
+  },
+  "4_12": {
+    "dayNumber": 4,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "4 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע רטו. סדר תפלות כל השנה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 215,
+        "codeStr": "מ\"ע רטו"
+      },
+      {
+        "type": "aseh",
+        "number": 264,
+        "codeStr": "מ\"ע סדר"
+      },
+      {
+        "type": "aseh",
+        "number": 916,
+        "codeStr": "מ\"ע תפלות"
+      },
+      {
+        "type": "aseh",
+        "number": 50,
+        "codeStr": "מ\"ע כל"
+      },
+      {
+        "type": "aseh",
+        "number": 360,
+        "codeStr": "מ\"ע השנה"
+      }
+    ]
+  },
+  "5_12": {
+    "dayNumber": 5,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "5 אדר ראשון",
+    "mitzvotDisplay": "נוסח ברכות התפלה וסידורן",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 124,
+        "codeStr": "מ\"ע נוסח"
+      },
+      {
+        "type": "aseh",
+        "number": 628,
+        "codeStr": "מ\"ע ברכות"
+      },
+      {
+        "type": "aseh",
+        "number": 520,
+        "codeStr": "מ\"ע התפלה"
+      },
+      {
+        "type": "aseh",
+        "number": 286,
+        "codeStr": "מ\"ע וסידורן"
+      }
+    ]
+  },
+  "6_12": {
+    "dayNumber": 6,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "6 אדר ראשון",
+    "mitzvotDisplay": "נוסח ברכת המזון. מ\"ע קנד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 124,
+        "codeStr": "מ\"ע נוסח"
+      },
+      {
+        "type": "aseh",
+        "number": 622,
+        "codeStr": "מ\"ע ברכת"
+      },
+      {
+        "type": "aseh",
+        "number": 58,
+        "codeStr": "מ\"ע המזון"
+      },
+      {
+        "type": "aseh",
+        "number": 154,
+        "codeStr": "מ\"ע קנד"
+      }
+    ]
+  },
+  "7_12": {
+    "dayNumber": 7,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "7 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קנד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 154,
+        "codeStr": "מ\"ע קנד"
+      }
+    ]
+  },
+  "8_12": {
+    "dayNumber": 8,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "8 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת שכ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 320,
+        "codeStr": "מל\"ת שכ"
+      }
+    ]
+  },
+  "9_12": {
+    "dayNumber": 9,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "9 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת שכ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 320,
+        "codeStr": "מל\"ת שכ"
+      }
+    ]
+  },
+  "10_12": {
+    "dayNumber": 10,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "10 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת שכב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 322,
+        "codeStr": "מל\"ת שכב"
+      }
+    ]
+  },
+  "11_12": {
+    "dayNumber": 11,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "11 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת שכב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 322,
+        "codeStr": "מל\"ת שכב"
+      }
+    ]
+  },
+  "12_12": {
+    "dayNumber": 12,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "12 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת שכא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 321,
+        "codeStr": "מל\"ת שכא"
+      }
+    ]
+  },
+  "13_12": {
+    "dayNumber": 13,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "13 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת שכא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 321,
+        "codeStr": "מל\"ת שכא"
+      }
+    ]
+  },
+  "14_12": {
+    "dayNumber": 14,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "14 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קנה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 155,
+        "codeStr": "מ\"ע קנה"
+      }
+    ]
+  },
+  "15_12": {
+    "dayNumber": 15,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "15 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קנה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 155,
+        "codeStr": "מ\"ע קנה"
+      }
+    ]
+  },
+  "16_12": {
+    "dayNumber": 16,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "16 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קנה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 155,
+        "codeStr": "מ\"ע קנה"
+      }
+    ]
+  },
+  "17_12": {
+    "dayNumber": 17,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "17 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת שכ",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 320,
+        "codeStr": "מל\"ת שכ"
+      }
+    ]
+  },
+  "18_12": {
+    "dayNumber": 18,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "18 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת שכא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 321,
+        "codeStr": "מל\"ת שכא"
+      }
+    ]
+  },
+  "19_12": {
+    "dayNumber": 19,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "19 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קסה. מל\"ת שכט. מ\"ע קסד. מל\"ת קצו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 165,
+        "codeStr": "מ\"ע קסה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 329,
+        "codeStr": "מל\"ת שכט"
+      },
+      {
+        "type": "aseh",
+        "number": 164,
+        "codeStr": "מ\"ע קסד"
+      },
+      {
+        "type": "lotaseh",
+        "number": 196,
+        "codeStr": "מל\"ת קצו"
+      }
+    ]
+  },
+  "20_12": {
+    "dayNumber": 20,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "20 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קנט. מל\"ת שכג. מ\"ע קס. מל\"ת שכד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 159,
+        "codeStr": "מ\"ע קנט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 323,
+        "codeStr": "מל\"ת שכג"
+      },
+      {
+        "type": "aseh",
+        "number": 160,
+        "codeStr": "מ\"ע קס"
+      },
+      {
+        "type": "lotaseh",
+        "number": 324,
+        "codeStr": "מל\"ת שכד"
+      }
+    ]
+  },
+  "21_12": {
+    "dayNumber": 21,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "21 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קסב. מל\"ת שכה. מ\"ע קסג. מל\"ת שכו",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 162,
+        "codeStr": "מ\"ע קסב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 325,
+        "codeStr": "מל\"ת שכה"
+      },
+      {
+        "type": "aseh",
+        "number": 163,
+        "codeStr": "מ\"ע קסג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 326,
+        "codeStr": "מל\"ת שכו"
+      }
+    ]
+  },
+  "22_12": {
+    "dayNumber": 22,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "22 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קסו. מל\"ת שכז. מ\"ע קסז. מל\"ת שכח. קצט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 166,
+        "codeStr": "מ\"ע קסו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 327,
+        "codeStr": "מל\"ת שכז"
+      },
+      {
+        "type": "aseh",
+        "number": 167,
+        "codeStr": "מ\"ע קסז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 328,
+        "codeStr": "מל\"ת שכח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 199,
+        "codeStr": "מל\"ת קצט"
+      }
+    ]
+  },
+  "23_12": {
+    "dayNumber": 23,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "23 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קנו. מל\"ת קצז. קצח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 156,
+        "codeStr": "מ\"ע קנו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 197,
+        "codeStr": "מל\"ת קצז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 198,
+        "codeStr": "מל\"ת קצח"
+      }
+    ]
+  },
+  "24_12": {
+    "dayNumber": 24,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "24 אדר ראשון",
+    "mitzvotDisplay": "מל\"ת ר. רא. מ\"ע קנח",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 200,
+        "codeStr": "מל\"ת ר"
+      },
+      {
+        "type": "lotaseh",
+        "number": 201,
+        "codeStr": "מל\"ת רא"
+      },
+      {
+        "type": "aseh",
+        "number": 158,
+        "codeStr": "מ\"ע קנח"
+      }
+    ]
+  },
+  "25_12": {
+    "dayNumber": 25,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "25 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קנז. נוסח ההגדה. מ\"ע קע",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 157,
+        "codeStr": "מ\"ע קנז"
+      },
+      {
+        "type": "aseh",
+        "number": 124,
+        "codeStr": "מ\"ע נוסח"
+      },
+      {
+        "type": "aseh",
+        "number": 22,
+        "codeStr": "מ\"ע ההגדה"
+      },
+      {
+        "type": "aseh",
+        "number": 170,
+        "codeStr": "מ\"ע קע"
+      }
+    ]
+  },
+  "26_12": {
+    "dayNumber": 26,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "26 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קסח",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 168,
+        "codeStr": "מ\"ע קסח"
+      }
+    ]
+  },
+  "27_12": {
+    "dayNumber": 27,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "27 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קסט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 169,
+        "codeStr": "מ\"ע קסט"
+      }
+    ]
+  },
+  "28_12": {
+    "dayNumber": 28,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "28 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קעא",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 171,
+        "codeStr": "מ\"ע קעא"
+      }
+    ]
+  },
+  "29_12": {
+    "dayNumber": 29,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "29 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קעא. קנג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 171,
+        "codeStr": "מ\"ע קעא"
+      },
+      {
+        "type": "aseh",
+        "number": 153,
+        "codeStr": "מ\"ע קנג"
+      }
+    ]
+  },
+  "30_12": {
+    "dayNumber": 30,
+    "monthNumber": 12,
+    "monthName": "אדר ראשון",
+    "hebrewDate": "30 אדר ראשון",
+    "mitzvotDisplay": "מ\"ע קנג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 153,
+        "codeStr": "מ\"ע קנג"
+      }
+    ]
+  },
+  "1_13": {
+    "dayNumber": 1,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "1 אדר שני",
+    "mitzvotDisplay": "מ\"ע קנג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 153,
+        "codeStr": "מ\"ע קנג"
+      }
+    ]
+  },
+  "2_13": {
+    "dayNumber": 2,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "2 אדר שני",
+    "mitzvotDisplay": "מ\"ע קנג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 153,
+        "codeStr": "מ\"ע קנג"
+      }
+    ]
+  },
+  "3_13": {
+    "dayNumber": 3,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "3 אדר שני",
+    "mitzvotDisplay": "מ\"ע קנג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 153,
+        "codeStr": "מ\"ע קנג"
+      }
+    ]
+  },
+  "4_13": {
+    "dayNumber": 4,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "4 אדר שני",
+    "mitzvotDisplay": "מ\"ע קנג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 153,
+        "codeStr": "מ\"ע קנג"
+      }
+    ]
+  },
+  "5_13": {
+    "dayNumber": 5,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "5 אדר שני",
+    "mitzvotDisplay": "מ\"ע קנג. נט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 153,
+        "codeStr": "מ\"ע קנג"
+      },
+      {
+        "type": "aseh",
+        "number": 59,
+        "codeStr": "מ\"ע נט"
+      }
+    ]
+  },
+  "6_13": {
+    "dayNumber": 6,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "6 אדר שני",
+    "mitzvotDisplay": "מ\"ע נט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 59,
+        "codeStr": "מ\"ע נט"
+      }
+    ]
+  },
+  "7_13": {
+    "dayNumber": 7,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "7 אדר שני",
+    "mitzvotDisplay": "מ\"ע נט. הלכות מגילה וחנוכה",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 59,
+        "codeStr": "מ\"ע נט"
+      },
+      {
+        "type": "aseh",
+        "number": 461,
+        "codeStr": "מ\"ע הלכות"
+      },
+      {
+        "type": "aseh",
+        "number": 88,
+        "codeStr": "מ\"ע מגילה"
+      },
+      {
+        "type": "aseh",
+        "number": 95,
+        "codeStr": "מ\"ע וחנוכה"
+      }
+    ]
+  },
+  "8_13": {
+    "dayNumber": 8,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "8 אדר שני",
+    "mitzvotDisplay": "מ\"ע ריג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 213,
+        "codeStr": "מ\"ע ריג"
+      }
+    ]
+  },
+  "9_13": {
+    "dayNumber": 9,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "9 אדר שני",
+    "mitzvotDisplay": "מ\"ע ריג",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 213,
+        "codeStr": "מ\"ע ריג"
+      }
+    ]
+  },
+  "10_13": {
+    "dayNumber": 10,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "10 אדר שני",
+    "mitzvotDisplay": "מל\"ת שנה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 355,
+        "codeStr": "מל\"ת שנה"
+      }
+    ]
+  },
+  "11_13": {
+    "dayNumber": 11,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "11 אדר שני",
+    "mitzvotDisplay": "מל\"ת שנה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 355,
+        "codeStr": "מל\"ת שנה"
+      }
+    ]
+  },
+  "12_13": {
+    "dayNumber": 12,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "12 אדר שני",
+    "mitzvotDisplay": "מל\"ת שנה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 355,
+        "codeStr": "מל\"ת שנה"
+      }
+    ]
+  },
+  "13_13": {
+    "dayNumber": 13,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "13 אדר שני",
+    "mitzvotDisplay": "מל\"ת רסב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 262,
+        "codeStr": "מל\"ת רסב"
+      }
+    ]
+  },
+  "14_13": {
+    "dayNumber": 14,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "14 אדר שני",
+    "mitzvotDisplay": "מל\"ת רסב",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 262,
+        "codeStr": "מל\"ת רסב"
+      }
+    ]
+  },
+  "15_13": {
+    "dayNumber": 15,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "15 אדר שני",
+    "mitzvotDisplay": "מ\"ע ריב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 212,
+        "codeStr": "מ\"ע ריב"
+      }
+    ]
+  },
+  "16_13": {
+    "dayNumber": 16,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "16 אדר שני",
+    "mitzvotDisplay": "מ\"ע ריב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 212,
+        "codeStr": "מ\"ע ריב"
+      }
+    ]
+  },
+  "17_13": {
+    "dayNumber": 17,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "17 אדר שני",
+    "mitzvotDisplay": "מ\"ע רכב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 222,
+        "codeStr": "מ\"ע רכב"
+      }
+    ]
+  },
+  "18_13": {
+    "dayNumber": 18,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "18 אדר שני",
+    "mitzvotDisplay": "מ\"ע רכב",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 222,
+        "codeStr": "מ\"ע רכב"
+      }
+    ]
+  },
+  "19_13": {
+    "dayNumber": 19,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "19 אדר שני",
+    "mitzvotDisplay": "מל\"ת שנו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 356,
+        "codeStr": "מל\"ת שנו"
+      }
+    ]
+  },
+  "20_13": {
+    "dayNumber": 20,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "20 אדר שני",
+    "mitzvotDisplay": "מל\"ת שנו",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 356,
+        "codeStr": "מל\"ת שנו"
+      }
+    ]
+  },
+  "21_13": {
+    "dayNumber": 21,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "21 אדר שני",
+    "mitzvotDisplay": "מל\"ת שנו. מ\"ע רטז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 356,
+        "codeStr": "מל\"ת שנו"
+      },
+      {
+        "type": "aseh",
+        "number": 216,
+        "codeStr": "מ\"ע רטז"
+      }
+    ]
+  },
+  "22_13": {
+    "dayNumber": 22,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "22 אדר שני",
+    "mitzvotDisplay": "מ\"ע ריז",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 217,
+        "codeStr": "מ\"ע ריז"
+      }
+    ]
+  },
+  "23_13": {
+    "dayNumber": 23,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "23 אדר שני",
+    "mitzvotDisplay": "מל\"ת שנז",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 357,
+        "codeStr": "מל\"ת שנז"
+      }
+    ]
+  },
+  "24_13": {
+    "dayNumber": 24,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "24 אדר שני",
+    "mitzvotDisplay": "מ\"ע רכ. ריח. מל\"ת שנח. מ\"ע ריט. מל\"ת שנט",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 220,
+        "codeStr": "מ\"ע רכ"
+      },
+      {
+        "type": "aseh",
+        "number": 218,
+        "codeStr": "מ\"ע ריח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 358,
+        "codeStr": "מל\"ת שנח"
+      },
+      {
+        "type": "aseh",
+        "number": 219,
+        "codeStr": "מ\"ע ריט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 359,
+        "codeStr": "מל\"ת שנט"
+      }
+    ]
+  },
+  "25_13": {
+    "dayNumber": 25,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "25 אדר שני",
+    "mitzvotDisplay": "מ\"ע רכג. מל\"ת קד",
+    "mitzvotCodes": [
+      {
+        "type": "aseh",
+        "number": 223,
+        "codeStr": "מ\"ע רכג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 104,
+        "codeStr": "מל\"ת קד"
+      }
+    ]
+  },
+  "26_13": {
+    "dayNumber": 26,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "26 אדר שני",
+    "mitzvotDisplay": "מל\"ת קה. של. שלא. שלב. שלג. שלד",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 105,
+        "codeStr": "מל\"ת קה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 330,
+        "codeStr": "מל\"ת של"
+      },
+      {
+        "type": "lotaseh",
+        "number": 331,
+        "codeStr": "מל\"ת שלא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 332,
+        "codeStr": "מל\"ת שלב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 333,
+        "codeStr": "מל\"ת שלג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 334,
+        "codeStr": "מל\"ת שלד"
+      }
+    ]
+  },
+  "27_13": {
+    "dayNumber": 27,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "27 אדר שני",
+    "mitzvotDisplay": "מל\"ת שלו. שלה. שלז. שלח. שלט",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 336,
+        "codeStr": "מל\"ת שלו"
+      },
+      {
+        "type": "lotaseh",
+        "number": 335,
+        "codeStr": "מל\"ת שלה"
+      },
+      {
+        "type": "lotaseh",
+        "number": 337,
+        "codeStr": "מל\"ת שלז"
+      },
+      {
+        "type": "lotaseh",
+        "number": 338,
+        "codeStr": "מל\"ת שלח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 339,
+        "codeStr": "מל\"ת שלט"
+      }
+    ]
+  },
+  "28_13": {
+    "dayNumber": 28,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "28 אדר שני",
+    "mitzvotDisplay": "מל\"ת שמ. שמא. שמב. שמג. שדמ. שמה",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 340,
+        "codeStr": "מל\"ת שמ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 341,
+        "codeStr": "מל\"ת שמא"
+      },
+      {
+        "type": "lotaseh",
+        "number": 342,
+        "codeStr": "מל\"ת שמב"
+      },
+      {
+        "type": "lotaseh",
+        "number": 343,
+        "codeStr": "מל\"ת שמג"
+      },
+      {
+        "type": "lotaseh",
+        "number": 344,
+        "codeStr": "מל\"ת שדמ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 345,
+        "codeStr": "מל\"ת שמה"
+      }
+    ]
+  },
+  "29_13": {
+    "dayNumber": 29,
+    "monthNumber": 13,
+    "monthName": "אדר שני",
+    "hebrewDate": "29 אדר שני",
+    "mitzvotDisplay": "מל\"ת שמח. שמט. שנ. שנא",
+    "mitzvotCodes": [
+      {
+        "type": "lotaseh",
+        "number": 348,
+        "codeStr": "מל\"ת שמח"
+      },
+      {
+        "type": "lotaseh",
+        "number": 349,
+        "codeStr": "מל\"ת שמט"
+      },
+      {
+        "type": "lotaseh",
+        "number": 350,
+        "codeStr": "מל\"ת שנ"
+      },
+      {
+        "type": "lotaseh",
+        "number": 351,
+        "codeStr": "מל\"ת שנא"
+      }
+    ]
+  }
+}

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DailyStudyKey, RambamTrack, StudySettings, ThemeMode } from '../types/chitas';
 import { ALL_LESSONS, enabledLessonKeys, TEXT_FONTS } from '../utils/lessons';
-import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2 } from 'lucide-react';
+import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell } from 'lucide-react';
 import { CityConfig, DEFAULT_CITY, getSavedCity } from '../services/zmanimService';
 import { CityPicker } from './CityPicker';
 import { AccountSection } from './AccountSection';
+import { RemindersSection } from './RemindersSection';
 import type { AccountUser } from '../services/account';
 
 interface StudySettingsModalProps {
@@ -259,6 +260,15 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Reminders */}
+          <div className="space-y-2 pt-2 border-t border-stone-100">
+            <label className={sectionTitle}>
+              <Bell className="w-3.5 h-3.5 text-amber-800" />
+              <span>תזכורות:</span>
+            </label>
+            <RemindersSection enabledLessons={settings.enabledLessons} />
           </div>
 
           {/* Optional account */}

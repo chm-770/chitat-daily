@@ -93,6 +93,8 @@ export default defineConfig(() => {
           ],
         },
         workbox: {
+          // Shows reminder notifications sent by the server (see worker/)
+          importScripts: ['push-sw.js'],
           maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
           // Store screenshots are not needed offline

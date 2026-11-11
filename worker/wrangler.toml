@@ -1,0 +1,14 @@
+# Sends the reminder notifications of חת״ת יומי.
+# Secret (set in the Cloudflare dashboard, never in the repository):
+#   FIREBASE_SERVICE_ACCOUNT  the whole JSON file of the Firebase service account key
+name = "chitat-daily-reminders"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+workers_dev = false
+
+[vars]
+FIREBASE_PROJECT_ID = "chitat-daily"
+APP_URL = "https://chitatdaily.pages.dev"
+
+[triggers]
+crons = ["* * * * *"]

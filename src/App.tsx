@@ -16,6 +16,7 @@ import { BottomInstallPrompt } from './components/BottomInstallPrompt';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { CalendarModal } from './components/CalendarModal';
 import { getSavedCity, DEFAULT_CITY } from './services/zmanimService';
+import { refreshReminders } from './services/reminders';
 import { emptyProgress, loadProgress, localDateKey } from './utils/progress';
 import { enabledLessonKeys, nextSection, sectionSequence, textFontFamily } from './utils/lessons';
 import { OnboardingModal } from './components/OnboardingModal';
@@ -387,6 +388,11 @@ export default function App() {
     if (settings.theme === 'parchment') return 'bg-amber-50/30 text-stone-900 min-h-screen';
     return 'bg-white text-stone-900 min-h-screen';
   };
+
+  // Keeps the reminders server up to date with the city and this device's token
+  useEffect(() => {
+    refreshReminders();
+  }, [cityId, settings.inIsrael]);
 
   const handleCityChanged = (city: { id: string }) => {
     setCityId(`${city.id}_${Date.now()}`);

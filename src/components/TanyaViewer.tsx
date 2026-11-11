@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useJustCompleted } from '../hooks/useJustCompleted';
+import { CompletedBadge } from './CompletedBadge';
 import { motion, PanInfo } from 'motion/react';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { StudySettings } from '../types/chitas';
@@ -27,8 +27,6 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
   onMarkItemRead,
   onAdvanceToNext,
 }) => {
-  // The "אשריך" card is shown only right after finishing, not when coming back later
-  const justCompleted = useJustCompleted(isCompleted);
   const [portion, setPortion] = useState<TanyaDailyPortion | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -136,6 +134,8 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
                 <span>סיימתי</span>
               </button>
             ) : (
+              <>
+              <CompletedBadge />
               <button
                 type="button"
                 onClick={handleReviewAgain}
@@ -144,6 +144,7 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>קרא שוב</span>
               </button>
+              </>
             )}
           </div>
         </div>
@@ -159,20 +160,6 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
       {!isLoading && portion && (
         <div className="space-y-4">
           {/* Completed State Card */}
-          {isFinished && justCompleted && (
-            <div className="p-6 text-center bg-emerald-50/60 rounded-2xl border border-emerald-200 shadow-2xs space-y-2">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />
-              </div>
-              <h3 className="font-bold text-stone-900 font-torah text-2xl">
-                אשריך! סיימת את שיעור התניא היומי
-              </h3>
-              <p className="text-xs text-stone-600">
-                השיעור סומן כהושלם. לחץ ״קרא שוב״ למעלה במידה שברצונך לחזור על הלימוד.
-              </p>
-            </div>
-          )}
-
           {/* Unified Single Card for Tanya Daily Study ("בריבוע טקסט אחד ולא כמה שונים") */}
           <div className="relative overflow-hidden rounded-2xl select-none shadow-xs">
             {/* Background reveal on swipe */}

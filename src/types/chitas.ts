@@ -118,6 +118,8 @@ export interface StudySettings {
   enabledLessons?: DailyStudyKey[];
   /** The first-launch menu was completed */
   onboardingDone?: boolean;
+  /** Answer of the first-launch question (Israel / Diaspora parasha); a chosen city takes precedence */
+  inIsrael?: boolean;
   /** Font of the Torah texts */
   textFont?: TextFont;
 }

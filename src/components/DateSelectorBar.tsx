@@ -1,7 +1,7 @@
 import React, { useRef, useMemo } from 'react';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { Calendar, ChevronRight, ChevronLeft, RotateCcw } from 'lucide-react';
-import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting } from '../services/zmanimService';
+import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting, getShabbatEndTime } from '../services/zmanimService';
 
 interface DateSelectorBarProps {
   currentDate: Date;
@@ -35,6 +35,7 @@ export const DateSelectorBar: React.FC<DateSelectorBarProps> = ({
 
   const currentCity = getSavedCity() || DEFAULT_CITY;
   const isFriday = dateInfo.dayOfWeekIndex === 5;
+  const shabbatEndTime = isFriday ? getShabbatEndTime(currentCity, currentDate) : null;
   const candleLightingTime = useMemo(() => {
     if (!isFriday) return null;
     return getFridayCandleLighting(currentCity, currentDate);
@@ -150,6 +151,12 @@ export const DateSelectorBar: React.FC<DateSelectorBarProps> = ({
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-200/90 text-amber-950 border border-amber-300 font-sans font-semibold text-[10px]">
                   <span>🕯️</span>
                   <span>כניסת שבת: {candleLightingTime}</span>
+                </span>
+              )}
+              {isFriday && shabbatEndTime && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-200/90 text-amber-950 border border-amber-300 font-sans font-semibold text-[10px]">
+                  <span>✨</span>
+                  <span>צאת שבת: {shabbatEndTime}</span>
                 </span>
               )}
             </div>

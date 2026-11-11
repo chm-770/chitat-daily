@@ -18,6 +18,7 @@ interface OnboardingModalProps {
 export const OnboardingModal: React.FC<OnboardingModalProps> = ({ settings, onDone }) => {
   const [lessons, setLessons] = useState<DailyStudyKey[]>(() => enabledLessonKeys(settings.enabledLessons));
   const [track, setTrack] = useState<RambamTrack>(settings.rambamTrack || 'three_chapters');
+  const [inIsrael, setInIsrael] = useState<boolean>(settings.inIsrael ?? true);
 
   const toggle = (key: DailyStudyKey) =>
     setLessons((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]));
@@ -34,7 +35,36 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ settings, onDo
         </div>
 
         <div className="p-5 space-y-5 overflow-y-auto">
+          {/* Israel or abroad: the weekly parasha is sometimes different */}
           <div className="space-y-2">
+            <div className="text-xs font-semibold text-stone-700">איפה אתה גר?</div>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { v: true, label: 'בארץ ישראל' },
+                { v: false, label: 'בחוץ לארץ' },
+              ].map((o) => (
+                <button
+                  key={o.label}
+                  type="button"
+                  onClick={() => setInIsrael(o.v)}
+                  className={`p-2.5 rounded-xl border text-sm cursor-pointer transition-colors ${
+                    inIsrael === o.v
+                      ? 'bg-amber-100 border-amber-800 text-amber-950 font-bold'
+                      : 'bg-stone-50 border-stone-200 text-stone-700'
+                  }`}
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
+            <p className="text-[11px] text-stone-500">
+              לפעמים פרשת השבוע שונה בין ארץ ישראל לחוץ לארץ.
+              {!inIsrael && ' לזמני היום המדויקים אפשר לבחור את העיר שלך בהגדרות.'}
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-xs font-semibold text-stone-700">מה תרצה ללמוד?</div>
             {ALL_LESSONS.map((l) => {
               const on = lessons.includes(l.key);
               return (
@@ -87,7 +117,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ settings, onDo
           <button
             type="button"
             disabled={lessons.length === 0}
-            onClick={() => onDone({ enabledLessons: lessons, rambamTrack: track })}
+            onClick={() => onDone({ enabledLessons: lessons, rambamTrack: track, inIsrael })}
             className="w-full py-2.5 text-sm font-bold text-white bg-amber-900 hover:bg-amber-800 rounded-xl cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {lessons.length === 0 ? 'בחר לפחות שיעור אחד' : 'התחל ללמוד'}

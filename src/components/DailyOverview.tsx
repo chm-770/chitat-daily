@@ -3,7 +3,7 @@ import { StudyCategory, DailyProgress, DailyStudyKey, RambamTrack } from '../typ
 import { ALL_LESSONS, enabledLessonKeys } from '../utils/lessons';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { BookOpen, Scroll, BookMarked, Sun, Scale, CheckCircle2, Circle, ArrowLeft } from 'lucide-react';
-import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting } from '../services/zmanimService';
+import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting, getShabbatEndTime } from '../services/zmanimService';
 import { getTanyaDailyPortion } from '../services/tanyaService';
 
 interface DailyOverviewProps {
@@ -139,6 +139,7 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
 
   const currentCity = getSavedCity() || DEFAULT_CITY;
   const isFriday = dateInfo.dayOfWeekIndex === 5;
+  const shabbatEndTime = isFriday ? getShabbatEndTime(currentCity, dateInfo.date || new Date()) : null;
   const candleLightingTime = useMemo(() => {
     if (!isFriday) return null;
     return getFridayCandleLighting(currentCity, dateInfo.date || new Date());
@@ -160,10 +161,18 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
 
               {/* On Friday: display Shabbat candle lighting time right beside the Parashah name! */}
               {isFriday && candleLightingTime && (
-                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-200/90 text-amber-950 border border-amber-300 font-sans text-xs sm:text-sm font-semibold shadow-2xs">
-                  <span>🕯️</span>
-                  <span>כניסת שבת: {candleLightingTime}</span>
-                  <span className="text-xs text-amber-800 font-normal">({currentCity.nameHe})</span>
+                <div className="inline-flex flex-col items-start gap-0.5 px-3 py-1.5 rounded-xl bg-amber-200/90 text-amber-950 border border-amber-300 font-sans text-xs sm:text-sm font-semibold shadow-2xs">
+                  <span className="flex items-center gap-1.5">
+                    <span>🕯️</span>
+                    <span>כניסת שבת: {candleLightingTime}</span>
+                    <span className="text-xs text-amber-800 font-normal">({currentCity.nameHe})</span>
+                  </span>
+                  {shabbatEndTime && (
+                    <span className="flex items-center gap-1.5">
+                      <span>✨</span>
+                      <span>צאת שבת: {shabbatEndTime}</span>
+                    </span>
+                  )}
                 </div>
               )}
             </div>

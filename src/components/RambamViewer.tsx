@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useJustCompleted } from '../hooks/useJustCompleted';
+import { CompletedBadge } from './CompletedBadge';
 import { AnimatePresence } from 'motion/react';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { StudySettings, RambamTrack } from '../types/chitas';
@@ -34,8 +34,6 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
   onMarkBatch,
   onAdvanceToNext,
 }) => {
-  // The "אשריך" card is shown only right after finishing, not when coming back later
-  const justCompleted = useJustCompleted(isCompleted);
   const track: RambamTrack = settings.rambamTrack || 'three_chapters';
   const [lesson, setLesson] = useState<RambamDailyLesson | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -228,6 +226,8 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                 <span>סיימתי</span>
               </button>
             ) : (
+              <>
+              <CompletedBadge />
               <button
                 type="button"
                 onClick={handleReviewAgain}
@@ -236,6 +236,7 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>קרא שוב</span>
               </button>
+              </>
             )}
           </div>
         </div>
@@ -299,21 +300,7 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
 
           {/* Completion Celebration Card */}
           {isAllFinished && lesson.chapters.length > 0 && (
-            <div
-              className={
-                justCompleted
-                  ? 'p-8 text-center bg-white rounded-2xl border border-emerald-300 shadow-2xs space-y-3'
-                  : 'text-center'
-              }
-            >
-              {justCompleted && (
-                <>
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-7 h-7 stroke-[2.5]" />
-                  </div>
-                  <h3 className="font-bold text-stone-900 font-torah text-3xl">אשריך !</h3>
-                </>
-              )}
+            <div className="text-center">
               <div className="pt-2">
                 <button
                   type="button"
@@ -378,25 +365,26 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                     </span>
                   </div>
 
-                  {/* Opening of a new set of Halachot (its mitzvot), as its own card before halacha 1 */}
-                  {chapter.mitzvotIntro && (
-                    <div className="bg-white border border-amber-300/80 p-6 md:p-7 rounded-2xl space-y-3">
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-amber-900">
-                        <Scroll className="w-4 h-4 text-amber-800" />
-                        <span>{chapter.heRef.replace(/\s*פרק\s+\S+$/, '')}</span>
-                      </div>
-                      {chapter.mitzvotIntro
-                        .split(/\s*(?=וזה הוא פרטן)/)
-                        .map((part, i) => (
-                          <p
-                            key={i}
-                            className={`font-torah text-stone-900 font-medium ${getFontSizeClass()} text-justify leading-loose`}
-                          >
-                            {part}
-                          </p>
-                        ))}
-                    </div>
-                  )}
+                  {/* Opening of a new set of Halachot (its mitzvot): its own swipeable card before halacha 1 */}
+                  {chapter.mitzvotIntro &&
+                    !readItemIds[`rambam_${chapter.id || cIdx}_intro`] &&
+                    !readItemIds[`rambam_${chapter.id || cIdx}_h0`] && (
+                      <SwipeHalachaCard
+                        key={`intro_${chapter.id || cIdx}`}
+                        id={`rambam_${chapter.id || cIdx}_intro`}
+                        chapterTitle={chapter.heRef.replace(/\s*פרק\s+\S+$/, '')}
+                        halachaNumberStr=""
+                        itemLabel="פתיחה"
+                        totalInChapter={chapter.halachot.length}
+                        text={chapter.mitzvotIntro.replace(/\s*(?=וזה הוא פרטן)/, '\n')}
+                        fontSizeClass={getFontSizeClass()}
+                        onSwipeRight={() =>
+                          onMarkBatch
+                            ? onMarkBatch([`rambam_${chapter.id || cIdx}_intro`])
+                            : onMarkItemRead(`rambam_${chapter.id || cIdx}_intro`)
+                        }
+                      />
+                    )}
 
                   {/* Disappearing Halacha Cards on Swipe Right */}
                   {!isChapterDone ? (

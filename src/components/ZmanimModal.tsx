@@ -175,12 +175,14 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
                   <div className="font-bold text-stone-900 text-xs sm:text-sm font-torah">
                     {zmanimData.dateStrHebrew}
                   </div>
-                  <button
-                    onClick={handleResetToToday}
-                    className="text-[10px] text-amber-800 hover:underline cursor-pointer"
-                  >
-                    חזור להיום
-                  </button>
+                  {viewDate.toDateString() !== new Date().toDateString() && (
+                    <button
+                      onClick={handleResetToToday}
+                      className="text-[10px] text-amber-800 hover:underline cursor-pointer"
+                    >
+                      חזור להיום
+                    </button>
+                  )}
                 </div>
 
                 <button

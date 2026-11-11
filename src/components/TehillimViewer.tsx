@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useJustCompleted } from '../hooks/useJustCompleted';
 import { AnimatePresence } from 'motion/react';
 import { HebrewDateInfo, TEHILLIM_MONTHLY_RANGES } from '../utils/hebrewCalendar';
 import { StudySettings } from '../types/chitas';
@@ -39,8 +38,6 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
   onMarkBatch,
   onAdvanceToNext,
 }) => {
-  // The "אשריך" card is shown only right after finishing, not when coming back later
-  const justCompleted = useJustCompleted(isCompleted);
   // Marks the swiped psalm and every unread psalm above it, like the verses in the Chumash
   const markUpTo = (chapters: TehillimChapter[], chapterNumber: number, prefix: string): number => {
     const idx = chapters.findIndex((c) => c.number === chapterNumber);
@@ -544,17 +541,6 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                 </div>
 
                 {/* Finished Message if all chapters swiped */}
-                {isCompleted && justCompleted && remainingToday.length === 0 && (
-                  <div className="p-6 text-center bg-white rounded-xl border border-emerald-200 shadow-2xs space-y-2">
-                    <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                      <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />
-                    </div>
-                    <h4 className="font-bold text-stone-900 font-torah text-2xl">
-                      אשריך !
-                    </h4>
-                  </div>
-                )}
-
                 {/* Swipeable Psalm Cards */}
                 {remainingToday.length > 0 && (
                   <div ref={todayCardsRef} className="space-y-4">

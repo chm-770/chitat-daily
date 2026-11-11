@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useJustCompleted } from '../hooks/useJustCompleted';
 import { AnimatePresence } from 'motion/react';
 import { Parasha, ChumashAliyah, ChumashVerse, StudySettings } from '../types/chitas';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
@@ -10,7 +9,7 @@ import {
   getParashaData,
   getPreviousParashaShviiAliyah,
 } from '../services/chumashService';
-import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting } from '../services/zmanimService';
+import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting, getShabbatEndTime } from '../services/zmanimService';
 import { CheckCircle2, RotateCcw, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface ChumashViewerProps {
@@ -50,8 +49,6 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
   onMarkVersesBatch,
   onAdvanceToNext,
 }) => {
-  // The "אשריך" card is shown only right after finishing, not when coming back later
-  const justCompleted = useJustCompleted(isCompleted);
   const [selectedParashaId, setSelectedParashaId] = useState<string>('vezot_haberachah');
   // Empty until the week's parasha is loaded (the loading indicator is shown meanwhile)
   const [parashaData, setParashaData] = useState<Parasha>({
@@ -262,6 +259,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
   // Zmanim for Friday candle lighting:
   const currentCity = getSavedCity() || DEFAULT_CITY;
   const isFriday = dateInfo.dayOfWeekIndex === 5;
+  const shabbatEndTime = isFriday ? getShabbatEndTime(currentCity, dateInfo.date || new Date()) : null;
   const candleLightingTime = isFriday
     ? getFridayCandleLighting(currentCity, dateInfo.date || new Date())
     : null;
@@ -299,10 +297,18 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
 
           {/* Requirement 4: ביום שישי תשים ישר ליד איפה שכתוב פרשת נח או הפרשה של השבוע את זמני כניסת השבת לפי אותה העיר שלו */}
           {isFriday && candleLightingTime && (
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100 text-amber-950 border border-amber-300 font-sans text-xs sm:text-sm font-semibold shadow-2xs animate-in fade-in">
-              <span>🕯️</span>
-              <span>כניסת שבת: {candleLightingTime}</span>
-              <span className="text-xs text-amber-800 font-normal">({currentCity.nameHe})</span>
+            <div className="inline-flex flex-col items-start gap-0.5 px-3 py-1.5 rounded-xl bg-amber-100 text-amber-950 border border-amber-300 font-sans text-xs sm:text-sm font-semibold shadow-2xs animate-in fade-in">
+              <span className="flex items-center gap-1.5">
+                <span>🕯️</span>
+                <span>כניסת שבת: {candleLightingTime}</span>
+                <span className="text-xs text-amber-800 font-normal">({currentCity.nameHe})</span>
+              </span>
+              {shabbatEndTime && (
+                <span className="flex items-center gap-1.5">
+                  <span>✨</span>
+                  <span>צאת שבת: {shabbatEndTime}</span>
+                </span>
+              )}
             </div>
           )}
         </div>
@@ -474,17 +480,6 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                     </div>
 
                     {/* Completion card if all verses of this card have been swiped */}
-                    {finished && justCompleted && (
-                      <div className="p-6 text-center bg-white rounded-xl border border-emerald-200/90 shadow-2xs space-y-2">
-                        <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                          <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />
-                        </div>
-                        <h4 className="font-bold text-stone-900 font-torah text-2xl">
-                          אשריך !
-                        </h4>
-                      </div>
-                    )}
-
                     {/* Verses List with disappearing swipe right & bolded Dibbur HaMaschil */}
                     {!finished && (
                       <div id={`chumash_verses_${card.id}`} className="space-y-3.5">

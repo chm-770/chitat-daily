@@ -91,7 +91,6 @@ export default function App() {
 
   const [progress, setProgress] = useState<DailyProgress>(() => loadProgress(dateKey) || emptyProgress(dateKey));
 
-  const [showCelebration, setShowCelebration] = useState<boolean>(false);
 
   // Sync dateInfo and parasha when currentDate changes
   useEffect(() => {
@@ -104,7 +103,7 @@ export default function App() {
         parashaName: info.name,
       }));
     });
-  }, [currentDate, cityId]);
+  }, [currentDate, cityId, settings.inIsrael]);
 
   // Load progress corresponding to the selected date
   useEffect(() => {
@@ -154,12 +153,6 @@ export default function App() {
       // ignore
     }
 
-    const allDone = enabledLessonKeys(settings.enabledLessons).every((k) => Boolean(progress[k]));
-    if (allDone) {
-      setShowCelebration(true);
-      const timer = setTimeout(() => setShowCelebration(false), 6000);
-      return () => clearTimeout(timer);
-    }
   }, [progress, dateKey]);
 
   // Mark a batch of items (e.g. cascading verses) as read
@@ -267,7 +260,16 @@ export default function App() {
   };
 
   const handleUpdateSettings = (newSettings: Partial<StudySettings>) => {
-    setSettings((prev) => ({ ...prev, ...newSettings }));
+    setSettings((prev) => {
+      const next = { ...prev, ...newSettings };
+      // Saved right away: the parasha (Israel / Diaspora) is computed from the saved settings
+      try {
+        localStorage.setItem('chitas_settings', JSON.stringify(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
   };
 
   const SECTIONS_SEQUENCE: StudyCategory[] = sectionSequence(settings.enabledLessons);
@@ -376,25 +378,6 @@ export default function App() {
         onTouchEnd={handleTouchEnd}
         className="max-w-5xl mx-auto px-4 sm:px-6 py-8"
       >
-        {/* Celebration Banner when all portions are completed */}
-        {showCelebration && (
-          <div className="mb-6 p-4 rounded-xl bg-emerald-600 text-white shadow-lg flex items-center justify-between animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/90 flex items-center justify-center font-bold text-white">
-                ✓
-              </div>
-              <h4 className="font-bold text-lg md:text-xl font-torah">
-                אשריך !
-              </h4>
-            </div>
-            <button
-              onClick={() => setShowCelebration(false)}
-              className="text-xs px-2.5 py-1 bg-emerald-700/80 hover:bg-emerald-700 rounded text-emerald-100 cursor-pointer"
-            >
-              סגור
-            </button>
-          </div>
-        )}
 
         {/* Dynamic Category Views */}
         {currentCategory === 'overview' && (
@@ -411,7 +394,7 @@ export default function App() {
 
         {currentCategory === 'chumash' && (
           <ChumashViewer
-            key={`chumash_${cityId}`}
+            key={`chumash_${cityId}_${settings.inIsrael}`}
             dateInfo={dateInfo}
             isCompleted={progress.chumash}
             onToggleCompleted={() => handleToggleProgress('chumash')}

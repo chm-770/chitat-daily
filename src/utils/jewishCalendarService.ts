@@ -6,6 +6,13 @@ import { getSavedCity } from '../services/zmanimService';
 /** True when the user's selected (or detected) city is in Israel. Defaults to Israel (Jerusalem). */
 export function isUserInIsrael(): boolean {
   try {
+    // A city the user chose decides; otherwise the answer to the first-launch question
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('chitas_user_city')) {
+      return getSavedCity()?.isIsrael ?? true;
+    }
+    const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('chitas_settings') : null;
+    const inIsrael = saved ? JSON.parse(saved).inIsrael : undefined;
+    if (typeof inIsrael === 'boolean') return inIsrael;
     return getSavedCity()?.isIsrael ?? true;
   } catch {
     return true;

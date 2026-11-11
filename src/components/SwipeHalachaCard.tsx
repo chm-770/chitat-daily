@@ -65,11 +65,13 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
           {/* Halacha Header */}
           <div className="flex items-center justify-between gap-3 border-b border-stone-100 pb-3">
             <div className="flex items-center gap-2">
-              <span className="w-7 h-7 rounded-lg bg-purple-100 text-purple-950 flex items-center justify-center font-bold text-xs font-torah">
-                {halachaNumberStr}
-              </span>
+              {halachaNumberStr && (
+                <span className="w-7 h-7 rounded-lg bg-purple-100 text-purple-950 flex items-center justify-center font-bold text-xs font-torah">
+                  {halachaNumberStr}
+                </span>
+              )}
               <span className="font-bold text-stone-900 font-torah text-sm">
-                {itemLabel} {halachaNumberStr}
+                {halachaNumberStr ? `${itemLabel} ${halachaNumberStr}` : itemLabel}
                 {chapterTitle ? ` · ${chapterTitle}` : ''}
               </span>
             </div>
@@ -85,10 +87,12 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
             className={`font-torah text-stone-900 font-medium ${fontSizeClass} text-justify leading-loose`}
             dir="rtl"
           >
-            <span className="font-bold text-purple-950 text-base md:text-lg ml-2 select-none">
-              ({halachaNumberStr})
-            </span>
-            <span>{text}</span>
+            {halachaNumberStr && (
+              <span className="font-bold text-purple-950 text-base md:text-lg ml-2 select-none">
+                ({halachaNumberStr})
+              </span>
+            )}
+            <span className="whitespace-pre-line">{text}</span>
           </p>
         </div>
       </motion.div>

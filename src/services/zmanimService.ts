@@ -740,6 +740,13 @@ export function calculateZmanim(
   };
 }
 
+/** Shabbat ends (havdalah) on the Saturday after the given Friday. */
+export function getShabbatEndTime(city: CityConfig, friday: Date = new Date()): string | null {
+  const saturday = new Date(friday);
+  saturday.setDate(saturday.getDate() + 1);
+  return calculateZmanim(city, saturday).havdalahTime;
+}
+
 export function getFridayCandleLighting(
   city: CityConfig,
   date: Date = new Date()

@@ -33,6 +33,9 @@ function b64url(data: ArrayBuffer | Uint8Array | string): string {
 async function accessToken(env: Env): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
   if (cachedToken && cachedToken.exp - 60 > now) return cachedToken.token;
+  if (!env.FIREBASE_SERVICE_ACCOUNT) {
+    throw new Error('Missing secret FIREBASE_SERVICE_ACCOUNT (Settings > Variables and Secrets, type Secret)');
+  }
   const sa = JSON.parse(env.FIREBASE_SERVICE_ACCOUNT);
   const pem = String(sa.private_key).replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
   const der = Uint8Array.from(atob(pem), (c) => c.charCodeAt(0));

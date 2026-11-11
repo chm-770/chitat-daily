@@ -7,6 +7,7 @@ import { DateSelectorBar } from './components/DateSelectorBar';
 import { DailyOverview } from './components/DailyOverview';
 import { ChumashViewer } from './components/ChumashViewer';
 import { ShnayimMikraViewer } from './components/ShnayimMikraViewer';
+import { CONTACT_ENABLED, ContactModal } from './components/ContactModal';
 import { TehillimViewer } from './components/TehillimViewer';
 import { TanyaViewer } from './components/TanyaViewer';
 import { HayomYomViewer } from './components/HayomYomViewer';
@@ -32,6 +33,7 @@ const STRINGS = {
     print: 'הדפסת שיעור',
     sources: 'מקורות',
     privacy: 'מדיניות פרטיות',
+    contact: 'יצירת קשר',
   },
   en: {
     appName: 'Daily Chitas',
@@ -40,6 +42,7 @@ const STRINGS = {
     print: 'Print lesson',
     sources: 'Sources',
     privacy: 'Privacy policy',
+    contact: 'Contact us',
   },
   fr: {
     appName: '\'Hitat quotidien',
@@ -48,6 +51,7 @@ const STRINGS = {
     print: 'Imprimer la leçon',
     sources: 'Sources',
     privacy: 'Politique de confidentialité',
+    contact: 'Nous contacter',
   },
 };
 
@@ -76,6 +80,7 @@ export default function App() {
   const [dateInfo, setDateInfo] = useState<HebrewDateInfo>(() => getHebrewDateInfo(new Date()));
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isZmanimOpen, setIsZmanimOpen] = useState<boolean>(false);
+  const [isContactOpen, setIsContactOpen] = useState<boolean>(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   // Changes when the user picks another city, to refresh the parasha (Israel / Diaspora) and times
   const [cityId, setCityId] = useState<string>(() => (getSavedCity() || DEFAULT_CITY).id);
@@ -600,6 +605,14 @@ export default function App() {
             <a href="/privacy.html" className="hover:text-amber-900 transition-colors">
               {s.privacy}
             </a>
+            {CONTACT_ENABLED && (
+              <>
+                <span aria-hidden="true">·</span>
+                <button onClick={() => setIsContactOpen(true)} className="hover:text-amber-900 transition-colors cursor-pointer">
+                  {s.contact}
+                </button>
+              </>
+            )}
           </div>
         </div>
       </footer>
@@ -614,7 +627,13 @@ export default function App() {
         onCityChanged={handleCityChanged}
         accountUser={accountUser}
         onBeforeSignIn={startAccount}
+        onOpenContact={!CONTACT_ENABLED ? undefined : () => {
+          setIsSettingsOpen(false);
+          setIsContactOpen(true);
+        }}
       />
+
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
 
       {/* Halachic Zmanim Modal */}
       <ZmanimModal

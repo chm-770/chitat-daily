@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DailyStudyKey, RambamTrack, StudySettings, ThemeMode } from '../types/chitas';
 import { ALL_LESSONS, enabledLessonKeys, TEXT_FONTS } from '../utils/lessons';
-import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell, Languages } from 'lucide-react';
+import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell, Languages, Mail } from 'lucide-react';
 import { CityConfig, DEFAULT_CITY, getSavedCity } from '../services/zmanimService';
 import { CityPicker } from './CityPicker';
 import { AccountSection } from './AccountSection';
@@ -19,6 +19,7 @@ interface StudySettingsModalProps {
   onCityChanged?: (city: CityConfig) => void;
   accountUser?: AccountUser | null;
   onBeforeSignIn?: () => void;
+  onOpenContact?: () => void;
 }
 
 const THEMES: { id: ThemeMode; swatch: string }[] = [
@@ -37,16 +38,19 @@ const SM_STRINGS = {
     title: 'שניים מקרא ואחד תרגום:',
     enable: 'להציג ביום שישי את כל הפרשה: מקרא פעמיים ותרגום אונקלוס',
     rashi: 'להציג גם רש״י',
+    contact: 'יצירת קשר',
   },
   en: {
     title: "Shnayim Mikra ve'Echad Targum:",
     enable: 'On Friday, show the whole parasha: each verse twice and Targum Onkelos',
     rashi: 'Also show Rashi',
+    contact: 'Contact us',
   },
   fr: {
     title: 'Chnayim Mikra véé\'had Targoum :',
     enable: 'Le vendredi, afficher toute la Paracha : chaque verset deux fois et le Targoum Onkelos',
     rashi: 'Afficher aussi Rachi',
+    contact: 'Nous contacter',
   },
 };
 
@@ -202,6 +206,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
   onCityChanged,
   accountUser = null,
   onBeforeSignIn = () => {},
+  onOpenContact,
 }) => {
   const [currentCity, setCurrentCity] = useState<CityConfig>(() => getSavedCity() || DEFAULT_CITY);
   const [isChangingCity, setIsChangingCity] = useState(false);
@@ -487,6 +492,17 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
             </label>
             <AccountSection user={accountUser} onBeforeSignIn={onBeforeSignIn} />
           </div>
+
+          {onOpenContact && (
+            <button
+              type="button"
+              onClick={onOpenContact}
+              className="w-full py-2 rounded-lg bg-white border border-stone-300 text-stone-700 hover:bg-stone-100 text-sm font-semibold cursor-pointer flex items-center justify-center gap-1.5"
+            >
+              <Mail className="w-4 h-4" />
+              <span>{sm.contact}</span>
+            </button>
+          )}
 
           <p className="text-[11px] text-stone-500 text-center">{s.savedNote}</p>
 

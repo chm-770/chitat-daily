@@ -28,3 +28,8 @@ console.log('== Jerusalem, week of 13 Nov 2026 (Friday) ==');
 show(jerusalem, '2026-11-11T00:00:00+02:00', 6);
 console.log('\n== Paris, Shavuot 2027 (6–7 Sivan = 11–12 June) ==');
 show(paris, '2027-06-09T00:00:00+02:00', 6);
+
+console.log('\n== Paris in French and English (Pesach 2028) ==');
+show({ ...paris, lang: 'fr', city: { ...paris.city, nameEn: 'Paris' } }, '2028-04-10T00:00:00+02:00', 1);
+show({ ...paris, lang: 'en', city: { ...paris.city, nameEn: 'Paris' } }, '2028-04-16T00:00:00+02:00', 1);
+show({ ...paris, lang: 'fr', city: { ...paris.city, nameEn: 'Paris' } }, '2028-04-16T00:00:00+02:00', 1);

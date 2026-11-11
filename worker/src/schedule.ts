@@ -7,6 +7,8 @@ import { HebrewCalendar, Location, Zmanim, flags } from '@hebcal/core';
 
 export interface ReminderCity {
   name: string;
+  /** Name in Latin letters, for English / French notifications */
+  nameEn?: string;
   latitude: number;
   longitude: number;
   timeZone: string;
@@ -19,6 +21,8 @@ export interface ReminderDoc {
   timeZone?: string;
   city: ReminderCity;
   inIsrael?: boolean;
+  /** Language of the app interface */
+  lang?: 'he' | 'en' | 'fr';
   lessons?: Record<string, string>;
   shema?: { enabled?: boolean; minutesBefore?: number };
   shabbat?: { enabled?: boolean; time?: string };
@@ -32,13 +36,72 @@ export interface Reminder {
   tag: string;
 }
 
-const LESSONS: { key: string; label: string; section: string }[] = [
-  { key: 'chumash', label: 'חומש עם רש״י', section: 'chumash' },
-  { key: 'tehillim', label: 'תהילים', section: 'tehillim' },
-  { key: 'tanya', label: 'תניא', section: 'tanya' },
-  { key: 'hayomYom', label: 'היום יום', section: 'hayom_yom' },
-  { key: 'rambam', label: 'רמב״ם', section: 'rambam' },
+const LESSONS: { key: string; section: string }[] = [
+  { key: 'chumash', section: 'chumash' },
+  { key: 'tehillim', section: 'tehillim' },
+  { key: 'tanya', section: 'tanya' },
+  { key: 'hayomYom', section: 'hayom_yom' },
+  { key: 'rambam', section: 'rambam' },
 ];
+
+type Lang = 'he' | 'en' | 'fr';
+
+/** Hebrew name of a Yom Tov (as hebcal renders it, without number/year) → its name in English / French */
+const CHAG_NAMES: Record<string, { en: string; fr: string }> = {
+  'ראש השנה': { en: 'Rosh Hashanah', fr: 'Roch Hachana' },
+  'יום כיפור': { en: 'Yom Kippur', fr: 'Yom Kippour' },
+  'סוכות': { en: 'Sukkot', fr: 'Souccot' },
+  'שמיני עצרת': { en: 'Shemini Atzeret', fr: 'Chemini Atseret' },
+  'שמחת תורה': { en: 'Simchat Torah', fr: 'Sim\'hat Torah' },
+  'פסח': { en: 'Pesach', fr: 'Pessa\'h' },
+  'שבועות': { en: 'Shavuot', fr: 'Chavouot' },
+};
+
+const TEXT = {
+  he: {
+    appName: 'חת״ת יומי',
+    lessons: { chumash: 'חומש עם רש״י', tehillim: 'תהילים', tanya: 'תניא', hayomYom: 'היום יום', rambam: 'רמב״ם' } as Record<string, string>,
+    join: (names: string[]) => (names.length <= 1 ? names.join('') : `${names.slice(0, -1).join(', ')} ו${names[names.length - 1]}`),
+    lessonBody: (list: string) => `הגיע הזמן ללמוד ${list} של היום`,
+    shemaTitle: 'סוף זמן קריאת שמע',
+    shemaBody: (time: string, before: number, city: string) =>
+      `בשעה ${time} (${before === 60 ? 'בעוד שעה' : `בעוד ${before} דקות`}) ב${city}`,
+    erevShabbat: 'ערב שבת קודש',
+    erevChag: (heName: string, raw: string) => {
+      if (/^פסח ז/.test(raw)) return 'ערב שביעי של פסח';
+      if (heName === 'ראש השנה') return 'ערב ראש השנה';
+      if (heName === 'יום כיפור') return 'ערב יום הכיפורים';
+      return `ערב חג ${heName}`;
+    },
+    candleBody: (city: string, time: string) => `הדלקת נרות היום ב${city} בשעה ${time}`,
+  },
+  en: {
+    appName: 'Daily Chitas',
+    lessons: { chumash: 'Chumash with Rashi', tehillim: 'Tehillim', tanya: 'Tanya', hayomYom: 'Hayom Yom', rambam: 'Rambam' } as Record<string, string>,
+    join: (names: string[]) => (names.length <= 1 ? names.join('') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`),
+    lessonBody: (list: string) => `Time to learn today's ${list}`,
+    shemaTitle: 'Sof Zman Kriat Shema',
+    shemaBody: (time: string, before: number, city: string) =>
+      `At ${time} (${before === 60 ? 'in one hour' : `in ${before} minutes`}) in ${city}`,
+    erevShabbat: 'Erev Shabbat',
+    erevChag: (heName: string, raw: string) =>
+      /^פסח ז/.test(raw) ? 'Erev Shevi\'i shel Pesach' : `Erev ${CHAG_NAMES[heName]?.en || 'Yom Tov'}`,
+    candleBody: (city: string, time: string) => `Candle lighting today in ${city}: ${time}`,
+  },
+  fr: {
+    appName: '\'Hitat quotidien',
+    lessons: { chumash: '\'Houmach avec Rachi', tehillim: 'Téhilim', tanya: 'Tanya', hayomYom: 'Hayom Yom', rambam: 'Rambam' } as Record<string, string>,
+    join: (names: string[]) => (names.length <= 1 ? names.join('') : `${names.slice(0, -1).join(', ')} et ${names[names.length - 1]}`),
+    lessonBody: (list: string) => `C'est l'heure d'étudier : ${list} du jour`,
+    shemaTitle: 'Fin du Chéma',
+    shemaBody: (time: string, before: number, city: string) =>
+      `À ${time} (${before === 60 ? 'dans une heure' : `dans ${before} minutes`}) à ${city}`,
+    erevShabbat: 'Veille de Chabbat',
+    erevChag: (heName: string, raw: string) =>
+      /^פסח ז/.test(raw) ? 'Veille du septième jour de Pessa\'h' : `Veille de ${CHAG_NAMES[heName]?.fr || 'Yom Tov'}`,
+    candleBody: (city: string, time: string) => `Allumage des bougies aujourd'hui à ${city} : ${time}`,
+  },
+};
 
 const DAY = 24 * 3600 * 1000;
 
@@ -190,24 +253,20 @@ export class CityCalendar {
 }
 
 /** Title of the notification on the eve of Shabbat / Yom Tov. */
-function erevTitle(chagName: string | null): string {
-  if (!chagName) return 'ערב שבת קודש';
-  if (/^פסח ז/.test(chagName)) return 'ערב שביעי של פסח';
-  const name = chagName.replace(/\s*\d{4}$/, '').replace(/\s+[א-ת]׳$/, '');
-  if (name === 'ראש השנה') return 'ערב ראש השנה';
-  if (name === 'יום כיפור') return 'ערב יום הכיפורים';
-  return `ערב חג ${name}`;
-}
-
-function joinHebrew(names: string[]): string {
-  if (names.length <= 1) return names.join('');
-  return `${names.slice(0, -1).join(', ')} ו${names[names.length - 1]}`;
+function erevTitle(chagName: string | null, lang: Lang): string {
+  const t = TEXT[lang];
+  if (!chagName) return t.erevShabbat;
+  const heName = chagName.replace(/\s*\d{4}$/, '').replace(/\s+[א-ת]׳$/, '');
+  return t.erevChag(heName, chagName);
 }
 
 /** All reminders of the device between `from` and `to` (ms), Shabbat and Yom Tov left out. */
 export function computeReminders(doc: ReminderDoc, from: number, to: number, appUrl = ''): Reminder[] {
   const cal = new CityCalendar(doc.city, doc.inIsrael ?? doc.city.isIsrael);
   const deviceTz = doc.timeZone || doc.city.timeZone;
+  const lang: Lang = doc.lang === 'en' || doc.lang === 'fr' ? doc.lang : 'he';
+  const tx = TEXT[lang];
+  const cityName = lang === 'he' ? doc.city.name : doc.city.nameEn || doc.city.name;
   const out: Reminder[] = [];
   const days = (tz: string) => {
     const list: YMD[] = [];
@@ -227,8 +286,8 @@ export function computeReminders(doc: ReminderDoc, from: number, to: number, app
       const [hh, mm] = parseHHMM(t)!;
       out.push({
         at: wallTime(day, hh, mm, deviceTz),
-        title: 'חת״ת יומי',
-        body: `הגיע הזמן ללמוד ${joinHebrew(lessons.map((l) => l.label))} של היום`,
+        title: tx.appName,
+        body: tx.lessonBody(tx.join(lessons.map((l) => tx.lessons[l.key]))),
         url: `${appUrl}/${lessons.length === 1 ? `?section=${lessons[0].section}` : ''}`,
         tag: `lesson-${t}`,
       });
@@ -242,8 +301,8 @@ export function computeReminders(doc: ReminderDoc, from: number, to: number, app
       const before = doc.shema.minutesBefore || 30;
       out.push({
         at: info.shma - before * 60 * 1000,
-        title: 'סוף זמן קריאת שמע',
-        body: `בשעה ${formatTime(info.shma, cal.timeZone)} (${before === 60 ? 'בעוד שעה' : `בעוד ${before} דקות`}) ב${doc.city.name}`,
+        title: tx.shemaTitle,
+        body: tx.shemaBody(formatTime(info.shma, cal.timeZone), before, cityName),
         url: `${appUrl}/`,
         tag: 'shema',
       });
@@ -257,8 +316,8 @@ export function computeReminders(doc: ReminderDoc, from: number, to: number, app
       if (at < candle) {
         out.push({
           at,
-          title: erevTitle(tomorrow.chagName),
-          body: `הדלקת נרות היום ב${doc.city.name} בשעה ${formatTime(candle, cal.timeZone)}`,
+          title: erevTitle(tomorrow.chagName, lang),
+          body: tx.candleBody(cityName, formatTime(candle, cal.timeZone)),
           url: `${appUrl}/`,
           tag: 'shabbat',
         });

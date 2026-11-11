@@ -38,7 +38,22 @@ play.google.com/console → הרשמה (תשלום חד־פעמי). בחשבון
 ## 4. Play Console
 
 - **Privacy policy**: כתובת `privacy.html`.
-- **Data safety**: אין איסוף או שיתוף של נתונים; מיקום משמש במכשיר בלבד; הנתונים נשמרים במכשיר.
+- **Data safety** (לפי מה שהאפליקציה עושה היום: חשבון ותזכורות, שניהם לא חובה):
+  - Does your app collect or share user data? **Yes** (collect). Sharing: **No**. Firebase ו־Cloudflare הם ספקי שירות, וזה לא נחשב שיתוף.
+  - Is all data encrypted in transit? **Yes**.
+  - Do you provide a way for users to request that their data is deleted? **Yes**: ״מחיקת החשבון״ ו״כיבוי״ התזכורות באפליקציה.
+  - סוגי מידע (בכולם: Collected, Optional, לא Shared, לא Ephemeral):
+    | סוג ב־Play | מה אצלנו | מטרה (Purpose) |
+    |---|---|---|
+    | Personal info → Email address | מייל החשבון | Account management |
+    | Personal info → Name | שם מחשבון Google | Account management |
+    | Personal info → User IDs | מזהה החשבון / מזהה אקראי של המכשיר לתזכורות | Account management, App functionality |
+    | Location → Approximate location | העיר שנבחרה (קואורדינטות) נשמרת בשרת רק למי שמפעיל תזכורות או מתחבר | App functionality |
+    | App activity → Other user-generated content / Other actions | התקדמות הלימוד, ההגדרות, פרקי תהילים אישיים (בחשבון) | App functionality |
+    | App info and performance → – | לא נאסף | – |
+    | Device or other IDs | מזהה ההתראות (FCM token) של המכשיר, לתזכורות | App functionality |
+  - מיקום ה־GPS של המכשיר משמש במכשיר בלבד ולא נשלח, ולכן הוא לא נכלל.
+  - לפני ההגשה לעבור שוב על הטבלה מול מדיניות הפרטיות (`privacy.html`) ולוודא שהן תואמות.
 - **Content rating**: שאלון.
 - **Store listing**: שם, תיאור קצר וארוך, אייקון 512×512, תמונת feature 1024×500, צילומי מסך של טלפון.
 - להעלות את ה־`.aab` ל־Internal testing / Closed testing, ואחר כך ל־Production.

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Downloads Targum Onkelos (Torat Emet edition, public domain) from Sefaria into
+"""Downloads Targum Onkelos (Metsudah / Sifsei Chachomim edition, CC-BY-NC) from Sefaria into
 src/data/onkelos/<book>.json as {"chapter:verse": text}. The text is kept exactly as in the source."""
 import json, os, re, sys, time, urllib.parse, urllib.request
 
 BOOKS = {'bereishit': 'Genesis', 'shemot': 'Exodus', 'vayikra': 'Leviticus', 'bamidbar': 'Numbers', 'devarim': 'Deuteronomy'}
-VERSION = 'Onkelos {book}'
+VERSION = 'Sifsei Chachomim Chumash, Metsudah Publications, 2009'
 OUT = os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'data', 'onkelos')
 
 def get(url):
@@ -30,7 +30,7 @@ for slug, book in BOOKS.items():
         vs = d.get('versions') or []
         if not vs or not vs[0].get('text'):
             break
-        assert vs[0]['license'] == 'Public Domain', vs[0]['license']
+        assert vs[0]['license'] == 'CC-BY-NC', vs[0]['license']
         for i, t in enumerate(vs[0]['text'], 1):
             if t:
                 out[f'{ch}:{i}'] = clean(t)

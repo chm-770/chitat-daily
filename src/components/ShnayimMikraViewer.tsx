@@ -17,7 +17,7 @@ const STRINGS = {
     remaining: (left: number, total: number) => `נותרו ${left} פסוקים מתוך ${total}`,
     finished: 'סיימת שניים מקרא ואחד תרגום לפרשה. שבת שלום!',
     more: (n: number) => `עוד ${n} פסוקים יופיעו אחרי שתסמן את אלה`,
-    source: 'תרגום אונקלוס: מהדורת תורת אמת (נחלת הכלל), דרך Sefaria.',
+    source: 'תרגום אונקלוס: מהדורת מצודה (CC BY-NC), דרך Sefaria.',
   },
   en: {
     title: "Shnayim Mikra ve'Echad Targum",
@@ -27,7 +27,7 @@ const STRINGS = {
     remaining: (left: number, total: number) => `${left} of ${total} verses left`,
     finished: "You finished Shnayim Mikra ve'Echad Targum for this parasha. Good Shabbos!",
     more: (n: number) => `${n} more verses will appear as you mark these`,
-    source: 'Targum Onkelos: Torat Emet edition (public domain), via Sefaria.',
+    source: 'Targum Onkelos: Metsudah edition (CC BY-NC), via Sefaria.',
   },
   fr: {
     title: 'Chnayim Mikra véé\'had Targoum',
@@ -37,7 +37,7 @@ const STRINGS = {
     remaining: (left: number, total: number) => `Il reste ${left} versets sur ${total}`,
     finished: 'Vous avez terminé Chnayim Mikra véé\'had Targoum pour cette Paracha. Chabbat Chalom !',
     more: (n: number) => `${n} versets de plus apparaîtront quand vous aurez marqué ceux-ci`,
-    source: 'Targoum Onkelos : édition Torat Emet (domaine public), via Sefaria.',
+    source: 'Targoum Onkelos : édition Metsoudah (CC BY-NC), via Sefaria.',
   },
 };
 

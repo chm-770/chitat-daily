@@ -1,5 +1,5 @@
 /**
- * Targum Onkelos (Torat Emet edition, public domain, via Sefaria), bundled per book in
+ * Targum Onkelos (Metsudah / Sifsei Chachomim edition, CC-BY-NC, via Sefaria), bundled per book in
  * src/data/onkelos/ (scripts/onkelos/fetch_onkelos.py). Keys are "chapter:verse".
  */
 const cache: Record<string, Record<string, string>> = {};

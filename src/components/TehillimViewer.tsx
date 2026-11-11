@@ -22,6 +22,8 @@ interface TehillimViewerProps {
   settings: StudySettings;
   readItemIds: Record<string, boolean>;
   onMarkItemRead: (id: string) => void;
+  /** Marks several items as read at once (swiping a psalm also marks the ones above it) */
+  onMarkBatch?: (ids: string[]) => void;
   onAdvanceToNext?: () => void;
 }
 
@@ -33,8 +35,21 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
   settings,
   readItemIds,
   onMarkItemRead,
+  onMarkBatch,
   onAdvanceToNext,
 }) => {
+  // Marks the swiped psalm and every unread psalm above it, like the verses in the Chumash
+  const markUpTo = (chapters: TehillimChapter[], chapterNumber: number, prefix: string): number => {
+    const idx = chapters.findIndex((c) => c.number === chapterNumber);
+    const ids = chapters
+      .slice(0, idx + 1)
+      .map((c) => `${prefix}${c.number}`)
+      .filter((id) => !readItemIds[id]);
+    if (onMarkBatch) onMarkBatch(ids);
+    else ids.forEach((id) => onMarkItemRead(id));
+    return idx;
+  };
+
   const [todayChapters, setTodayChapters] = useState<TehillimChapter[]>([]);
   const [customChapters, setCustomChapters] = useState<TehillimChapter[]>([]);
   const [customNumbers, setCustomNumbers] = useState<number[]>([]);
@@ -147,8 +162,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
 
   // Swiping a chapter in today's Tehillim
   const handleSwipeTodayPsalm = (chapterNumber: number) => {
-    const itemId = `tehillim_ch_${chapterNumber}`;
-    onMarkItemRead(itemId);
+    const swipedIdx = markUpTo(todayChapters, chapterNumber, 'tehillim_ch_');
 
     // Auto-scroll back to top of the next psalm smoothly
     requestAnimationFrame(() => {
@@ -163,8 +177,8 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
     });
 
     // Check if this was the last remaining chapter of today
-    const remainingAfter = todayChapters.filter((c) => {
-      if (c.number === chapterNumber) return false;
+    const remainingAfter = todayChapters.filter((c, i) => {
+      if (i <= swipedIdx) return false;
       return !readItemIds[`tehillim_ch_${c.number}`];
     });
 
@@ -223,8 +237,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
 
   // Swiping custom psalm
   const handleSwipeCustomPsalm = (chapterNumber: number) => {
-    const itemId = `tehillim_custom_ch_${chapterNumber}`;
-    onMarkItemRead(itemId);
+    const swipedIdx = markUpTo(customChapters, chapterNumber, 'tehillim_custom_ch_');
 
     // Auto-scroll back to top of the next psalm smoothly
     requestAnimationFrame(() => {
@@ -238,8 +251,8 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
       }
     });
 
-    const remaining = customChapters.filter((c) => {
-      if (c.number === chapterNumber) return false;
+    const remaining = customChapters.filter((c, i) => {
+      if (i <= swipedIdx) return false;
       return !readItemIds[`tehillim_custom_ch_${c.number}`];
     });
 

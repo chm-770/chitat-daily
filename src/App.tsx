@@ -427,6 +427,7 @@ export default function App() {
             settings={settings}
             readItemIds={progress.readItemIds || {}}
             onMarkItemRead={handleMarkItemRead}
+            onMarkBatch={handleMarkBatch}
             onAdvanceToNext={() => {
               setCurrentCategory('tanya');
               window.scrollTo({ top: 0, behavior: 'smooth' });

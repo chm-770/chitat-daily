@@ -91,13 +91,10 @@ export const ALL_PARASHIYOT: ParashaListItem[] = [
 
 // בראשית and וזאת הברכה are NOT listed here: their built-in copies had wrong aliyah
 // divisions, so they are loaded from the book databases (parashiyot/*.json).
-export const BUILTIN_PARASHIYOT: Record<string, Parasha> = {
-  noach: NOACH_COMPLETE,
-  lech_lecha: LECH_LECHA_COMPLETE,
-  vayera: VAYERA_COMPLETE,
-  chayei_sara: CHAYEI_SARA_COMPLETE,
-  toldot: TOLDOT_COMPLETE,
-};
+// All parashiyot are loaded from the book databases (parashiyot/*.json), whose Rashi is aligned
+// with Sefaria by chapter and verse (scripts/chumash/rebuild_rashi.py). The older built-in copies
+// are no longer used for display.
+export const BUILTIN_PARASHIYOT: Record<string, Parasha> = {};
 
 /** Removes the open/closed section markers ({פ} / {ס}) that come from the source text. */
 function stripSectionMarkers(parasha: Parasha): Parasha {
@@ -107,11 +104,12 @@ function stripSectionMarkers(parasha: Parasha): Parasha {
       ...a,
       verses: a.verses.map((v) => ({
         ...v,
-        hebrew: v.hebrew
-          .replace(/\uFB20/g, 'ע')
-          .replace(/\s*\{[פס]\}\s*/g, ' ')
-          .replace(/\s+/g, ' ')
-          .trim(),
+        hebrew: stripCantillation(
+          v.hebrew
+            .replace(/\uFB20/g, 'ע')
+            .replace(/\s*\{[פס]\}\s*/g, ' ')
+            .replace(/\s+/g, ' ')
+        ),
         rashi: v.rashi?.map((r) => r.replace(/\uFB20/g, 'ע')),
       })),
     })),
@@ -177,6 +175,7 @@ export async function getCurrentParashaInfo(dateInput: Date = new Date()): Promi
 }
 
 import { getLeyningForParsha } from '@hebcal/leyning';
+import { stripCantillation } from '../utils/hebrewText';
 
 const LEYNING_PARASHA_NAMES: Record<string, string> = {
   bereishit: 'Bereshit',

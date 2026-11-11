@@ -1,4 +1,5 @@
 import React from 'react';
+import { vocalizeRashiHeading } from '../utils/hebrewText';
 import { motion, PanInfo } from 'motion/react';
 import { ChumashVerse, StudySettings } from '../types/chitas';
 import { toHebrewNumeral } from '../utils/hebrewNumerals';
@@ -127,7 +128,7 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
                     {parsed.dibbur ? (
                       <>
                         <strong className="font-bold text-stone-950 font-torah text-base ml-1 inline-block">
-                          {parsed.dibbur}
+                          {vocalizeRashiHeading(parsed.dibbur, verse.hebrew)}
                         </strong>{' '}
                         <span>{renderRashiBody(parsed.body)}</span>
                       </>

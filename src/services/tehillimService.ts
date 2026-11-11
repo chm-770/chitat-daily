@@ -1,3 +1,4 @@
+import { stripCantillation } from '../utils/hebrewText';
 import { SAMPLE_PSALMS } from '../data/tehillimData';
 import {
   TEHILLIM_MONTHLY_RANGES,
@@ -20,7 +21,7 @@ export function getHebrewChapterNumber(num: number): string {
 }
 
 function cleanHebrewVerse(raw: string): string {
-  return raw
+  return stripCantillation(raw)
     .replace(/<[^>]*>/g, '')
     .replace(/&thinsp;/g, ' ')
     .replace(/&nbsp;/g, ' ')

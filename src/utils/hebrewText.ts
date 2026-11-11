@@ -1,10 +1,12 @@
 /**
- * Removes the cantillation marks (טעמי המקרא, U+0591–U+05AF) and the paseq (׀),
- * keeping the vowel points, meteg, maqaf and sof pasuq.
+ * Removes the cantillation marks (טעמי המקרא, U+0591–U+05AF), the meteg/ga'ya (U+05BD) and the
+ * paseq (׀), keeping the vowel points, maqaf and sof pasuq. Many Hebrew fonts have no meteg or
+ * cantillation glyphs (the letter is then drawn in another font and looks bigger), and Noto Serif
+ * Hebrew draws tsere + meteg like a qamats.
  */
 export function stripCantillation(text: string): string {
   return text
-    .replace(/[\u0591-\u05AF]/g, '')
+    .replace(/[\u0591-\u05AF\u05BD]/g, '')
     .replace(/\s*\u05C0\s*/g, ' ')
     .replace(/[ \t]{2,}/g, ' ')
     .trim();

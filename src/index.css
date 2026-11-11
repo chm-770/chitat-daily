@@ -19,13 +19,13 @@
 .font-torah {
   /* Frank Ruhl Libre: draws tsere + meteg correctly (Noto Serif Hebrew draws בְּאֵֽר like a qamats).
      It has no cantillation marks, so they are removed from the texts (see stripCantillation). */
-  font-family: 'Frank Ruhl Libre', 'David Libre', 'Noto Serif Hebrew', Georgia, serif;
+  font-family: var(--torah-font, 'Frank Ruhl Libre', 'David Libre', 'Noto Serif Hebrew', Georgia, serif);
   font-feature-settings: "kern" 1, "mark" 1, "mkmk" 1;
   text-rendering: optimizeLegibility;
 }
 
 .font-rashi {
-  font-family: 'Frank Ruhl Libre', 'David Libre', 'Noto Serif Hebrew', serif;
+  font-family: var(--torah-font, 'Frank Ruhl Libre', 'David Libre', 'Noto Serif Hebrew', serif);
   font-style: italic;
   letter-spacing: 0.015em;
   font-feature-settings: "kern" 1, "mark" 1, "mkmk" 1;

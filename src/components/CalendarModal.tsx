@@ -4,12 +4,15 @@ import { CalendarDays, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { getHebrewDateInfo } from '../utils/hebrewCalendar';
 import { toHebrewNumeral } from '../utils/hebrewNumerals';
 import { getDayProgressPercent, localDateKey } from '../utils/progress';
+import { DailyStudyKey } from '../types/chitas';
+import { enabledLessonKeys } from '../utils/lessons';
 
 interface CalendarModalProps {
   isOpen: boolean;
   onClose: () => void;
   selectedDate: Date;
   onSelectDate: (date: Date) => void;
+  enabledLessons?: DailyStudyKey[];
 }
 
 const WEEKDAYS = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
@@ -22,7 +25,7 @@ function firstOfMonth(hd: HDate): HDate {
  * Hebrew-month calendar: pick any day, and see for each past day how much of the
  * daily study was completed (percentage of the 5 lessons).
  */
-export const CalendarModal: React.FC<CalendarModalProps> = ({ isOpen, onClose, selectedDate, onSelectDate }) => {
+export const CalendarModal: React.FC<CalendarModalProps> = ({ isOpen, onClose, selectedDate, onSelectDate, enabledLessons }) => {
   const [monthStart, setMonthStart] = useState<HDate>(() => firstOfMonth(new HDate(selectedDate)));
 
   useEffect(() => {
@@ -53,7 +56,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({ isOpen, onClose, s
       const g = new HDate(d, monthStart.getMonth(), monthStart.getFullYear()).greg();
       const greg = new Date(g.getFullYear(), g.getMonth(), g.getDate(), 12);
       const key = localDateKey(greg);
-      const percent = key <= todayKey ? getDayProgressPercent(key) : null;
+      const percent = key <= todayKey ? getDayProgressPercent(key, enabledLessonKeys(enabledLessons)) : null;
       if (key <= todayKey) {
         total += percent ?? 0;
         counted++;
@@ -65,7 +68,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({ isOpen, onClose, s
       cells: days,
       monthPercent: counted > 0 ? Math.round(total / counted) : null,
     };
-  }, [monthStart, todayKey, isOpen]);
+  }, [monthStart, todayKey, isOpen, enabledLessons]);
 
   if (!isOpen) return null;
 

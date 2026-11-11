@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useJustCompleted } from '../hooks/useJustCompleted';
 import { AnimatePresence } from 'motion/react';
 import { Parasha, ChumashAliyah, ChumashVerse, StudySettings } from '../types/chitas';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
@@ -49,6 +50,8 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
   onMarkVersesBatch,
   onAdvanceToNext,
 }) => {
+  // The "אשריך" card is shown only right after finishing, not when coming back later
+  const justCompleted = useJustCompleted(isCompleted);
   const [selectedParashaId, setSelectedParashaId] = useState<string>('vezot_haberachah');
   // Empty until the week's parasha is loaded (the loading indicator is shown meanwhile)
   const [parashaData, setParashaData] = useState<Parasha>({
@@ -471,7 +474,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                     </div>
 
                     {/* Completion card if all verses of this card have been swiped */}
-                    {finished && (
+                    {finished && justCompleted && (
                       <div className="p-6 text-center bg-white rounded-xl border border-emerald-200/90 shadow-2xs space-y-2">
                         <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
                           <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />

@@ -57,10 +57,10 @@ export const SwipePsalmCard: React.FC<SwipePsalmCardProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-1 text-xs text-stone-400">
-          <span>החלק ימינה לסיום</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </div>
+<span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
+            <span>החלק ימינה לסימון</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </span>
       </div>
 
       {/* Continuous Holy Verses */}

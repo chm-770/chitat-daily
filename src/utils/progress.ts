@@ -31,10 +31,13 @@ export function loadProgress(dateKey: string): DailyProgress | null {
   }
 }
 
-/** Percentage (0-100) of the 5 daily lessons completed on that day, or null if nothing was saved. */
-export function getDayProgressPercent(dateKey: string): number | null {
+/** Percentage (0-100) of the daily lessons (the ones the user learns) completed on that day, or null if nothing was saved. */
+export function getDayProgressPercent(
+  dateKey: string,
+  keys: readonly (typeof STUDY_KEYS)[number][] = STUDY_KEYS
+): number | null {
   const p = loadProgress(dateKey);
-  if (!p) return null;
-  const done = STUDY_KEYS.filter((k) => Boolean(p[k])).length;
-  return Math.round((done / STUDY_KEYS.length) * 100);
+  if (!p || keys.length === 0) return null;
+  const done = keys.filter((k) => Boolean(p[k])).length;
+  return Math.round((done / keys.length) * 100);
 }

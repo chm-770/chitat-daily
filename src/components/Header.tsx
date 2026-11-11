@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import { StudyCategory, DailyProgress, StudySettings } from '../types/chitas';
+import { StudyCategory, DailyProgress, StudySettings, DailyStudyKey } from '../types/chitas';
+import { enabledLessonKeys } from '../utils/lessons';
 import { Check, Undo2, Settings, Clock, CalendarDays } from 'lucide-react';
 import { PWAInstallButton } from './PWAInstallButton';
 
@@ -14,6 +15,7 @@ interface HeaderProps {
   onUndo: () => void;
   fontSize: StudySettings['fontSize'];
   onChangeFontSize: (size: StudySettings['fontSize']) => void;
+  enabledLessons?: DailyStudyKey[];
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -27,6 +29,7 @@ export const Header: React.FC<HeaderProps> = ({
   onUndo,
   fontSize,
   onChangeFontSize,
+  enabledLessons,
 }) => {
   const fontSizes: StudySettings['fontSize'][] = ['small', 'medium', 'large', 'xlarge'];
   const activeTabRef = useRef<HTMLButtonElement | null>(null);
@@ -55,18 +58,21 @@ export const Header: React.FC<HeaderProps> = ({
     }
   };
 
-  const navItems: {
-    id: StudyCategory;
-    label: string;
-    isCompleted?: boolean;
-  }[] = [
+  type NavItem = { id: StudyCategory; label: string; isCompleted?: boolean };
+  const navItems: NavItem[] = ([
     { id: 'overview', label: 'ראשי' },
     { id: 'chumash', label: 'חומש היומי', isCompleted: progress.chumash },
     { id: 'tehillim', label: 'תהילים היומי', isCompleted: progress.tehillim },
     { id: 'tanya', label: 'תניא היומי', isCompleted: progress.tanya },
     { id: 'hayom_yom', label: 'היום יום', isCompleted: progress.hayomYom },
     { id: 'rambam', label: 'רמב״ם היומי', isCompleted: progress.rambam },
-  ];
+  ] as NavItem[]).filter((item) => {
+    const keyOf: Partial<Record<StudyCategory, DailyStudyKey>> = {
+      chumash: 'chumash', tehillim: 'tehillim', tanya: 'tanya', hayom_yom: 'hayomYom', rambam: 'rambam',
+    };
+    const key = keyOf[item.id];
+    return !key || enabledLessonKeys(enabledLessons).includes(key);
+  });
 
   return (
     <header className="sticky top-0 z-30 bg-amber-50/95 backdrop-blur-md border-b border-amber-900/10 shadow-xs">

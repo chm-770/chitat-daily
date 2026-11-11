@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { RambamTrack, StudySettings, ThemeMode } from '../types/chitas';
-import { X, Type, RotateCcw, MapPin, Palette, Scale } from 'lucide-react';
+import { DailyStudyKey, RambamTrack, StudySettings, ThemeMode } from '../types/chitas';
+import { ALL_LESSONS, enabledLessonKeys, TEXT_FONTS } from '../utils/lessons';
+import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check } from 'lucide-react';
 import { CityConfig, DEFAULT_CITY, getSavedCity } from '../services/zmanimService';
 import { CityPicker } from './CityPicker';
 
@@ -100,6 +101,31 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
             </div>
           </div>
 
+          {/* Text font, with a sample */}
+          <div className="space-y-2">
+            <label className={sectionTitle}>
+              <Type className="w-3.5 h-3.5 text-amber-800" />
+              <span>גופן הטקסט:</span>
+            </label>
+            <div className="grid grid-cols-1 gap-2">
+              {TEXT_FONTS.map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => onUpdateSettings({ textFont: f.id })}
+                  className={`p-2.5 flex items-center justify-between gap-3 ${optionClass(
+                    (settings.textFont || 'frank') === f.id
+                  )}`}
+                >
+                  <span className="text-[11px] shrink-0">{f.label}</span>
+                  <span className="text-lg text-stone-900 font-normal truncate" style={{ fontFamily: f.family }}>
+                    וַיִּבֶן שָׁם מִזְבֵּחַ וַיִּקְרָא בְּשֵׁם
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Theme */}
           <div className="space-y-2">
             <label className={sectionTitle}>
@@ -178,6 +204,34 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                 }}
               />
             )}
+          </div>
+
+          {/* The lessons the user learns */}
+          <div className="space-y-2 pt-2 border-t border-stone-100">
+            <label className={sectionTitle}>
+              <BookOpen className="w-3.5 h-3.5 text-amber-800" />
+              <span>השיעורים שלי:</span>
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {ALL_LESSONS.map((l) => {
+                const current = enabledLessonKeys(settings.enabledLessons);
+                const on = current.includes(l.key);
+                return (
+                  <button
+                    key={l.key}
+                    type="button"
+                    onClick={() => {
+                      const next: DailyStudyKey[] = on ? current.filter((k) => k !== l.key) : [...current, l.key];
+                      if (next.length > 0) onUpdateSettings({ enabledLessons: next });
+                    }}
+                    className={`p-2.5 text-xs flex items-center justify-between gap-2 ${optionClass(on)}`}
+                  >
+                    <span>{l.label}</span>
+                    {on && <Check className="w-3.5 h-3.5 text-amber-800" />}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Rambam Track Selection */}

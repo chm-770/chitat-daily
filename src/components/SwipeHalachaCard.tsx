@@ -74,14 +74,10 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
               </span>
             </div>
 
-            <button
-              type="button"
-              onClick={onSwipeRight}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-600 bg-stone-100 hover:bg-emerald-100 hover:text-emerald-900 border border-stone-200 transition-colors cursor-pointer"
-            >
+            <span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
               <span>החלק ימינה לסימון</span>
-              <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-emerald-700 transition-transform group-hover:translate-x-0.5" />
-            </button>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </span>
           </div>
 
           {/* Halacha Text */}

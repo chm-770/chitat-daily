@@ -1,4 +1,5 @@
 import React from 'react';
+import { useJustCompleted } from '../hooks/useJustCompleted';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { getHayomYomForHebrewDate, isAdarSectionHeading } from '../data/hayomYomDatabase';
 import { CheckCircle2, RotateCcw } from 'lucide-react';
@@ -33,6 +34,8 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
   onSetCompleted,
   onAdvanceToNext,
 }) => {
+  // The "אשריך" card is shown only right after finishing, not when coming back later
+  const justCompleted = useJustCompleted(isCompleted);
   const day = dateInfo.dayOfMonth || 2;
   const month = dateInfo.monthNumber || 8;
   const entry = getHayomYomForHebrewDate(day, month, dateInfo);
@@ -113,7 +116,7 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
       </div>
 
       {/* Completion Banner */}
-      {isCompleted && (
+      {justCompleted && (
         <div className="p-5 text-center bg-emerald-50/60 rounded-2xl border border-emerald-200 shadow-2xs space-y-1">
           <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-5 h-5 stroke-[2.5]" />

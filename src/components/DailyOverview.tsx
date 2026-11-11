@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { StudyCategory, DailyProgress, DailyStudyKey, RambamTrack } from '../types/chitas';
+import { ALL_LESSONS, enabledLessonKeys } from '../utils/lessons';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { BookOpen, Scroll, BookMarked, Sun, Scale, CheckCircle2, Circle, ArrowLeft } from 'lucide-react';
 import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting } from '../services/zmanimService';
@@ -12,6 +13,7 @@ interface DailyOverviewProps {
   onSelectCategory: (cat: StudyCategory) => void;
   streakDays?: number;
   rambamTrack?: RambamTrack;
+  enabledLessons?: DailyStudyKey[];
 }
 
 const RAMBAM_TRACK_LABELS: Record<RambamTrack, string> = {
@@ -26,7 +28,9 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
   onToggleProgress,
   onSelectCategory,
   rambamTrack = 'three_chapters',
+  enabledLessons,
 }) => {
+  const lessonKeys = enabledLessonKeys(enabledLessons);
   const [tanyaSubtitle, setTanyaSubtitle] = useState<string>('');
 
   useEffect(() => {
@@ -44,15 +48,9 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
     };
   }, [dateInfo.date]);
 
-  const completedCount = [
-    progress.chumash,
-    progress.tehillim,
-    progress.tanya,
-    progress.hayomYom,
-    progress.rambam,
-  ].filter(Boolean).length;
-
-  const progressPercent = Math.round((completedCount / 5) * 100);
+  const completedCount = lessonKeys.filter((k) => Boolean(progress[k])).length;
+  const totalLessons = lessonKeys.length;
+  const progressPercent = Math.round((completedCount / totalLessons) * 100);
 
   const studyCards: {
     id: StudyCategory;
@@ -123,23 +121,18 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
     },
   ];
 
+  const NEXT_LABELS: Record<DailyStudyKey, string> = {
+    chumash: 'התחל לימוד חומש',
+    tehillim: 'המשך לתהילים',
+    tanya: 'המשך לתניא',
+    hayomYom: 'המשך להיום יום',
+    rambam: 'המשך לרמב״ם',
+  };
   const getNextStudy = (): { category: StudyCategory; label: string } => {
-    if (!progress.chumash) {
-      return { category: 'chumash', label: 'התחל לימוד חומש' };
-    }
-    if (!progress.tehillim) {
-      return { category: 'tehillim', label: 'המשך לתהילים' };
-    }
-    if (!progress.tanya) {
-      return { category: 'tanya', label: 'המשך לתניא' };
-    }
-    if (!progress.hayomYom) {
-      return { category: 'hayom_yom', label: 'המשך להיום יום' };
-    }
-    if (!progress.rambam) {
-      return { category: 'rambam', label: 'המשך לרמב״ם' };
-    }
-    return { category: 'chumash', label: 'הושלם הלימוד היומי ✓' };
+    const next = ALL_LESSONS.find((l) => lessonKeys.includes(l.key) && !progress[l.key]);
+    if (next) return { category: next.category, label: NEXT_LABELS[next.key] };
+    const first = ALL_LESSONS.find((l) => lessonKeys.includes(l.key)) || ALL_LESSONS[0];
+    return { category: first.category, label: 'הושלם הלימוד היומי ✓' };
   };
 
   const nextStudy = getNextStudy();
@@ -181,7 +174,7 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
             <div className="flex-1 space-y-1.5">
               <div className="flex justify-between text-xs font-medium text-stone-700">
                 <span>התקדמות הלימוד היומי</span>
-                <span className="tabular-nums font-bold text-amber-950">{completedCount} מתוך 5 שיעורים ({progressPercent}%)</span>
+                <span className="tabular-nums font-bold text-amber-950">{completedCount} מתוך {totalLessons} שיעורים ({progressPercent}%)</span>
               </div>
               <div className="w-full h-2.5 bg-stone-200/80 rounded-full overflow-hidden">
                 <div
@@ -213,7 +206,7 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {studyCards.map((card) => {
+          {studyCards.filter((card) => lessonKeys.includes(card.key)).map((card) => {
             const isCompleted = progress[card.key];
             const Icon = card.icon;
 

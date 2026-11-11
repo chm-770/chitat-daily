@@ -17,6 +17,8 @@ import { OfflineIndicator } from './components/OfflineIndicator';
 import { CalendarModal } from './components/CalendarModal';
 import { getSavedCity, DEFAULT_CITY } from './services/zmanimService';
 import { emptyProgress, loadProgress, localDateKey } from './utils/progress';
+import { enabledLessonKeys, nextSection, sectionSequence, textFontFamily } from './utils/lessons';
+import { OnboardingModal } from './components/OnboardingModal';
 
 const DEFAULT_SETTINGS: StudySettings = {
   fontSize: 'medium',
@@ -119,6 +121,7 @@ export default function App() {
       }
       root.classList.toggle('theme-dark', mode === 'dark');
       root.classList.toggle('theme-black', mode === 'black');
+      root.style.setProperty('--torah-font', textFontFamily(settings.textFont));
     };
     apply();
     if (settings.theme === 'system' && window.matchMedia) {
@@ -126,7 +129,7 @@ export default function App() {
       mq.addEventListener?.('change', apply);
       return () => mq.removeEventListener?.('change', apply);
     }
-  }, [settings.theme]);
+  }, [settings.theme, settings.textFont]);
 
   useEffect(() => {
     try {
@@ -151,7 +154,7 @@ export default function App() {
       // ignore
     }
 
-    const allDone = progress.chumash && progress.tehillim && progress.tanya && progress.hayomYom && progress.rambam;
+    const allDone = enabledLessonKeys(settings.enabledLessons).every((k) => Boolean(progress[k]));
     if (allDone) {
       setShowCelebration(true);
       const timer = setTimeout(() => setShowCelebration(false), 6000);
@@ -267,7 +270,11 @@ export default function App() {
     setSettings((prev) => ({ ...prev, ...newSettings }));
   };
 
-  const SECTIONS_SEQUENCE: StudyCategory[] = ['overview', 'chumash', 'tehillim', 'tanya', 'hayom_yom', 'rambam'];
+  const SECTIONS_SEQUENCE: StudyCategory[] = sectionSequence(settings.enabledLessons);
+  const advanceFrom = (cat: StudyCategory) => {
+    setCurrentCategory(nextSection(cat, settings.enabledLessons));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const touchStartXRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
@@ -349,6 +356,7 @@ export default function App() {
         onUndo={handleUndo}
         fontSize={settings.fontSize}
         onChangeFontSize={(size) => handleUpdateSettings({ fontSize: size })}
+        enabledLessons={settings.enabledLessons}
       />
 
       {/* Date Navigation & Calendar Selector Bar */}
@@ -397,6 +405,7 @@ export default function App() {
             progress={progress}
             onToggleProgress={handleToggleProgress}
             onSelectCategory={setCurrentCategory}
+            enabledLessons={settings.enabledLessons}
           />
         )}
 
@@ -411,10 +420,7 @@ export default function App() {
             readItemIds={progress.readItemIds || {}}
             onMarkItemRead={handleMarkItemRead}
             onMarkVersesBatch={handleMarkBatch}
-            onAdvanceToNext={() => {
-              setCurrentCategory('tehillim');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onAdvanceToNext={() => advanceFrom('chumash')}
           />
         )}
 
@@ -428,10 +434,7 @@ export default function App() {
             readItemIds={progress.readItemIds || {}}
             onMarkItemRead={handleMarkItemRead}
             onMarkBatch={handleMarkBatch}
-            onAdvanceToNext={() => {
-              setCurrentCategory('tanya');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onAdvanceToNext={() => advanceFrom('tehillim')}
           />
         )}
 
@@ -444,10 +447,7 @@ export default function App() {
             settings={settings}
             readItemIds={progress.readItemIds || {}}
             onMarkItemRead={handleMarkItemRead}
-            onAdvanceToNext={() => {
-              setCurrentCategory('hayom_yom');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onAdvanceToNext={() => advanceFrom('tanya')}
           />
         )}
 
@@ -459,10 +459,7 @@ export default function App() {
             onSetCompleted={(val) => handleSetProgressCompleted('hayomYom', val)}
             readItemIds={progress.readItemIds || {}}
             onMarkItemRead={handleMarkItemRead}
-            onAdvanceToNext={() => {
-              setCurrentCategory('rambam');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onAdvanceToNext={() => advanceFrom('hayom_yom')}
           />
         )}
 
@@ -480,10 +477,7 @@ export default function App() {
             readItemIds={progress.readItemIds || {}}
             onMarkItemRead={handleMarkItemRead}
             onMarkBatch={handleMarkBatch}
-            onAdvanceToNext={() => {
-              setCurrentCategory('overview');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onAdvanceToNext={() => advanceFrom('rambam')}
           />
         )}
       </main>
@@ -541,11 +535,20 @@ export default function App() {
         onCityChanged={handleCityChanged}
       />
 
+      {/* First launch: which lessons to learn and which Rambam track */}
+      {!settings.onboardingDone && (
+        <OnboardingModal
+          settings={settings}
+          onDone={(update: Partial<StudySettings>) => handleUpdateSettings({ ...update, onboardingDone: true })}
+        />
+      )}
+
       {/* Calendar with daily study progress */}
       <CalendarModal
         isOpen={isCalendarOpen}
         onClose={() => setIsCalendarOpen(false)}
         selectedDate={currentDate}
+        enabledLessons={settings.enabledLessons}
         onSelectDate={(d) => {
           setCurrentDate(d);
           window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { vocalizeRashiHeading } from '../utils/hebrewText';
 import { motion, PanInfo } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
 import { ChumashVerse, StudySettings } from '../types/chitas';
 import { toHebrewNumeral } from '../utils/hebrewNumerals';
 
@@ -96,8 +97,9 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
           <span className="text-xs font-bold text-amber-900 bg-amber-100/70 px-2.5 py-0.5 rounded font-torah">
             {verseRefLabel}
           </span>
-          <span className="text-[11px] text-stone-400 font-sans">
-            גרור ימינה לסיום
+<span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
+            <span>החלק ימינה לסימון</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </span>
         </div>
 

@@ -102,6 +102,8 @@ export type RambamTrack = 'three_chapters' | 'one_chapter' | 'sefer_hamitzvot';
 
 export type ZmanimMethod = 'chabad' | 'gra' | 'mga72' | 'mga16' | 'all';
 
+export type TextFont = 'frank' | 'david' | 'noto-serif' | 'noto-sans' | 'assistant';
+
 export type ThemeMode = 'parchment' | 'light' | 'dark' | 'black' | 'system';
 
 export interface StudySettings {
@@ -112,4 +114,10 @@ export interface StudySettings {
   rashiFontScript: boolean; // Traditional Rashi script vs standard Hebrew
   rambamTrack?: RambamTrack; // Defined in settings, defaults to 'three_chapters'
   zmanimMethod?: ZmanimMethod; // Defined in settings, defaults to 'chabad'
+  /** The daily lessons the user learns (chosen on first launch, changeable in the settings) */
+  enabledLessons?: DailyStudyKey[];
+  /** The first-launch menu was completed */
+  onboardingDone?: boolean;
+  /** Font of the Torah texts */
+  textFont?: TextFont;
 }

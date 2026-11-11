@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useJustCompleted } from '../hooks/useJustCompleted';
 import { motion, PanInfo } from 'motion/react';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { StudySettings } from '../types/chitas';
@@ -26,6 +27,8 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
   onMarkItemRead,
   onAdvanceToNext,
 }) => {
+  // The "אשריך" card is shown only right after finishing, not when coming back later
+  const justCompleted = useJustCompleted(isCompleted);
   const [portion, setPortion] = useState<TanyaDailyPortion | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -156,7 +159,7 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
       {!isLoading && portion && (
         <div className="space-y-4">
           {/* Completed State Card */}
-          {isFinished && (
+          {isFinished && justCompleted && (
             <div className="p-6 text-center bg-emerald-50/60 rounded-2xl border border-emerald-200 shadow-2xs space-y-2">
               <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />

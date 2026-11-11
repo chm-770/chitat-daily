@@ -42,6 +42,7 @@ function cleanHalachaText(raw: string): string {
     .replace(/&nbsp;/g, ' ')
     .replace(/\[[^\]]*\]/g, '')
     .replace(/\uFB20/g, 'ע')
+    .replace(/[\u0591-\u05AF\u05BD]/g, '')
     .trim();
 }
 
@@ -162,16 +163,17 @@ export function getRambamBookHebrewName(baseRef: string): string {
 function findMitzvotIntro(heRef: string, chapterNumber: number): string | undefined {
   if (chapterNumber !== 1) return undefined;
   if (
-    /הקדמה|Introduction|מסירת תורה שבעל פה|Transmission|מניין המצוות|מנין המצוות|Positive Commandments|Negative Commandments|נוסח|תפלה|תפילה|הגדה|Haggadah/i.test(
+    /הקדמה|Introduction|מסירת תורה שבעל פה|Transmission|מניין המצוות|מנין המצוות|Positive Commandments|Negative Commandments|נוסח|סדר תפלות|הגדה|Haggadah/i.test(
       heRef
     )
   ) {
     return undefined;
   }
 
+  // "הלכות מאכלות אסורות פרק א׳" -> "הלכות מאכלות אסורות"
   const cleaned = heRef
     .replace(/^משנה תורה,?\s*/, '')
-    .replace(/\s+[א-ת״׳0-9]+(-[א-ת״׳0-9]+)?$/, '')
+    .replace(/\s*[–-]?\s*פרק\s+[א-ת״׳"'0-9]+(-[א-ת״׳"'0-9]+)?\s*$/, '')
     .trim();
 
   const headers = RAMBAM_MITZVOT_HEADERS as Record<string, string>;

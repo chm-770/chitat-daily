@@ -110,7 +110,7 @@ function stripSectionMarkers(parasha: Parasha): Parasha {
             .replace(/\s*\{[פס]\}\s*/g, ' ')
             .replace(/\s+/g, ' ')
         ),
-        rashi: v.rashi?.map((r) => r.replace(/\uFB20/g, 'ע')),
+        rashi: v.rashi?.map((r) => r.replace(/\uFB20/g, 'ע').replace(/\u05BD/g, '')),
       })),
     })),
   };

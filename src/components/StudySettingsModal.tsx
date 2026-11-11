@@ -32,6 +32,24 @@ const THEMES: { id: ThemeMode; swatch: string }[] = [
 const RAMBAM_TRACK_IDS: RambamTrack[] = ['three_chapters', 'one_chapter', 'sefer_hamitzvot'];
 const FONT_SIZES: StudySettings['fontSize'][] = ['small', 'medium', 'large', 'xlarge'];
 
+const SM_STRINGS = {
+  he: {
+    title: 'שניים מקרא ואחד תרגום:',
+    enable: 'להציג ביום שישי את כל הפרשה: מקרא פעמיים ותרגום אונקלוס',
+    rashi: 'להציג גם רש״י',
+  },
+  en: {
+    title: "Shnayim Mikra ve'Echad Targum:",
+    enable: 'On Friday, show the whole parasha: each verse twice and Targum Onkelos',
+    rashi: 'Also show Rashi',
+  },
+  fr: {
+    title: 'Chnayim Mikra véé\'had Targoum :',
+    enable: 'Le vendredi, afficher toute la Paracha : chaque verset deux fois et le Targoum Onkelos',
+    rashi: 'Afficher aussi Rachi',
+  },
+};
+
 const STRINGS = {
   he: {
     title: 'הגדרות',
@@ -188,6 +206,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
   const [currentCity, setCurrentCity] = useState<CityConfig>(() => getSavedCity() || DEFAULT_CITY);
   const [isChangingCity, setIsChangingCity] = useState(false);
   const s = useStrings(STRINGS);
+  const sm = useStrings(SM_STRINGS);
   const lang = useLang();
 
   useEffect(() => {
@@ -421,6 +440,34 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Shnayim Mikra ve'Echad Targum (Friday) */}
+          <div className="space-y-2 pt-2 border-t border-stone-100">
+            <label className={sectionTitle}>
+              <BookOpen className="w-3.5 h-3.5 text-amber-800" />
+              <span>{sm.title}</span>
+            </label>
+            <label className="flex items-start gap-2 text-sm text-stone-800 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={Boolean(settings.shnayimMikra)}
+                onChange={(e) => onUpdateSettings({ shnayimMikra: e.target.checked })}
+                className="accent-amber-800 w-4 h-4 mt-0.5 shrink-0"
+              />
+              <span>{sm.enable}</span>
+            </label>
+            {settings.shnayimMikra && (
+              <label className="flex items-start gap-2 text-sm text-stone-800 cursor-pointer ms-6">
+                <input
+                  type="checkbox"
+                  checked={Boolean(settings.shnayimMikraRashi)}
+                  onChange={(e) => onUpdateSettings({ shnayimMikraRashi: e.target.checked })}
+                  className="accent-amber-800 w-4 h-4 mt-0.5 shrink-0"
+                />
+                <span>{sm.rashi}</span>
+              </label>
+            )}
           </div>
 
           {/* Reminders */}

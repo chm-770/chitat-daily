@@ -1,4 +1,4 @@
-export type StudyCategory = 'overview' | 'chumash' | 'tehillim' | 'tanya' | 'hayom_yom' | 'rambam' | 'about';
+export type StudyCategory = 'overview' | 'chumash' | 'tehillim' | 'tanya' | 'hayom_yom' | 'rambam' | 'shnayim_mikra' | 'about';
 
 export interface ChumashVerse {
   number: number;
@@ -124,4 +124,8 @@ export interface StudySettings {
   textFont?: TextFont;
   /** Interface language (the Torah texts stay in Hebrew); detected from the device when missing */
   language?: 'he' | 'en' | 'fr';
+  /** Shnayim Mikra ve'Echad Targum of the whole parasha on Friday (off by default) */
+  shnayimMikra?: boolean;
+  /** Show Rashi in Shnayim Mikra */
+  shnayimMikraRashi?: boolean;
 }

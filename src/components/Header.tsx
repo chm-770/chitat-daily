@@ -18,6 +18,7 @@ const STRINGS = {
       tanya: 'תניא היומי',
       hayom_yom: 'היום יום',
       rambam: 'רמב״ם היומי',
+      shnayim_mikra: 'שניים מקרא',
     } as Record<StudyCategory, string>,
     completedToday: 'הושלם היום ✓',
     notCompleted: 'טרם הושלם',
@@ -41,6 +42,7 @@ const STRINGS = {
       tanya: 'Tanya',
       hayom_yom: 'Hayom Yom',
       rambam: 'Rambam',
+      shnayim_mikra: 'Shnayim Mikra',
     } as Record<StudyCategory, string>,
     completedToday: 'Completed today ✓',
     notCompleted: 'Not completed yet',
@@ -64,6 +66,7 @@ const STRINGS = {
       tanya: 'Tanya',
       hayom_yom: 'Hayom Yom',
       rambam: 'Rambam',
+      shnayim_mikra: 'Shnayim Mikra',
     } as Record<StudyCategory, string>,
     completedToday: 'Terminé aujourd’hui ✓',
     notCompleted: 'Pas encore terminé',
@@ -89,6 +92,8 @@ interface HeaderProps {
   fontSize: StudySettings['fontSize'];
   onChangeFontSize: (size: StudySettings['fontSize']) => void;
   enabledLessons?: DailyStudyKey[];
+  /** Friday, Shnayim Mikra turned on */
+  showShnayimMikra?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -103,6 +108,7 @@ export const Header: React.FC<HeaderProps> = ({
   fontSize,
   onChangeFontSize,
   enabledLessons,
+  showShnayimMikra = false,
 }) => {
   const fontSizes: StudySettings['fontSize'][] = ['small', 'medium', 'large', 'xlarge'];
   const activeTabRef = useRef<HTMLButtonElement | null>(null);
@@ -140,6 +146,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'tanya', label: s.nav.tanya, isCompleted: progress.tanya },
     { id: 'hayom_yom', label: s.nav.hayom_yom, isCompleted: progress.hayomYom },
     { id: 'rambam', label: s.nav.rambam, isCompleted: progress.rambam },
+    ...(showShnayimMikra ? [{ id: 'shnayim_mikra', label: s.nav.shnayim_mikra }] : []),
   ] as NavItem[]).filter((item) => {
     const keyOf: Partial<Record<StudyCategory, DailyStudyKey>> = {
       chumash: 'chumash', tehillim: 'tehillim', tanya: 'tanya', hayom_yom: 'hayomYom', rambam: 'rambam',

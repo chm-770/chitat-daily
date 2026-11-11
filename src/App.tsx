@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import { DateSelectorBar } from './components/DateSelectorBar';
 import { DailyOverview } from './components/DailyOverview';
 import { ChumashViewer } from './components/ChumashViewer';
+import { ShnayimMikraViewer } from './components/ShnayimMikraViewer';
 import { TehillimViewer } from './components/TehillimViewer';
 import { TanyaViewer } from './components/TanyaViewer';
 import { HayomYomViewer } from './components/HayomYomViewer';
@@ -65,7 +66,7 @@ export default function App() {
   const [currentCategory, setCurrentCategory] = useState<StudyCategory>(() => {
     try {
       const section = new URLSearchParams(window.location.search).get('section');
-      const allowed: StudyCategory[] = ['overview', 'chumash', 'tehillim', 'tanya', 'hayom_yom', 'rambam'];
+      const allowed: StudyCategory[] = ['overview', 'chumash', 'tehillim', 'tanya', 'hayom_yom', 'rambam', 'shnayim_mikra'];
       return allowed.includes(section as StudyCategory) ? (section as StudyCategory) : 'overview';
     } catch {
       return 'overview';
@@ -429,6 +430,8 @@ export default function App() {
   };
 
   const lang = settings.language || detectLang();
+  // Shnayim Mikra ve'Echad Targum: on Friday, for those who turned it on in the settings
+  const showShnayimMikra = Boolean(settings.shnayimMikra) && currentDate.getDay() === 5;
   setCurrentLang(lang);
   const s = pick(STRINGS, lang);
 
@@ -448,6 +451,7 @@ export default function App() {
         fontSize={settings.fontSize}
         onChangeFontSize={(size) => handleUpdateSettings({ fontSize: size })}
         enabledLessons={settings.enabledLessons}
+        showShnayimMikra={showShnayimMikra}
       />
 
       {/* Date Navigation & Calendar Selector Bar */}
@@ -478,6 +482,17 @@ export default function App() {
             onToggleProgress={handleToggleProgress}
             onSelectCategory={setCurrentCategory}
             enabledLessons={settings.enabledLessons}
+            showShnayimMikra={showShnayimMikra}
+          />
+        )}
+
+        {currentCategory === 'shnayim_mikra' && (
+          <ShnayimMikraViewer
+            key={`sm_${cityId}_${settings.inIsrael}`}
+            dateInfo={dateInfo}
+            settings={settings}
+            readItemIds={progress.readItemIds || {}}
+            onMarkVersesBatch={handleMarkBatch}
           />
         )}
 

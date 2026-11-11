@@ -9,9 +9,9 @@ import { useLang, useStrings, dirOf } from '../i18n';
 
 /** Interface strings of the swipe cards (the card itself stays a right-to-left Hebrew card). */
 const STRINGS = {
-  he: { swipeHint: 'החלק ימינה לסימון', done: 'הושלם ✓', rashi: 'פירוש רש״י:' },
-  en: { swipeHint: 'Swipe to mark as read', done: 'Done ✓', rashi: 'Rashi:' },
-  fr: { swipeHint: 'Glissez pour marquer comme lu', done: 'Terminé ✓', rashi: 'Commentaire de Rachi :' },
+  he: { swipeHint: 'החלק ימינה לסימון', done: 'הושלם ✓', rashi: 'פירוש רש״י:', targum: 'תרגום אונקלוס:' },
+  en: { swipeHint: 'Swipe to mark as read', done: 'Done ✓', rashi: 'Rashi:', targum: 'Targum Onkelos:' },
+  fr: { swipeHint: 'Glissez pour marquer comme lu', done: 'Terminé ✓', rashi: 'Commentaire de Rachi :', targum: 'Targoum Onkelos :' },
 };
 
 interface SwipeVerseCardProps {
@@ -21,6 +21,9 @@ interface SwipeVerseCardProps {
   showRashi: boolean;
   settings: StudySettings;
   getFontSizeClass: () => string;
+  /** Shnayim Mikra: the verse is printed twice, then Targum Onkelos */
+  twice?: boolean;
+  targum?: string;
 }
 
 function parseRashiComment(rawText: string): { dibbur: string; body: string } {
@@ -76,6 +79,8 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
   showRashi,
   settings,
   getFontSizeClass,
+  twice = false,
+  targum,
 }) => {
   const lang = useLang();
   const s = useStrings(STRINGS);
@@ -126,6 +131,23 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
         >
           {verse.hebrew}
         </p>
+        {twice && (
+          <p className={`font-torah text-stone-900 font-medium ${getFontSizeClass()}`} dir="rtl">
+            {verse.hebrew}
+          </p>
+        )}
+
+        {/* Targum Onkelos (Shnayim Mikra) */}
+        {targum && (
+          <div className="pt-2.5 border-t border-amber-900/10 space-y-1">
+            <span className="text-xs font-bold text-stone-500 font-sans" dir={dirOf(lang)} lang={lang}>
+              {s.targum}
+            </span>
+            <p className="font-torah text-stone-800 text-base md:text-lg leading-relaxed" dir="rtl" lang="arc">
+              {targum}
+            </p>
+          </div>
+        )}
 
         {/* Rashi commentary with bolded Dibbur HaMaschil */}
         {showRashi && verse.rashi && verse.rashi.length > 0 && (

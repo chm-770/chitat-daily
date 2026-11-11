@@ -16,7 +16,15 @@ interface DailyOverviewProps {
   streakDays?: number;
   rambamTrack?: RambamTrack;
   enabledLessons?: DailyStudyKey[];
+  /** Friday, Shnayim Mikra turned on */
+  showShnayimMikra?: boolean;
 }
+
+const SM_STRINGS = {
+  he: { title: 'שניים מקרא ואחד תרגום', text: 'ערב שבת: כל הפרשה, מקרא פעמיים ותרגום אונקלוס.' },
+  en: { title: "Shnayim Mikra ve'Echad Targum", text: 'Erev Shabbat: the whole parasha, the verse twice and Targum Onkelos.' },
+  fr: { title: 'Chnayim Mikra véé\'had Targoum', text: 'Veille de Chabbat : toute la Paracha, le verset deux fois et le Targoum Onkelos.' },
+};
 
 /** Hebrew text (names, dates) kept right-to-left inside an English / French sentence. */
 const He: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -179,9 +187,11 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
   onSelectCategory,
   rambamTrack = 'three_chapters',
   enabledLessons,
+  showShnayimMikra = false,
 }) => {
   const lessonKeys = enabledLessonKeys(enabledLessons);
   const s = useStrings(STRINGS);
+  const sm = useStrings(SM_STRINGS);
   const lang = useLang();
   const isHe = lang === 'he';
   // Arrow pointing forward (left in Hebrew, right in English / French)
@@ -455,6 +465,25 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
             );
           })}
         </div>
+
+        {showShnayimMikra && (
+          <button
+            type="button"
+            onClick={() => onSelectCategory('shnayim_mikra')}
+            className="w-full text-start rounded-xl p-5 border border-amber-300 bg-amber-50/60 hover:border-amber-500 hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-3"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-amber-100 text-amber-900 shrink-0">
+                <BookOpen className="w-5 h-5" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-bold text-stone-900 font-torah text-lg leading-tight">{sm.title}</h3>
+                <p className="text-xs text-stone-600">{sm.text}</p>
+              </div>
+            </div>
+            <ForwardArrow className="w-4 h-4 text-amber-900 shrink-0" />
+          </button>
+        )}
       </section>
     </div>
   );

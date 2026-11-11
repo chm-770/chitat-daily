@@ -17,13 +17,14 @@
 }
 
 .font-torah {
-  font-family: 'Noto Serif Hebrew', 'David Libre', 'Frank Ruhl Libre', Georgia, serif;
+  /* Frank Ruhl Libre first: Noto Serif Hebrew draws tsere + meteg (e.g. בְּאֵֽר) like a qamats */
+  font-family: 'Frank Ruhl Libre', 'David Libre', 'Noto Serif Hebrew', Georgia, serif;
   font-feature-settings: "kern" 1, "mark" 1, "mkmk" 1;
   text-rendering: optimizeLegibility;
 }
 
 .font-rashi {
-  font-family: 'Noto Serif Hebrew', 'David Libre', 'Frank Ruhl Libre', serif;
+  font-family: 'Frank Ruhl Libre', 'David Libre', 'Noto Serif Hebrew', serif;
   font-style: italic;
   letter-spacing: 0.015em;
   font-feature-settings: "kern" 1, "mark" 1, "mkmk" 1;

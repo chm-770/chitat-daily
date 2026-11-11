@@ -12,3 +12,7 @@ APP_URL = "https://chitatdaily.pages.dev"
 
 [triggers]
 crons = ["* * * * *"]
+
+# Keeps the logs of each run (Workers Logs) to diagnose failed sends
+[observability]
+enabled = true

@@ -9,6 +9,7 @@
  */
 import type { User } from 'firebase/auth';
 import type { DailyProgress } from '../types/chitas';
+import { pick } from '../i18n';
 
 // Public identifiers of the Firebase project (not secrets)
 const FIREBASE_CONFIG = {
@@ -129,18 +130,55 @@ export async function deleteAccount(): Promise<void> {
 }
 
 /** Human-readable Hebrew message for a Firebase auth error. */
+const AUTH_ERRORS = {
+  he: {
+    wrong: 'המייל או הסיסמה שגויים.',
+    inUse: 'כבר קיים חשבון עם המייל הזה. אפשר להתחבר אליו.',
+    weak: 'הסיסמה קצרה מדי (לפחות 6 תווים).',
+    badEmail: 'כתובת המייל לא תקינה.',
+    popup: 'חלון ההתחברות נסגר לפני הסיום.',
+    network: 'אין חיבור לאינטרנט.',
+    recent: 'לפני מחיקת החשבון צריך להתחבר מחדש.',
+    domain: 'כתובת האתר לא מאושרת בהגדרות Firebase.',
+    generic: 'הפעולה נכשלה. נסה שוב.',
+  },
+  en: {
+    wrong: 'Incorrect email or password.',
+    inUse: 'An account with this email already exists. You can sign in to it.',
+    weak: 'The password is too short (at least 6 characters).',
+    badEmail: 'The email address is not valid.',
+    popup: 'The sign-in window was closed before finishing.',
+    network: 'No internet connection.',
+    recent: 'Please sign in again before deleting your account.',
+    domain: 'This site address is not authorized in the Firebase settings.',
+    generic: 'Something went wrong. Please try again.',
+  },
+  fr: {
+    wrong: 'E-mail ou mot de passe incorrect.',
+    inUse: 'Un compte existe déjà avec cet e-mail. Vous pouvez vous y connecter.',
+    weak: 'Le mot de passe est trop court (6 caractères minimum).',
+    badEmail: 'L’adresse e-mail n’est pas valide.',
+    popup: 'La fenêtre de connexion a été fermée avant la fin.',
+    network: 'Pas de connexion Internet.',
+    recent: 'Veuillez vous reconnecter avant de supprimer votre compte.',
+    domain: 'L’adresse du site n’est pas autorisée dans les paramètres Firebase.',
+    generic: 'L’opération a échoué. Veuillez réessayer.',
+  },
+};
+
 export function authErrorMessage(e: any): string {
+  const s = pick(AUTH_ERRORS);
   const code: string = e?.code || '';
   if (code.includes('invalid-credential') || code.includes('wrong-password') || code.includes('user-not-found'))
-    return 'המייל או הסיסמה שגויים.';
-  if (code.includes('email-already-in-use')) return 'כבר קיים חשבון עם המייל הזה. אפשר להתחבר אליו.';
-  if (code.includes('weak-password')) return 'הסיסמה קצרה מדי (לפחות 6 תווים).';
-  if (code.includes('invalid-email')) return 'כתובת המייל לא תקינה.';
-  if (code.includes('popup-closed')) return 'חלון ההתחברות נסגר לפני הסיום.';
-  if (code.includes('network')) return 'אין חיבור לאינטרנט.';
-  if (code.includes('requires-recent-login')) return 'לפני מחיקת החשבון צריך להתחבר מחדש.';
-  if (code.includes('unauthorized-domain')) return 'כתובת האתר לא מאושרת בהגדרות Firebase.';
-  return 'הפעולה נכשלה. נסה שוב.';
+    return s.wrong;
+  if (code.includes('email-already-in-use')) return s.inUse;
+  if (code.includes('weak-password')) return s.weak;
+  if (code.includes('invalid-email')) return s.badEmail;
+  if (code.includes('popup-closed')) return s.popup;
+  if (code.includes('network')) return s.network;
+  if (code.includes('requires-recent-login')) return s.recent;
+  if (code.includes('unauthorized-domain')) return s.domain;
+  return s.generic;
 }
 
 // ---------- Sync ----------

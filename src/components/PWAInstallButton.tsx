@@ -2,6 +2,34 @@ import React, { useState } from 'react';
 import { Smartphone, Download } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import { PWAInstallModal } from './PWAInstallModal';
+import { useStrings } from '../i18n';
+
+const STRINGS = {
+  he: {
+    cardTitle: 'הורד את האפליקציה לטלפון',
+    cardText: 'לימוד חת״ת במסך מלא, פתיחה ישירה ממסך הבית וזמינות ללא אינטרנט',
+    installNow: 'התקן עכשיו',
+    headerTitle: 'הורדת האפליקציה למסך הבית בטלפון',
+    download: 'הורד לטלפון',
+    install: 'התקן',
+  },
+  en: {
+    cardTitle: 'Get the app on your phone',
+    cardText: 'Study Chitas full screen, open it straight from the home screen, and read offline',
+    installNow: 'Install now',
+    headerTitle: 'Add the app to your phone’s home screen',
+    download: 'Get the app',
+    install: 'Install',
+  },
+  fr: {
+    cardTitle: 'Installez l’application sur votre téléphone',
+    cardText: 'Étudiez le \'Hitat en plein écran, ouvrez-le depuis l’écran d’accueil, même sans Internet',
+    installNow: 'Installer',
+    headerTitle: 'Ajouter l’application à l’écran d’accueil du téléphone',
+    download: 'Installer l’app',
+    install: 'Installer',
+  },
+};
 
 interface PWAInstallButtonProps {
   variant?: 'header' | 'banner' | 'card';
@@ -11,6 +39,7 @@ interface PWAInstallButtonProps {
 export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({ variant = 'header', className = '' }) => {
   const { isInstallable, isInstalled, install } = usePWAInstall();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const s = useStrings(STRINGS);
 
   // If already running as an installed PWA on device, hide button
   if (isInstalled) {
@@ -41,10 +70,10 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({ variant = 'h
             </div>
             <div>
               <h4 className="font-bold text-sm text-stone-900 font-torah">
-                הורד את האפליקציה לטלפון
+                {s.cardTitle}
               </h4>
               <p className="text-xs text-stone-600">
-                לימוד חת״ת במסך מלא, פתיחה ישירה ממסך הבית וזמינות ללא אינטרנט
+                {s.cardText}
               </p>
             </div>
           </div>
@@ -53,7 +82,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({ variant = 'h
             className="px-3 py-1.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white font-medium text-xs flex items-center gap-1.5 shrink-0 shadow-2xs transition-colors cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>התקן עכשיו</span>
+            <span>{s.installNow}</span>
           </button>
         </div>
 
@@ -67,12 +96,12 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({ variant = 'h
     <>
       <button
         onClick={handleClick}
-        title="הורדת האפליקציה למסך הבית בטלפון"
+        title={s.headerTitle}
         className={`px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-amber-50 font-medium text-xs flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0 ${className}`}
       >
         <Smartphone className="w-3.5 h-3.5 text-amber-200" />
-        <span className="hidden sm:inline">הורד לטלפון</span>
-        <span className="sm:hidden">התקן</span>
+        <span className="hidden sm:inline">{s.download}</span>
+        <span className="sm:hidden">{s.install}</span>
       </button>
 
       <PWAInstallModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

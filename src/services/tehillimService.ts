@@ -6,6 +6,21 @@ import {
   computeTehillimRangeTitle,
 } from '../utils/hebrewCalendar';
 import { toHebrewNumeral } from '../utils/hebrewNumerals';
+import { pick } from '../i18n';
+
+/** Interface messages (the psalms and their Hebrew titles stay in Hebrew). */
+const STRINGS = {
+  he: {
+    loadError: (num: number) =>
+      `מִזְמוֹר ${toHebrewNumeral(num)} – שגיאה בטעינת המזמור מהרשת. בדוק את החיבור לרשת ונסה שוב.`,
+  },
+  en: {
+    loadError: (num: number) => `Psalm ${num} – could not be loaded. Check your connection and try again.`,
+  },
+  fr: {
+    loadError: (num: number) => `Psaume ${num} – erreur de chargement. Vérifiez votre connexion et réessayez.`,
+  },
+};
 
 export interface TehillimChapter {
   number: number;
@@ -115,7 +130,7 @@ async function fetchFullPsalmWithRetry(num: number, retries = 2): Promise<Tehill
     verses: [
       {
         number: 1,
-        text: `מִזְמוֹר ${toHebrewNumeral(num)} – שגיאה בטעינת המזמור מהרשת. בדוק את החיבור לרשת ונסה שוב.`,
+        text: pick(STRINGS).loadError(num),
       },
     ],
   };

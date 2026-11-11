@@ -2,9 +2,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { StudyCategory, DailyProgress, DailyStudyKey, RambamTrack } from '../types/chitas';
 import { ALL_LESSONS, enabledLessonKeys } from '../utils/lessons';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
-import { BookOpen, Scroll, BookMarked, Sun, Scale, CheckCircle2, Circle, ArrowLeft } from 'lucide-react';
+import { BookOpen, Scroll, BookMarked, Sun, Scale, CheckCircle2, Circle, ArrowLeft, ArrowRight } from 'lucide-react';
 import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting, getShabbatEndTime } from '../services/zmanimService';
 import { getTanyaDailyPortion } from '../services/tanyaService';
+import { localeOf, useLang, useStrings } from '../i18n';
+import { cityDisplayName } from './CityPicker';
 
 interface DailyOverviewProps {
   dateInfo: HebrewDateInfo;
@@ -16,10 +18,158 @@ interface DailyOverviewProps {
   enabledLessons?: DailyStudyKey[];
 }
 
-const RAMBAM_TRACK_LABELS: Record<RambamTrack, string> = {
-  three_chapters: 'ג׳ פרקים ליום',
-  one_chapter: 'פרק אחד ליום',
-  sefer_hamitzvot: 'ספר המצוות',
+/** Hebrew text (names, dates) kept right-to-left inside an English / French sentence. */
+const He: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <bdi dir="rtl" lang="he">
+    {children}
+  </bdi>
+);
+
+const STRINGS = {
+  he: {
+    rambamTracks: {
+      three_chapters: 'ג׳ פרקים ליום',
+      one_chapter: 'פרק אחד ליום',
+      sefer_hamitzvot: 'ספר המצוות',
+    } as Record<RambamTrack, string>,
+    chumashTitle: 'חומש עם רש״י',
+    chumashSubtitle: (parasha: string, aliyah: string): React.ReactNode => `פרשת ${parasha} · ${aliyah}`,
+    chumashDesc: 'שיעור החומש היומי עם פירוש רש״י הקדוש, מחולק לפי ימי השבוע מעלייה לעלייה.',
+    tehillimTitle: 'תהילים יומי',
+    tehillimSubtitle: (day: string, portion: string): React.ReactNode => `ליום ${day} בחודש · ${portion}`,
+    tehillimDesc: 'אמירת מזמורי התהילים לפי חלוקת ימי החודש. מסיים את כל ספר תהילים בכל חודש עברי.',
+    tanyaTitle: 'תניא קדישא',
+    tanyaDesc: 'ספר היסוד של חסידות חב״ד שחיבר אדמו״ר הזקן, מחולק ללימוד יומי לאורך השנה.',
+    hayomYomTitle: 'היום יום',
+    hayomYomSubtitle: (day: string, month: string): React.ReactNode => `פתגם והוראה ליום ${day} ב${month}`,
+    hayomYomDesc: 'לוח יומי שערך הרבי מליובאוויטש עם פתגם חסידי, מנהג יומי והדרכה מעשית.',
+    rambamTitle: 'הרמב״ם היומי',
+    rambamDesc: 'תקנת הרמב״ם היומי של הרבי לאיחוד כל עם ישראל בלימוד כל התורה כולה ביד החזקה.',
+    next: {
+      chumash: 'התחל לימוד חומש',
+      tehillim: 'המשך לתהילים',
+      tanya: 'המשך לתניא',
+      hayomYom: 'המשך להיום יום',
+      rambam: 'המשך לרמב״ם',
+    } as Record<DailyStudyKey, string>,
+    allDone: 'הושלם הלימוד היומי ✓',
+    parashaPrefix: 'פרשת',
+    candles: 'כניסת שבת:',
+    shabbatEnds: 'צאת שבת:',
+    progress: 'התקדמות הלימוד היומי',
+    progressCount: (done: number, total: number, percent: number) => `${done} מתוך ${total} שיעורים (${percent}%)`,
+    todayLessons: 'שיעורי היום',
+    todayHint: 'לחץ לפתיחת השיעור המלא או סמן וי בתיבה להשלמה',
+    markNotDone: 'סמן כלא הושלם',
+    markDone: 'סמן כהושלם',
+    completedToday: '✓ הושלם היום',
+    notCompleted: 'טרם הושלם',
+    read: 'קרא שיעור',
+  },
+  en: {
+    rambamTracks: {
+      three_chapters: '3 chapters a day',
+      one_chapter: '1 chapter a day',
+      sefer_hamitzvot: 'Sefer HaMitzvot',
+    } as Record<RambamTrack, string>,
+    chumashTitle: 'Chumash with Rashi',
+    chumashSubtitle: (parasha: string, aliyah: string) => (
+      <>
+        Parashat <He>{parasha}</He> · <He>{aliyah}</He>
+      </>
+    ),
+    chumashDesc: 'The daily Chumash portion with Rashi’s commentary, divided by the days of the week, one aliyah a day.',
+    tehillimTitle: 'Daily Tehillim',
+    tehillimSubtitle: (day: string, portion: string) => (
+      <>
+        Day <He>{day}</He> of the month · <He>{portion}</He>
+      </>
+    ),
+    tehillimDesc: 'The psalms divided by the days of the month, completing the whole book of Tehillim every Hebrew month.',
+    tanyaTitle: 'Tanya',
+    tanyaDesc: 'The foundational work of Chabad Chassidut by the Alter Rebbe, divided into daily lessons over the year.',
+    hayomYomTitle: 'Hayom Yom',
+    hayomYomSubtitle: (day: string, month: string) => (
+      <>
+        Saying and directive for <He>{day} ב{month}</He>
+      </>
+    ),
+    hayomYomDesc: 'A daily calendar compiled by the Lubavitcher Rebbe, with a Chassidic saying, a custom and practical guidance.',
+    rambamTitle: 'Daily Rambam',
+    rambamDesc: 'The Rebbe’s daily Rambam study, uniting all of Israel in learning the whole Torah through the Mishneh Torah.',
+    next: {
+      chumash: 'Start with Chumash',
+      tehillim: 'Continue to Tehillim',
+      tanya: 'Continue to Tanya',
+      hayomYom: 'Continue to Hayom Yom',
+      rambam: 'Continue to Rambam',
+    } as Record<DailyStudyKey, string>,
+    allDone: 'Today’s study is complete ✓',
+    parashaPrefix: 'Parashat',
+    candles: 'Candle lighting:',
+    shabbatEnds: 'Shabbat ends:',
+    progress: 'Today’s progress',
+    progressCount: (done: number, total: number, percent: number) => `${done} of ${total} lessons (${percent}%)`,
+    todayLessons: 'Today’s lessons',
+    todayHint: 'Tap to open the full lesson, or tick the box to mark it as done',
+    markNotDone: 'Mark as not done',
+    markDone: 'Mark as done',
+    completedToday: '✓ Done today',
+    notCompleted: 'Not done yet',
+    read: 'Read lesson',
+  },
+  fr: {
+    rambamTracks: {
+      three_chapters: '3 chapitres par jour',
+      one_chapter: '1 chapitre par jour',
+      sefer_hamitzvot: 'Séfer Hamitsvot',
+    } as Record<RambamTrack, string>,
+    chumashTitle: '\'Houmach avec Rachi',
+    chumashSubtitle: (parasha: string, aliyah: string) => (
+      <>
+        Paracha <He>{parasha}</He> · <He>{aliyah}</He>
+      </>
+    ),
+    chumashDesc: 'La portion quotidienne du \'Houmach avec le commentaire de Rachi, une montée (aliya) par jour de la semaine.',
+    tehillimTitle: 'Téhilim du jour',
+    tehillimSubtitle: (day: string, portion: string) => (
+      <>
+        <He>{day}</He> du mois · <He>{portion}</He>
+      </>
+    ),
+    tehillimDesc: 'Les psaumes répartis selon les jours du mois, pour terminer tout le livre des Téhilim chaque mois hébraïque.',
+    tanyaTitle: 'Tanya',
+    tanyaDesc: 'L’ouvrage fondamental de la \'Hassidout Habad, écrit par l’Admour Hazaken, réparti en leçons quotidiennes sur l’année.',
+    hayomYomTitle: 'Hayom Yom',
+    hayomYomSubtitle: (day: string, month: string) => (
+      <>
+        Maxime et directive du <He>{day} ב{month}</He>
+      </>
+    ),
+    hayomYomDesc: 'Un calendrier quotidien établi par le Rabbi de Loubavitch : une maxime \'hassidique, une coutume et un conseil pratique.',
+    rambamTitle: 'Rambam du jour',
+    rambamDesc: 'L’étude quotidienne du Rambam instituée par le Rabbi, pour unir tout le peuple juif dans l’étude de toute la Torah.',
+    next: {
+      chumash: 'Commencer par le \'Houmach',
+      tehillim: 'Continuer : Téhilim',
+      tanya: 'Continuer : Tanya',
+      hayomYom: 'Continuer : Hayom Yom',
+      rambam: 'Continuer : Rambam',
+    } as Record<DailyStudyKey, string>,
+    allDone: 'Étude du jour terminée ✓',
+    parashaPrefix: 'Paracha',
+    candles: 'Entrée de Chabbat :',
+    shabbatEnds: 'Sortie de Chabbat :',
+    progress: 'Progression du jour',
+    progressCount: (done: number, total: number, percent: number) => `${done} sur ${total} leçons (${percent} %)`,
+    todayLessons: 'Les leçons du jour',
+    todayHint: 'Touchez pour ouvrir la leçon complète, ou cochez la case pour la marquer comme terminée',
+    markNotDone: 'Marquer comme non terminé',
+    markDone: 'Marquer comme terminé',
+    completedToday: '✓ Terminé aujourd’hui',
+    notCompleted: 'Pas encore terminé',
+    read: 'Lire la leçon',
+  },
 };
 
 export const DailyOverview: React.FC<DailyOverviewProps> = ({
@@ -31,6 +181,11 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
   enabledLessons,
 }) => {
   const lessonKeys = enabledLessonKeys(enabledLessons);
+  const s = useStrings(STRINGS);
+  const lang = useLang();
+  const isHe = lang === 'he';
+  // Arrow pointing forward (left in Hebrew, right in English / French)
+  const ForwardArrow = isHe ? ArrowLeft : ArrowRight;
   const [tanyaSubtitle, setTanyaSubtitle] = useState<string>('');
 
   useEffect(() => {
@@ -57,7 +212,7 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
     key: DailyStudyKey;
     letter: string;
     title: string;
-    subtitle: string;
+    subtitle: React.ReactNode;
     description: string;
     icon: any;
     color: string;
@@ -67,9 +222,9 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
       id: 'chumash',
       key: 'chumash',
       letter: 'ח׳',
-      title: 'חומש עם רש״י',
-      subtitle: `פרשת ${dateInfo.parashaName} · ${dateInfo.chumashAliyahName}`,
-      description: 'שיעור החומש היומי עם פירוש רש״י הקדוש, מחולק לפי ימי השבוע מעלייה לעלייה.',
+      title: s.chumashTitle,
+      subtitle: s.chumashSubtitle(dateInfo.parashaName, dateInfo.chumashAliyahName),
+      description: s.chumashDesc,
       icon: Scroll,
       color: 'border-amber-200 bg-amber-50/70 text-amber-900',
       badgeColor: 'text-amber-800 bg-amber-100',
@@ -78,9 +233,9 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
       id: 'tehillim',
       key: 'tehillim',
       letter: 'ת׳',
-      title: 'תהילים יומי',
-      subtitle: `ליום ${dateInfo.dayOfMonthHebrew} בחודש · ${dateInfo.tehillimMonthlyPortion}`,
-      description: 'אמירת מזמורי התהילים לפי חלוקת ימי החודש. מסיים את כל ספר תהילים בכל חודש עברי.',
+      title: s.tehillimTitle,
+      subtitle: s.tehillimSubtitle(dateInfo.dayOfMonthHebrew, dateInfo.tehillimMonthlyPortion),
+      description: s.tehillimDesc,
       icon: BookMarked,
       color: 'border-blue-200 bg-blue-50/60 text-blue-950',
       badgeColor: 'text-blue-800 bg-blue-100',
@@ -89,9 +244,9 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
       id: 'tanya',
       key: 'tanya',
       letter: 'ת׳',
-      title: 'תניא קדישא',
-      subtitle: tanyaSubtitle || dateInfo.tanyaPortionName,
-      description: 'ספר היסוד של חסידות חב״ד שחיבר אדמו״ר הזקן, מחולק ללימוד יומי לאורך השנה.',
+      title: s.tanyaTitle,
+      subtitle: isHe ? tanyaSubtitle || dateInfo.tanyaPortionName : <He>{tanyaSubtitle || dateInfo.tanyaPortionName}</He>,
+      description: s.tanyaDesc,
       icon: BookOpen,
       color: 'border-emerald-200 bg-emerald-50/60 text-emerald-950',
       badgeColor: 'text-emerald-800 bg-emerald-100',
@@ -100,9 +255,9 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
       id: 'hayom_yom',
       key: 'hayomYom',
       letter: 'היום',
-      title: 'היום יום',
-      subtitle: `פתגם והוראה ליום ${dateInfo.dayOfMonthHebrew} ב${dateInfo.monthName}`,
-      description: 'לוח יומי שערך הרבי מליובאוויטש עם פתגם חסידי, מנהג יומי והדרכה מעשית.',
+      title: s.hayomYomTitle,
+      subtitle: s.hayomYomSubtitle(dateInfo.dayOfMonthHebrew, dateInfo.monthName),
+      description: s.hayomYomDesc,
       icon: Sun,
       color: 'border-orange-200 bg-orange-50/60 text-orange-950',
       badgeColor: 'text-orange-800 bg-orange-100',
@@ -111,28 +266,22 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
       id: 'rambam',
       key: 'rambam',
       letter: 'רמב״ם',
-      title: 'הרמב״ם היומי',
+      title: s.rambamTitle,
       // Only the chosen track; the day's chapters are shown inside the Rambam page
-      subtitle: RAMBAM_TRACK_LABELS[rambamTrack] || RAMBAM_TRACK_LABELS.three_chapters,
-      description: 'תקנת הרמב״ם היומי של הרבי לאיחוד כל עם ישראל בלימוד כל התורה כולה ביד החזקה.',
+      subtitle: s.rambamTracks[rambamTrack] || s.rambamTracks.three_chapters,
+      description: s.rambamDesc,
       icon: Scale,
       color: 'border-purple-200 bg-purple-50/60 text-purple-950',
       badgeColor: 'text-purple-800 bg-purple-100',
     },
   ];
 
-  const NEXT_LABELS: Record<DailyStudyKey, string> = {
-    chumash: 'התחל לימוד חומש',
-    tehillim: 'המשך לתהילים',
-    tanya: 'המשך לתניא',
-    hayomYom: 'המשך להיום יום',
-    rambam: 'המשך לרמב״ם',
-  };
+  const NEXT_LABELS = s.next;
   const getNextStudy = (): { category: StudyCategory; label: string } => {
     const next = ALL_LESSONS.find((l) => lessonKeys.includes(l.key) && !progress[l.key]);
     if (next) return { category: next.category, label: NEXT_LABELS[next.key] };
     const first = ALL_LESSONS.find((l) => lessonKeys.includes(l.key)) || ALL_LESSONS[0];
-    return { category: first.category, label: 'הושלם הלימוד היומי ✓' };
+    return { category: first.category, label: s.allDone };
   };
 
   const nextStudy = getNextStudy();
@@ -152,11 +301,35 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
         <div className="max-w-3xl space-y-4">
           <div className="space-y-1.5">
             <div className="text-stone-600 font-medium text-sm md:text-base">
-              {dateInfo.dayOfWeekHebrew}, {dateInfo.dayOfMonthHebrew} ב{dateInfo.monthName} {dateInfo.yearHebrew}
+              {isHe ? (
+                <>
+                  {dateInfo.dayOfWeekHebrew}, {dateInfo.dayOfMonthHebrew} ב{dateInfo.monthName} {dateInfo.yearHebrew}
+                </>
+              ) : (
+                <>
+                  {/* English / French: the Gregorian date, then the Hebrew date (in Hebrew) */}
+                  {(dateInfo.date || new Date()).toLocaleDateString(localeOf(lang), {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                  {' · '}
+                  <He>
+                    {dateInfo.dayOfMonthHebrew} ב{dateInfo.monthName} {dateInfo.yearHebrew}
+                  </He>
+                </>
+              )}
             </div>
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
               <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-amber-950 font-torah">
-                פרשת {dateInfo.parashaName}
+                {isHe ? (
+                  <>פרשת {dateInfo.parashaName}</>
+                ) : (
+                  <>
+                    {s.parashaPrefix} <He>{dateInfo.parashaName}</He>
+                  </>
+                )}
               </h1>
 
               {/* On Friday: display Shabbat candle lighting time right beside the Parashah name! */}
@@ -164,13 +337,13 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
                 <div className="inline-flex flex-col items-start gap-0.5 px-3 py-1.5 rounded-xl bg-amber-200/90 text-amber-950 border border-amber-300 font-sans text-xs sm:text-sm font-semibold shadow-2xs">
                   <span className="flex items-center gap-1.5">
                     <span>🕯️</span>
-                    <span>כניסת שבת: {candleLightingTime}</span>
-                    <span className="text-xs text-amber-800 font-normal">({currentCity.nameHe})</span>
+                    <span>{s.candles} {candleLightingTime}</span>
+                    <span className="text-xs text-amber-800 font-normal">({cityDisplayName(currentCity, lang)})</span>
                   </span>
                   {shabbatEndTime && (
                     <span className="flex items-center gap-1.5">
                       <span>✨</span>
-                      <span>צאת שבת: {shabbatEndTime}</span>
+                      <span>{s.shabbatEnds} {shabbatEndTime}</span>
                     </span>
                   )}
                 </div>
@@ -182,8 +355,8 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-4 border-t border-amber-900/10">
             <div className="flex-1 space-y-1.5">
               <div className="flex justify-between text-xs font-medium text-stone-700">
-                <span>התקדמות הלימוד היומי</span>
-                <span className="tabular-nums font-bold text-amber-950">{completedCount} מתוך {totalLessons} שיעורים ({progressPercent}%)</span>
+                <span>{s.progress}</span>
+                <span className="tabular-nums font-bold text-amber-950">{s.progressCount(completedCount, totalLessons, progressPercent)}</span>
               </div>
               <div className="w-full h-2.5 bg-stone-200/80 rounded-full overflow-hidden">
                 <div
@@ -200,7 +373,7 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
                 className="px-4 py-2 text-xs font-bold text-white bg-amber-950 hover:bg-amber-900 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-sm"
               >
                 <span>{nextStudy.label}</span>
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <ForwardArrow className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
@@ -210,8 +383,8 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
       {/* 5 Daily Study Pillar Cards */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-xl font-bold text-stone-900 font-torah">שיעורי היום</h2>
-          <p className="text-xs text-stone-500">לחץ לפתיחת השיעור המלא או סמן וי בתיבה להשלמה</p>
+          <h2 className="text-xl font-bold text-stone-900 font-torah">{s.todayLessons}</h2>
+          <p className="text-xs text-stone-500">{s.todayHint}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -249,7 +422,7 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
                         e.stopPropagation();
                         onToggleProgress(card.key);
                       }}
-                      title={isCompleted ? 'סמן כלא הושלם' : 'סמן כהושלם'}
+                      title={isCompleted ? s.markNotDone : s.markDone}
                       className="p-1 rounded-md hover:bg-stone-100 transition-colors text-stone-400 hover:text-emerald-700 cursor-pointer"
                     >
                       {isCompleted ? (
@@ -267,15 +440,15 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
 
                 <div className="pt-4 mt-3 border-t border-stone-100 flex items-center justify-between">
                   <span className="text-xs text-stone-500 font-medium">
-                    {isCompleted ? '✓ הושלם היום' : 'טרם הושלם'}
+                    {isCompleted ? s.completedToday : s.notCompleted}
                   </span>
 
                   <button
                     onClick={() => onSelectCategory(card.id)}
                     className="text-xs font-semibold text-amber-950 hover:text-amber-800 flex items-center gap-1 cursor-pointer"
                   >
-                    <span>קרא שיעור</span>
-                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>{s.read}</span>
+                    <ForwardArrow className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>

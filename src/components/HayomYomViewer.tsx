@@ -4,6 +4,47 @@ import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { getHayomYomForHebrewDate, isAdarSectionHeading } from '../data/hayomYomDatabase';
 import { CheckCircle2, RotateCcw } from 'lucide-react';
 import { HDate } from '@hebcal/core';
+import { useLang, useStrings } from '../i18n';
+import { lessonLabel } from '../utils/lessons';
+
+const STRINGS = {
+  he: {
+    calendarLabel: 'לוח הַיּוֹם יוֹם',
+    title: 'ספר ״היום יום״ – לוח יומי',
+    finish: 'סיימתי',
+    readAgain: 'קרא שוב',
+    forDayPrefix: 'ליום ',
+    dailyLesson: 'שיעור יומי',
+    finishAndContinue: (next: string) => `סיימתי את ״היום יום״ – המשך ל${next}`,
+    bookName: 'ספר ״היום יום״',
+    source: 'מקור:',
+    chabadpedia: 'חב״דפדיה',
+  },
+  en: {
+    calendarLabel: 'Hayom Yom',
+    title: 'Hayom Yom – daily entry',
+    finish: 'Done',
+    readAgain: 'Read again',
+    forDayPrefix: '',
+    dailyLesson: 'Daily lesson',
+    finishAndContinue: (next: string) => `Finished Hayom Yom – continue to ${next}`,
+    bookName: 'Hayom Yom',
+    source: 'Source:',
+    chabadpedia: 'Chabadpedia',
+  },
+  fr: {
+    calendarLabel: 'Hayom Yom',
+    title: 'Hayom Yom – texte du jour',
+    finish: 'Terminé',
+    readAgain: 'Relire',
+    forDayPrefix: '',
+    dailyLesson: 'Cours du jour',
+    finishAndContinue: (next: string) => `Hayom Yom terminé – continuer vers ${next}`,
+    bookName: 'Hayom Yom',
+    source: 'Source :',
+    chabadpedia: 'Chabadpedia',
+  },
+};
 
 // Chabadpedia month pages the Hayom Yom text was taken from
 const CHABADPEDIA_MONTHS: Record<number, string> = {
@@ -34,6 +75,8 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
   onSetCompleted,
   onAdvanceToNext,
 }) => {
+  const lang = useLang();
+  const s = useStrings(STRINGS);
   const day = dateInfo.dayOfMonth || 2;
   const month = dateInfo.monthNumber || 8;
   const entry = getHayomYomForHebrewDate(day, month, dateInfo);
@@ -73,18 +116,18 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2 text-xs text-stone-500">
-                <span>לוח הַיּוֹם יוֹם</span>
+                <span>{s.calendarLabel}</span>
                 <span aria-hidden="true">·</span>
-                <span className="font-semibold text-amber-900">{entry.hebrewDate}</span>
+                <span className="font-semibold text-amber-900" dir="rtl" lang="he">{entry.hebrewDate}</span>
                 {entry.dayTitle && (
                   <>
                     <span aria-hidden="true">·</span>
-                    <span className="text-stone-600 font-medium">{entry.dayTitle}</span>
+                    <span className="text-stone-600 font-medium" dir="rtl" lang="he">{entry.dayTitle}</span>
                   </>
                 )}
               </div>
               <h1 className="text-2xl md:text-3xl font-bold text-stone-900 font-torah">
-                ספר ״היום יום״ – לוח יומי
+                {s.title}
               </h1>
             </div>
           </div>
@@ -97,7 +140,7 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
                 className="px-4 py-2 text-xs font-bold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-lg transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
               >
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 stroke-[2]" />
-                <span>סיימתי</span>
+                <span>{s.finish}</span>
               </button>
             ) : (
               <>
@@ -108,7 +151,7 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
                 className="px-3.5 py-1.5 text-xs font-medium text-stone-700 bg-white hover:bg-stone-100 border border-stone-300 rounded-lg transition-colors cursor-pointer flex items-center gap-1"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>קרא שוב</span>
+                <span>{s.readAgain}</span>
               </button>
               </>
             )}
@@ -121,17 +164,17 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
       <div className="bg-white rounded-2xl border border-amber-300/80 p-6 md:p-8 shadow-xs space-y-6">
         <div className="space-y-5">
           <div className="border-b border-amber-900/10 pb-3 flex items-center justify-between gap-3">
-            <h2 className="font-torah font-bold text-2xl text-amber-950">
-              ליום {entry.hebrewDate}
+            <h2 className="font-torah font-bold text-2xl text-amber-950" dir="rtl" lang="he">
+              {s.forDayPrefix}{entry.hebrewDate}
               {entry.dayTitle && ` – ${entry.dayTitle}`}
             </h2>
             <span className="text-xs font-medium text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200">
-              שיעור יומי
+              {s.dailyLesson}
             </span>
           </div>
 
           {/* Unified single text box for all paragraphs */}
-          <div className="p-6 md:p-8 bg-amber-50/50 rounded-xl border border-amber-200/80 space-y-4">
+          <div className="p-6 md:p-8 bg-amber-50/50 rounded-xl border border-amber-200/80 space-y-4" dir="rtl" lang="he">
             {entry.text.map((paragraph, idx) => {
               if (isAdarSectionHeading(paragraph)) {
                 return (
@@ -175,7 +218,7 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
                 className="px-5 py-2.5 text-sm font-bold text-white bg-amber-800 hover:bg-amber-900 rounded-xl transition-all shadow-xs cursor-pointer flex items-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
-                <span>סיימתי את ״היום יום״ – המשך לרמב״ם</span>
+                <span>{s.finishAndContinue(lessonLabel('rambam', lang))}</span>
               </button>
             </div>
           )}
@@ -183,16 +226,16 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
 
         {/* Attribution Footer */}
         <div className="flex items-center justify-between pt-3 text-xs text-stone-500 font-medium border-t border-amber-900/10">
-          <span>ספר ״היום יום״</span>
-          <span className="text-left">
-            מקור:{' '}
+          <span>{s.bookName}</span>
+          <span className="text-end">
+            {s.source}{' '}
             <a
               href={chabadpediaMonthUrl(month, dateInfo)}
               target="_blank"
               rel="noopener noreferrer"
               className="text-amber-800 hover:text-amber-950 underline font-medium"
             >
-              חב״דפדיה
+              {s.chabadpedia}
             </a>
           </span>
         </div>

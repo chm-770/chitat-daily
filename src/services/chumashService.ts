@@ -333,7 +333,7 @@ export async function getParashaData(parashaId: string): Promise<Parasha> {
       englishName: parashaId,
       aliyot: [],
       isError: true,
-      errorMessage: 'פרשה לא נמצאה.',
+      errorMessage: pick(STRINGS).notFound,
     };
   }
 
@@ -464,11 +464,28 @@ export async function getParashaData(parashaId: string): Promise<Parasha> {
     englishName: meta.id,
     aliyot: [],
     isError: true,
-    errorMessage: 'שגיאה בטעינת הפרשה מספריא. לא ניתן היה להוריד את הפסוקים.',
+    errorMessage: pick(STRINGS).loadError,
   };
 }
 
 import { HAAZINU_SHVII_ALIYAH } from '../data/haazinuComplete';
+import { pick } from '../i18n';
+
+/** Interface messages (the parasha names, aliyot and verses stay in Hebrew). */
+const STRINGS = {
+  he: {
+    notFound: 'פרשה לא נמצאה.',
+    loadError: 'שגיאה בטעינת הפרשה מספריא. לא ניתן היה להוריד את הפסוקים.',
+  },
+  en: {
+    notFound: 'Parasha not found.',
+    loadError: 'Could not load the parasha from Sefaria. The verses could not be downloaded.',
+  },
+  fr: {
+    notFound: 'Paracha introuvable.',
+    loadError: "Erreur de chargement de la Paracha depuis Sefaria. Les versets n'ont pas pu être téléchargés.",
+  },
+};
 
 /**
  * Returns the 7th aliyah of LAST WEEK's parasha (שבת קודש של שבוע שעבר)

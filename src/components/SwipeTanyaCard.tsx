@@ -2,6 +2,14 @@ import React from 'react';
 import { useDoubleTap } from '../hooks/useDoubleTap';
 import { motion, PanInfo } from 'motion/react';
 import { Check, ArrowRight } from 'lucide-react';
+import { useLang, useStrings, dirOf } from '../i18n';
+
+/** Interface strings of the swipe cards (the card itself stays a right-to-left Hebrew card). */
+const STRINGS = {
+  he: { swipeHint: 'החלק ימינה לסימון', done: 'הושלם ✓', paragraphOf: (n: number, total: number) => `קטע ${n} מתוך ${total}` },
+  en: { swipeHint: 'Swipe to mark as read', done: 'Done ✓', paragraphOf: (n: number, total: number) => `Section ${n} of ${total}` },
+  fr: { swipeHint: 'Glissez pour marquer comme lu', done: 'Terminé ✓', paragraphOf: (n: number, total: number) => `Passage ${n} sur ${total}` },
+};
 
 interface SwipeTanyaCardProps {
   id: string;
@@ -19,6 +27,8 @@ export const SwipeTanyaCard: React.FC<SwipeTanyaCardProps> = ({
   fontSizeClass,
   onSwipeRight,
 }) => {
+  const lang = useLang();
+  const s = useStrings(STRINGS);
   const handleTap = useDoubleTap(() => onSwipeRight());
 
   const handleDragEnd = (_: any, info: PanInfo) => {
@@ -33,6 +43,8 @@ export const SwipeTanyaCard: React.FC<SwipeTanyaCardProps> = ({
       layout
       data-swipe-card="true"
       data-swipe="true"
+      dir="rtl"
+      lang="he"
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: 260, transition: { duration: 0.28 } }}
@@ -45,7 +57,7 @@ export const SwipeTanyaCard: React.FC<SwipeTanyaCardProps> = ({
       >
         <div className="flex items-center gap-2 text-white font-bold text-base">
           <Check className="w-5 h-5 stroke-[2.5]" />
-          <span>הושלם ✓</span>
+          <span dir={dirOf(lang)} lang={lang}>{s.done}</span>
         </div>
       </div>
 
@@ -65,11 +77,11 @@ export const SwipeTanyaCard: React.FC<SwipeTanyaCardProps> = ({
           {/* Header of paragraph */}
           <div className="flex items-center justify-between gap-3 border-b border-stone-100 pb-3">
             <span className="font-bold text-emerald-950 font-torah text-sm bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
-              קטע {paragraphIndex + 1} מתוך {totalParagraphs}
+              <span dir={dirOf(lang)} lang={lang}>{s.paragraphOf(paragraphIndex + 1, totalParagraphs)}</span>
             </span>
 
             <span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
-              <span>החלק ימינה לסימון</span>
+              <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </span>
           </div>

@@ -122,4 +122,6 @@ export interface StudySettings {
   inIsrael?: boolean;
   /** Font of the Torah texts */
   textFont?: TextFont;
+  /** Interface language (the Torah texts stay in Hebrew); detected from the device when missing */
+  language?: 'he' | 'en' | 'fr';
 }

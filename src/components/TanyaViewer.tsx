@@ -5,6 +5,50 @@ import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { StudySettings } from '../types/chitas';
 import { TanyaDailyPortion, getTanyaDailyPortion } from '../services/tanyaService';
 import { CheckCircle2, RotateCcw, Check, ArrowRight } from 'lucide-react';
+import { useLang, useStrings, dirOf } from '../i18n';
+import { lessonLabel } from '../utils/lessons';
+
+const STRINGS = {
+  he: {
+    dailyTanya: 'תניא היומי',
+    bookOfTanya: 'ספר התניא',
+    dailyLessonTitle: 'שיעור התניא היומי',
+    finish: 'סיימתי',
+    readAgain: 'קרא שוב',
+    loading: (dayHe: string, month: string) => `טוען את שיעור התניא היומי המדויק ל${dayHe} ב${month}...`,
+    done: 'הושלם ✓',
+    finishedReading: 'סיימתי קריאה',
+    sourceNote: 'ספר התניא קדישא – שיעור יומי',
+    sourceLink: 'מקור השיעור ב-he.chabad.org',
+    finishAndContinue: (next: string) => `סיימתי את התניא היומי – המשך ל${next}`,
+  },
+  en: {
+    dailyTanya: 'Daily Tanya',
+    bookOfTanya: 'Tanya',
+    dailyLessonTitle: 'Daily Tanya lesson',
+    finish: 'Done',
+    readAgain: 'Read again',
+    loading: (_dayHe: string, _month: string) => "Loading today's Tanya lesson…",
+    done: 'Done ✓',
+    finishedReading: 'Finished reading',
+    sourceNote: 'Tanya – daily lesson',
+    sourceLink: 'Source: he.chabad.org',
+    finishAndContinue: (next: string) => `Finished today's Tanya – continue to ${next}`,
+  },
+  fr: {
+    dailyTanya: 'Tanya du jour',
+    bookOfTanya: 'Tanya',
+    dailyLessonTitle: 'Cours de Tanya du jour',
+    finish: 'Terminé',
+    readAgain: 'Relire',
+    loading: (_dayHe: string, _month: string) => 'Chargement du cours de Tanya du jour…',
+    done: 'Terminé ✓',
+    finishedReading: "J'ai fini de lire",
+    sourceNote: 'Tanya – cours quotidien',
+    sourceLink: 'Source : he.chabad.org',
+    finishAndContinue: (next: string) => `Tanya du jour terminé – continuer vers ${next}`,
+  },
+};
 
 interface TanyaViewerProps {
   dateInfo: HebrewDateInfo;
@@ -27,6 +71,8 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
   onMarkItemRead,
   onAdvanceToNext,
 }) => {
+  const lang = useLang();
+  const s = useStrings(STRINGS);
   const [portion, setPortion] = useState<TanyaDailyPortion | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -107,19 +153,29 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2 text-xs text-stone-500">
-                <span>תניא היומי</span>
+                <span>{s.dailyTanya}</span>
                 <span aria-hidden="true">·</span>
-                <span>{portion?.bookPart || 'ספר התניא'}</span>
+                {portion?.bookPart ? (
+                  <span dir="rtl" lang="he">{portion.bookPart}</span>
+                ) : (
+                  <span>{s.bookOfTanya}</span>
+                )}
                 {portion?.dateHebrew && (
                   <>
                     <span aria-hidden="true">·</span>
-                    <span className="font-semibold text-emerald-900">{portion.dateHebrew}</span>
+                    <span className="font-semibold text-emerald-900" dir="rtl" lang="he">{portion.dateHebrew}</span>
                   </>
                 )}
               </div>
-              <h1 className="text-2xl font-bold text-stone-900 font-torah">
-                {portion?.chapter || 'שיעור התניא היומי'}
-              </h1>
+              {portion?.chapter ? (
+                <h1 className="text-2xl font-bold text-stone-900 font-torah" dir="rtl" lang="he">
+                  {portion.chapter}
+                </h1>
+              ) : (
+                <h1 className="text-2xl font-bold text-stone-900 font-torah">
+                  {s.dailyLessonTitle}
+                </h1>
+              )}
             </div>
           </div>
 
@@ -131,7 +187,7 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
                 className="px-4 py-2 text-xs font-bold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-lg transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
               >
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 stroke-[2]" />
-                <span>סיימתי</span>
+                <span>{s.finish}</span>
               </button>
             ) : (
               <>
@@ -142,7 +198,7 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
                 className="px-3.5 py-1.5 text-xs font-medium text-stone-700 bg-white hover:bg-stone-100 border border-stone-300 rounded-lg transition-colors cursor-pointer flex items-center gap-1"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>קרא שוב</span>
+                <span>{s.readAgain}</span>
               </button>
               </>
             )}
@@ -153,7 +209,7 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
       {isLoading && (
         <div className="p-12 text-center text-stone-500 font-medium space-y-2 bg-white rounded-2xl border border-stone-200">
           <div className="w-6 h-6 border-2 border-emerald-800 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p>טוען את שיעור התניא היומי המדויק ל{dateInfo.dayOfMonthHebrew} ב{dateInfo.monthName}...</p>
+          <p>{s.loading(dateInfo.dayOfMonthHebrew, dateInfo.monthName)}</p>
         </div>
       )}
 
@@ -161,12 +217,13 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
         <div className="space-y-4">
           {/* Completed State Card */}
           {/* Unified Single Card for Tanya Daily Study ("בריבוע טקסט אחד ולא כמה שונים") */}
-          <div className="relative overflow-hidden rounded-2xl select-none shadow-xs">
+          {/* The card stays right-to-left (Hebrew text), so swiping right marks it in every language */}
+          <div className="relative overflow-hidden rounded-2xl select-none shadow-xs" dir="rtl" lang="he">
             {/* Background reveal on swipe */}
             <div className="absolute inset-0 bg-emerald-600 flex items-center justify-start px-6 rounded-2xl">
               <div className="flex items-center gap-2 text-white font-bold text-base">
                 <Check className="w-5 h-5 stroke-[2.5]" />
-                <span>הושלם ✓</span>
+                <span dir={dirOf(lang)} lang={lang}>{s.done}</span>
               </div>
             </div>
 
@@ -199,7 +256,7 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
                       onClick={handleFinish}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-600 bg-stone-100 hover:bg-emerald-100 hover:text-emerald-900 border border-stone-200 transition-colors cursor-pointer"
                     >
-                      <span>סיימתי קריאה</span>
+                      <span dir={dirOf(lang)} lang={lang}>{s.finishedReading}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-emerald-700" />
                     </button>
                   )}
@@ -219,14 +276,16 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
 
                 {/* Source attribution link */}
                 <div className="pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-                  <span className="font-sans">ספר התניא קדישא – שיעור יומי</span>
+                  <span className="font-sans" dir={dirOf(lang)} lang={lang}>{s.sourceNote}</span>
                   <a
                     href="https://he.chabad.org/dailystudy/tanya.asp"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-emerald-700 hover:text-emerald-800 underline font-medium"
+                    dir={dirOf(lang)}
+                    lang={lang}
                   >
-                    מקור השיעור ב-he.chabad.org
+                    {s.sourceLink}
                   </a>
                 </div>
 
@@ -239,7 +298,7 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
                       className="px-5 py-2.5 text-sm font-bold text-white bg-emerald-800 hover:bg-emerald-900 rounded-xl transition-all shadow-xs cursor-pointer flex items-center gap-2"
                     >
                       <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
-                      <span>סיימתי את התניא היומי – המשך להיום יום</span>
+                      <span dir={dirOf(lang)} lang={lang}>{s.finishAndContinue(lessonLabel('hayomYom', lang))}</span>
                     </button>
                   </div>
                 )}

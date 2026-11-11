@@ -11,6 +11,7 @@ import {
   RotateCcw,
 } from 'lucide-react';
 import { getHebrewChapterNumber } from '../services/tehillimService';
+import { useLang, useStrings, dirOf } from '../i18n';
 
 interface CustomPsalmsModalProps {
   isOpen: boolean;
@@ -29,12 +30,127 @@ const COMMON_CHAPTERS = [
   { num: 150, label: 'שבח והודיה', desc: 'כֹּל הַנְּשָׁמָה תְּהַלֵּל יָהּ' },
 ];
 
+const STRINGS = {
+  he: {
+    commonLabels: {} as Record<number, string>,
+    errInvalid: 'נא להזין מספר מזמור תקין בין 1 ל-150',
+    errExists: (num: number) => `מזמור ${getHebrewChapterNumber(num)} (${num}) כבר קיים ברשימה שלך`,
+    errAge: 'נא להזין גיל תקין (למשל: 30)',
+    title: 'פרקי תהילים אישיים',
+    subtitle: 'הפרקים שתוסיף יישמרו מעתה לכל הימים. ניתן להוסיף, למחוק ולשנות את הסדר.',
+    close: 'סגור',
+    yourList: 'הרשימה שלך כעת',
+    count: (n: number) => `${n} פרקים`,
+    reorderHint: 'השתמש בחצים לשינוי סדר הקריאה',
+    empty: 'אין כרגע פרקים אישיים ברשימה.',
+    emptyHint: 'הוסף מזמור למטה לפי מספר או גיל.',
+    psalmName: (num: number) => `מזמור ${getHebrewChapterNumber(num)}`,
+    psalmAside: (num: number) => `(${num})`,
+    moveUp: 'העבר למעלה',
+    moveDown: 'העבר למטה',
+    remove: 'מחק פרק זה',
+    byNumber: 'הוסף לפי מספר מזמור (1–150):',
+    numberPlaceholder: 'מספר (למשל 20)',
+    add: 'הוסף',
+    byAge: 'הוסף לפי גיל (גיל + 1):',
+    agePlaceholder: 'גיל (למשל 28 -> פרק כ״ט)',
+    quickAdd: 'הוספה מהירה של מזמורים מיוחדים:',
+    quickName: (num: number) => `מזמור ${getHebrewChapterNumber(num)} (${num})`,
+    selected: 'נבחר ✓',
+    plusAdd: '+ הוסף',
+    reset: 'איפוס לברירת מחדל',
+    cancel: 'ביטול',
+    save: 'שמור פרקים לכל הימים',
+  },
+  en: {
+    commonLabels: {
+      124: "The Rebbe's kapitel (114 / 124)",
+      20: 'Healing and salvation',
+      23: 'Livelihood and trust',
+      91: 'Safeguarding and protection',
+      121: 'Protection on the road',
+      130: 'A time of favor, opening the gates',
+      150: 'Praise and thanksgiving',
+    } as Record<number, string>,
+    errInvalid: 'Please enter a psalm number between 1 and 150',
+    errExists: (num: number) => `Psalm ${num} is already in your list`,
+    errAge: 'Please enter a valid age (e.g. 30)',
+    title: 'Personal Tehillim',
+    subtitle: 'The psalms you add are kept for every day. You can add, remove and reorder them.',
+    close: 'Close',
+    yourList: 'Your current list',
+    count: (n: number) => `${n} ${n === 1 ? 'psalm' : 'psalms'}`,
+    reorderHint: 'Use the arrows to change the order',
+    empty: 'No personal psalms in the list yet.',
+    emptyHint: 'Add a psalm below by number or by age.',
+    psalmName: (num: number) => `Psalm ${num}`,
+    psalmAside: (num: number) => `(${getHebrewChapterNumber(num)})`,
+    moveUp: 'Move up',
+    moveDown: 'Move down',
+    remove: 'Remove this psalm',
+    byNumber: 'Add by psalm number (1–150):',
+    numberPlaceholder: 'Number (e.g. 20)',
+    add: 'Add',
+    byAge: 'Add by age (age + 1):',
+    agePlaceholder: 'Age (e.g. 28 → Psalm 29)',
+    quickAdd: 'Quick add – special psalms:',
+    quickName: (num: number) => `Psalm ${num} (${getHebrewChapterNumber(num)})`,
+    selected: 'Added ✓',
+    plusAdd: '+ Add',
+    reset: 'Reset to default',
+    cancel: 'Cancel',
+    save: 'Save for every day',
+  },
+  fr: {
+    commonLabels: {
+      124: 'Le chapitre du Rabbi (114 / 124)',
+      20: 'Guérison et délivrance',
+      23: 'Subsistance et confiance',
+      91: 'Garde et protection',
+      121: 'Protection en voyage',
+      130: 'Moment de grâce, ouverture des portes',
+      150: 'Louange et action de grâce',
+    } as Record<number, string>,
+    errInvalid: 'Veuillez saisir un numéro de psaume entre 1 et 150',
+    errExists: (num: number) => `Le psaume ${num} est déjà dans votre liste`,
+    errAge: 'Veuillez saisir un âge valide (par ex. 30)',
+    title: 'Téhilim personnels',
+    subtitle: 'Les psaumes ajoutés sont conservés pour tous les jours. Vous pouvez en ajouter, en supprimer et changer leur ordre.',
+    close: 'Fermer',
+    yourList: 'Votre liste actuelle',
+    count: (n: number) => `${n} psaume${n > 1 ? 's' : ''}`,
+    reorderHint: "Utilisez les flèches pour changer l'ordre",
+    empty: "Aucun psaume personnel dans la liste pour l'instant.",
+    emptyHint: 'Ajoutez un psaume ci-dessous par numéro ou selon votre âge.',
+    psalmName: (num: number) => `Psaume ${num}`,
+    psalmAside: (num: number) => `(${getHebrewChapterNumber(num)})`,
+    moveUp: 'Monter',
+    moveDown: 'Descendre',
+    remove: 'Supprimer ce psaume',
+    byNumber: 'Ajouter par numéro de psaume (1–150) :',
+    numberPlaceholder: 'Numéro (par ex. 20)',
+    add: 'Ajouter',
+    byAge: "Ajouter selon l'âge (âge + 1) :",
+    agePlaceholder: 'Âge (par ex. 28 → psaume 29)',
+    quickAdd: 'Ajout rapide de psaumes particuliers :',
+    quickName: (num: number) => `Psaume ${num} (${getHebrewChapterNumber(num)})`,
+    selected: 'Ajouté ✓',
+    plusAdd: '+ Ajouter',
+    reset: 'Rétablir par défaut',
+    cancel: 'Annuler',
+    save: 'Enregistrer pour tous les jours',
+  },
+};
+
 export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
   isOpen,
   onClose,
   selectedChapters,
   onSave,
 }) => {
+  const lang = useLang();
+  const s = useStrings(STRINGS);
+  const commonLabel = (item: { num: number; label: string }) => s.commonLabels[item.num] || item.label;
   const [currentList, setCurrentList] = useState<number[]>(selectedChapters);
   const [inputVal, setInputVal] = useState<string>('');
   const [ageVal, setAgeVal] = useState<string>('');
@@ -54,12 +170,12 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
 
   const handleAddChapter = (num: number) => {
     if (isNaN(num) || num < 1 || num > 150) {
-      setErrorMsg('נא להזין מספר מזמור תקין בין 1 ל-150');
+      setErrorMsg(s.errInvalid);
       return;
     }
     setErrorMsg('');
     if (currentList.includes(num)) {
-      setErrorMsg(`מזמור ${getHebrewChapterNumber(num)} (${num}) כבר קיים ברשימה שלך`);
+      setErrorMsg(s.errExists(num));
       return;
     }
     // Append to end of existing list without removing anything
@@ -77,7 +193,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
     e.preventDefault();
     const age = parseInt(ageVal.trim(), 10);
     if (isNaN(age) || age < 0 || age >= 150) {
-      setErrorMsg('נא להזין גיל תקין (למשל: 30)');
+      setErrorMsg(s.errAge);
       return;
     }
     // Chabad custom: say chapter of current year = age + 1
@@ -123,23 +239,23 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/60 backdrop-blur-xs">
       <div
         className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[88vh] animate-in fade-in zoom-in-95 duration-200"
-        dir="rtl"
+        dir={dirOf(lang)}
       >
         {/* Header */}
         <div className="px-5 py-4 border-b border-stone-100 flex items-center justify-between bg-stone-50 shrink-0">
           <div>
             <h3 className="font-bold text-stone-900 font-torah text-xl flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-amber-800" />
-              <span>פרקי תהילים אישיים</span>
+              <span>{s.title}</span>
             </h3>
             <p className="text-xs text-stone-500 mt-0.5">
-              הפרקים שתוסיף יישמרו מעתה לכל הימים. ניתן להוסיף, למחוק ולשנות את הסדר.
+              {s.subtitle}
             </p>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-stone-200/80 hover:bg-stone-300 flex items-center justify-center text-stone-600 transition-colors cursor-pointer"
-            aria-label="סגור"
+            aria-label={s.close}
           >
             <X className="w-4 h-4" />
           </button>
@@ -157,22 +273,22 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-stone-800 flex items-center gap-1.5">
-                <span>הרשימה שלך כעת</span>
+                <span>{s.yourList}</span>
                 <span className="bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full text-[11px]">
-                  {currentList.length} פרקים
+                  {s.count(currentList.length)}
                 </span>
               </span>
               {currentList.length > 0 && (
                 <span className="text-[11px] text-stone-400">
-                  השתמש בחצים לשינוי סדר הקריאה
+                  {s.reorderHint}
                 </span>
               )}
             </div>
 
             {currentList.length === 0 ? (
               <div className="p-6 text-center bg-stone-50 rounded-xl border border-dashed border-stone-300 text-stone-500 space-y-1">
-                <p className="text-xs font-medium">אין כרגע פרקים אישיים ברשימה.</p>
-                <p className="text-[11px] text-stone-400">הוסף מזמור למטה לפי מספר או גיל.</p>
+                <p className="text-xs font-medium">{s.empty}</p>
+                <p className="text-[11px] text-stone-400">{s.emptyHint}</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -189,14 +305,14 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                         </span>
                         <div>
                           <div className="font-bold text-stone-900 font-torah text-base flex items-center gap-2">
-                            <span>מזמור {getHebrewChapterNumber(num)}</span>
+                            <span>{s.psalmName(num)}</span>
                             <span className="text-xs font-sans text-stone-500 font-normal">
-                              ({num})
+                              {s.psalmAside(num)}
                             </span>
                           </div>
                           {commonMatch && (
                             <div className="text-[11px] text-amber-900 font-sans">
-                              {commonMatch.label}
+                              {commonLabel(commonMatch)}
                             </div>
                           )}
                         </div>
@@ -208,7 +324,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                           type="button"
                           onClick={() => handleMoveUp(idx)}
                           disabled={idx === 0}
-                          title="העבר למעלה"
+                          title={s.moveUp}
                           className="p-1.5 rounded-lg text-stone-500 hover:text-stone-800 hover:bg-stone-200/60 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
                         >
                           <ArrowUp className="w-3.5 h-3.5" />
@@ -219,7 +335,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                           type="button"
                           onClick={() => handleMoveDown(idx)}
                           disabled={idx === currentList.length - 1}
-                          title="העבר למטה"
+                          title={s.moveDown}
                           className="p-1.5 rounded-lg text-stone-500 hover:text-stone-800 hover:bg-stone-200/60 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
                         >
                           <ArrowDown className="w-3.5 h-3.5" />
@@ -229,8 +345,8 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                         <button
                           type="button"
                           onClick={() => handleRemove(idx)}
-                          title="מחק פרק זה"
-                          className="p-1.5 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer ml-1"
+                          title={s.remove}
+                          className="p-1.5 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer me-1"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -250,7 +366,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
               className="p-3 bg-stone-50 rounded-xl border border-stone-200 space-y-2"
             >
               <label className="text-xs font-semibold text-stone-700 block">
-                הוסף לפי מספר מזמור (1–150):
+                {s.byNumber}
               </label>
               <div className="flex gap-1.5">
                 <input
@@ -259,7 +375,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                   max="150"
                   value={inputVal}
                   onChange={(e) => setInputVal(e.target.value)}
-                  placeholder="מספר (למשל 20)"
+                  placeholder={s.numberPlaceholder}
                   className="flex-1 px-3 py-1.5 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:border-amber-600"
                 />
                 <button
@@ -267,7 +383,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                   className="px-3 py-1.5 bg-amber-900 hover:bg-amber-800 text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>הוסף</span>
+                  <span>{s.add}</span>
                 </button>
               </div>
             </form>
@@ -279,7 +395,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
             >
               <label className="text-xs font-semibold text-stone-700 block flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-amber-700" />
-                <span>הוסף לפי גיל (גיל + 1):</span>
+                <span>{s.byAge}</span>
               </label>
               <div className="flex gap-1.5">
                 <input
@@ -288,7 +404,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                   max="149"
                   value={ageVal}
                   onChange={(e) => setAgeVal(e.target.value)}
-                  placeholder="גיל (למשל 28 -> פרק כ״ט)"
+                  placeholder={s.agePlaceholder}
                   className="flex-1 px-3 py-1.5 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:border-amber-600"
                 />
                 <button
@@ -296,7 +412,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                   className="px-3 py-1.5 bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>הוסף</span>
+                  <span>{s.add}</span>
                 </button>
               </div>
             </form>
@@ -305,7 +421,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
           {/* Quick Common Suggestions */}
           <div className="space-y-2 pt-2 border-t border-stone-100">
             <span className="text-xs font-semibold text-stone-500 block">
-              הוספה מהירה של מזמורים מיוחדים:
+              {s.quickAdd}
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
               {COMMON_CHAPTERS.map((item) => {
@@ -320,7 +436,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                       }
                     }}
                     disabled={isAlreadySelected}
-                    className={`p-2 rounded-lg text-right text-xs border transition-all flex items-center justify-between cursor-pointer ${
+                    className={`p-2 rounded-lg text-start text-xs border transition-all flex items-center justify-between cursor-pointer ${
                       isAlreadySelected
                         ? 'bg-stone-100/70 border-stone-200 text-stone-400 cursor-default'
                         : 'bg-white hover:bg-amber-50 border-stone-200 text-stone-700 hover:border-amber-300'
@@ -328,17 +444,17 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                   >
                     <div>
                       <div className="font-bold font-torah text-stone-800">
-                        מזמור {getHebrewChapterNumber(item.num)} ({item.num})
+                        {s.quickName(item.num)}
                       </div>
-                      <div className="text-[10px] text-stone-500 font-sans">{item.label}</div>
+                      <div className="text-[10px] text-stone-500 font-sans">{commonLabel(item)}</div>
                     </div>
                     {isAlreadySelected ? (
                       <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-sm border border-emerald-200">
-                        נבחר ✓
+                        {s.selected}
                       </span>
                     ) : (
                       <span className="text-amber-900 hover:underline text-[11px] font-medium">
-                        + הוסף
+                        {s.plusAdd}
                       </span>
                     )}
                   </button>
@@ -356,7 +472,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
             className="text-[11px] text-stone-500 hover:text-stone-800 flex items-center gap-1 transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3 h-3" />
-            <span>איפוס לברירת מחדל</span>
+            <span>{s.reset}</span>
           </button>
 
           <div className="flex items-center gap-2">
@@ -365,7 +481,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
               onClick={onClose}
               className="px-3.5 py-2 text-xs font-medium text-stone-600 hover:bg-stone-200/60 rounded-xl transition-colors cursor-pointer"
             >
-              ביטול
+              {s.cancel}
             </button>
             <button
               type="button"
@@ -373,7 +489,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
               className="px-5 py-2 text-xs font-bold text-white bg-amber-900 hover:bg-amber-800 rounded-xl transition-colors shadow-xs cursor-pointer flex items-center gap-1.5"
             >
               <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>שמור פרקים לכל הימים</span>
+              <span>{s.save}</span>
             </button>
           </div>
         </div>

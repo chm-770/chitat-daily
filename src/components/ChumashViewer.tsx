@@ -9,8 +9,69 @@ import {
   getParashaData,
   getPreviousParashaShviiAliyah,
 } from '../services/chumashService';
-import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting, getShabbatEndTime } from '../services/zmanimService';
+import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting, getShabbatEndTime, cityDisplayName } from '../services/zmanimService';
 import { CheckCircle2, RotateCcw, Eye, ChevronDown, ChevronUp } from 'lucide-react';
+import { useLang, useStrings } from '../i18n';
+
+const STRINGS = {
+  he: {
+    today: 'היום',
+    shabbatBegins: 'כניסת שבת:',
+    shabbatEnds: 'צאת שבת:',
+    loading: 'טוען את פסוקי הפרשה ופירוש רש״י...',
+    errorTitle: 'שגיאה בטעינת הפרשה',
+    errorDefault: 'לא ניתן היה לטעון את שיעור החומש עבור פרשה זו. אנא בדוק את החיבור לרשת ונסה שוב.',
+    tryAgain: 'נסה שוב',
+    finishedBadge: 'סיימתי ✓',
+    versesCount: (n: number) => `${n} פסוקים`,
+    remaining: (n: number, total: number): React.ReactNode => (
+      <>נותרו <strong>{n}</strong> מתוך {total} פסוקים</>
+    ),
+    allRead: 'כל פסוקי העלייה נקראו בהצלחה ✓',
+    hideRashi: 'הסתר רש״י',
+    showRashi: 'הצג רש״י',
+    finish: 'סיימתי',
+    readAgain: 'קרא שוב',
+  },
+  en: {
+    today: 'Today',
+    shabbatBegins: 'Shabbat begins:',
+    shabbatEnds: 'Shabbat ends:',
+    loading: 'Loading the verses of the parasha and Rashi…',
+    errorTitle: 'Could not load the parasha',
+    errorDefault: 'The Chumash lesson for this parasha could not be loaded. Please check your connection and try again.',
+    tryAgain: 'Try again',
+    finishedBadge: 'Done ✓',
+    versesCount: (n: number) => `${n} verses`,
+    remaining: (n: number, total: number): React.ReactNode => (
+      <><strong>{n}</strong> of {total} verses left</>
+    ),
+    allRead: 'All the verses of this aliyah have been read ✓',
+    hideRashi: 'Hide Rashi',
+    showRashi: 'Show Rashi',
+    finish: 'Done',
+    readAgain: 'Read again',
+  },
+  fr: {
+    today: "Aujourd'hui",
+    shabbatBegins: 'Entrée de Chabbat :',
+    shabbatEnds: 'Fin de Chabbat :',
+    loading: 'Chargement des versets de la Paracha et de Rachi…',
+    errorTitle: 'Erreur de chargement de la Paracha',
+    errorDefault: "Le cours de 'Houmach de cette Paracha n'a pas pu être chargé. Vérifiez votre connexion et réessayez.",
+    tryAgain: 'Réessayer',
+    finishedBadge: 'Terminé ✓',
+    versesCount: (n: number) => `${n} versets`,
+    remaining: (n: number, total: number): React.ReactNode => (
+      <>Il reste <strong>{n}</strong> versets sur {total}</>
+    ),
+    allRead: 'Tous les versets de cette montée (aliya) ont été lus ✓',
+    hideRashi: 'Masquer Rachi',
+    showRashi: 'Afficher Rachi',
+    finish: 'Terminé',
+    readAgain: 'Relire',
+  },
+};
 
 interface ChumashViewerProps {
   dateInfo: HebrewDateInfo;
@@ -49,6 +110,8 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
   onMarkVersesBatch,
   onAdvanceToNext,
 }) => {
+  const lang = useLang();
+  const s = useStrings(STRINGS);
   const [selectedParashaId, setSelectedParashaId] = useState<string>('vezot_haberachah');
   // Empty until the week's parasha is loaded (the loading indicator is shown meanwhile)
   const [parashaData, setParashaData] = useState<Parasha>({
@@ -278,7 +341,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
           parashaName: parashaData.name,
           aliyahNumber: todayAliyah.aliyahNumber,
           title: todayAliyah.dayOfWeek,
-          badgeLabel: 'היום',
+          badgeLabel: s.today,
           rangeDescription: '',
           verses: todayAliyah.verses,
           isToday: true,
@@ -291,7 +354,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
       {/* Title + Friday Shabbat candle lighting time right beside parasha name */}
       <div className="text-center py-2">
         <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4">
-          <h1 className="text-3xl md:text-5xl font-bold text-stone-900 font-torah tracking-wide">
+          <h1 className="text-3xl md:text-5xl font-bold text-stone-900 font-torah tracking-wide" dir="rtl" lang="he">
             פרשת {parashaData.name}
           </h1>
 
@@ -300,13 +363,13 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
             <div className="inline-flex flex-col items-start gap-0.5 px-3 py-1.5 rounded-xl bg-amber-100 text-amber-950 border border-amber-300 font-sans text-xs sm:text-sm font-semibold shadow-2xs animate-in fade-in">
               <span className="flex items-center gap-1.5">
                 <span>🕯️</span>
-                <span>כניסת שבת: {candleLightingTime}</span>
-                <span className="text-xs text-amber-800 font-normal">({currentCity.nameHe})</span>
+                <span>{s.shabbatBegins} {candleLightingTime}</span>
+                <span className="text-xs text-amber-800 font-normal">({cityDisplayName(currentCity, lang)})</span>
               </span>
               {shabbatEndTime && (
                 <span className="flex items-center gap-1.5">
                   <span>✨</span>
-                  <span>צאת שבת: {shabbatEndTime}</span>
+                  <span>{s.shabbatEnds} {shabbatEndTime}</span>
                 </span>
               )}
             </div>
@@ -318,7 +381,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
       {isLoading && (
         <div className="p-12 text-center text-stone-500 font-medium space-y-2">
           <div className="w-6 h-6 border-2 border-amber-800 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p>טוען את פסוקי הפרשה ופירוש רש״י...</p>
+          <p>{s.loading}</p>
         </div>
       )}
 
@@ -328,9 +391,9 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
           <div className="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto text-xl font-bold">
             !
           </div>
-          <h3 className="text-xl font-bold text-red-900">שגיאה בטעינת הפרשה</h3>
+          <h3 className="text-xl font-bold text-red-900">{s.errorTitle}</h3>
           <p className="text-stone-700">
-            {parashaData.errorMessage || 'לא ניתן היה לטעון את שיעור החומש עבור פרשה זו. אנא בדוק את החיבור לרשת ונסה שוב.'}
+            {parashaData.errorMessage || s.errorDefault}
           </p>
           <button
             type="button"
@@ -343,7 +406,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
             }}
             className="px-5 py-2.5 bg-amber-700 hover:bg-amber-800 text-white rounded-xl font-medium transition-colors"
           >
-            נסה שוב
+            {s.tryAgain}
           </button>
         </div>
       )}
@@ -378,7 +441,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                 <button
                   type="button"
                   onClick={() => setOpenCardId(isOpen ? null : card.id)}
-                  className="w-full px-5 py-4 flex items-center justify-between gap-3 text-right cursor-pointer bg-white hover:bg-stone-50/70 transition-colors"
+                  className="w-full px-5 py-4 flex items-center justify-between gap-3 text-start cursor-pointer bg-white hover:bg-stone-50/70 transition-colors"
                 >
                   <div className="flex items-center gap-2.5">
                     {/* Arrow to expand/collapse */}
@@ -406,7 +469,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                             {card.badgeLabel}
                           </span>
                         )}
-                        <span className="font-bold text-stone-900 font-torah text-lg md:text-xl">
+                        <span className="font-bold text-stone-900 font-torah text-lg md:text-xl" dir="rtl" lang="he">
                           {card.title}
                         </span>
                       </div>
@@ -418,11 +481,11 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                     {finished ? (
                       <span className="bg-emerald-50 text-emerald-700 border border-emerald-300 text-xs px-3 py-1 rounded-full font-bold flex items-center gap-1.5 shadow-2xs">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
-                        <span>סיימתי ✓</span>
+                        <span>{s.finishedBadge}</span>
                       </span>
                     ) : (
                       <span className="text-xs text-stone-500 bg-stone-100 px-2.5 py-1 rounded-full font-medium">
-                        {remainingVerses.length} פסוקים
+                        {s.versesCount(remainingVerses.length)}
                       </span>
                     )}
                   </div>
@@ -435,9 +498,9 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                     <div className="flex items-center justify-between gap-3 bg-white p-3 rounded-xl border border-stone-200/80">
                       <div className="text-xs text-stone-600 font-medium">
                         {remainingVerses.length > 0 ? (
-                          <span>נותרו <strong>{remainingVerses.length}</strong> מתוך {card.verses.length} פסוקים</span>
+                          <span>{s.remaining(remainingVerses.length, card.verses.length)}</span>
                         ) : (
-                          <span className="text-emerald-700 font-bold">כל פסוקי העלייה נקראו בהצלחה ✓</span>
+                          <span className="text-emerald-700 font-bold">{s.allRead}</span>
                         )}
                       </div>
 
@@ -452,8 +515,8 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                               : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
                           }`}
                         >
-                          <Eye className="w-3.5 h-3.5 inline ml-1" />
-                          <span>{showRashi ? 'הסתר רש״י' : 'הצג רש״י'}</span>
+                          <Eye className="w-3.5 h-3.5 inline me-1" />
+                          <span>{showRashi ? s.hideRashi : s.showRashi}</span>
                         </button>
 
                         {/* White "סיימתי" Button: "הכפתור סיימתי צריך להיות בלבן רגיל ולא בשחור" */}
@@ -464,7 +527,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                             className="px-3.5 py-1.5 text-xs font-bold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-lg transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
                           >
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 stroke-[2]" />
-                            <span>סיימתי</span>
+                            <span>{s.finish}</span>
                           </button>
                         ) : (
                           <button
@@ -473,7 +536,7 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
                             className="px-3 py-1.5 text-xs font-medium text-stone-700 bg-white hover:bg-stone-100 border border-stone-300 rounded-lg transition-colors cursor-pointer flex items-center gap-1"
                           >
                             <RotateCcw className="w-3.5 h-3.5" />
-                            <span>קרא שוב</span>
+                            <span>{s.readAgain}</span>
                           </button>
                         )}
                       </div>

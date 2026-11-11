@@ -1,6 +1,34 @@
 import React, { useState } from 'react';
 import { motion, PanInfo } from 'motion/react';
 import { Check, CheckCircle2, ChevronRight, ArrowRight } from 'lucide-react';
+import { useStrings } from '../i18n';
+
+const STRINGS = {
+  he: {
+    marked: 'נקרא בהצלחה',
+    release: 'שחרר לסימון כנקרא',
+    tapToUnmark: 'לחץ לביטול סימון',
+    swipeOrTap: 'העבר ימינה או לחץ לסימון כנקרא',
+    read: 'נקרא ✓',
+    swipe: 'החלק ימינה',
+  },
+  en: {
+    marked: 'Marked as read',
+    release: 'Release to mark as read',
+    tapToUnmark: 'Tap to unmark',
+    swipeOrTap: 'Swipe or tap to mark as read',
+    read: 'Read ✓',
+    swipe: 'Swipe',
+  },
+  fr: {
+    marked: 'Marqué comme lu',
+    release: 'Relâchez pour marquer comme lu',
+    tapToUnmark: 'Touchez pour annuler',
+    swipeOrTap: 'Glissez ou touchez pour marquer comme lu',
+    read: 'Lu ✓',
+    swipe: 'Glissez',
+  },
+};
 
 interface SwipeableItemProps {
   id: string;
@@ -17,6 +45,7 @@ export const SwipeableItem: React.FC<SwipeableItemProps> = ({
   children,
   label,
 }) => {
+  const s = useStrings(STRINGS);
   const [dragOffset, setDragOffset] = useState<number>(0);
 
   const handleDrag = (_: any, info: PanInfo) => {
@@ -39,7 +68,8 @@ export const SwipeableItem: React.FC<SwipeableItemProps> = ({
   };
 
   return (
-    <div className="relative overflow-hidden rounded-xl group select-none">
+    // Right-to-left like the Hebrew cards, so that swiping right (the mark gesture) stays consistent
+    <div className="relative overflow-hidden rounded-xl group select-none" dir="rtl">
       {/* Background reveal on drag to right (in RTL, dragging towards right) */}
       <div
         className={`absolute inset-0 flex items-center justify-start px-5 rounded-xl transition-colors duration-200 ${
@@ -50,7 +80,7 @@ export const SwipeableItem: React.FC<SwipeableItemProps> = ({
       >
         <div className="flex items-center gap-2 font-bold text-sm">
           <Check className="w-5 h-5 stroke-[2.5]" />
-          <span>{isRead ? 'נקרא בהצלחה' : 'שחרר לסימון כנקרא'}</span>
+          <span>{isRead ? s.marked : s.release}</span>
         </div>
       </div>
 
@@ -80,7 +110,7 @@ export const SwipeableItem: React.FC<SwipeableItemProps> = ({
             <button
               type="button"
               onClick={() => onMarkRead(id)}
-              title={isRead ? 'לחץ לביטול סימון' : 'העבר ימינה או לחץ לסימון כנקרא'}
+              title={isRead ? s.tapToUnmark : s.swipeOrTap}
               className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 isRead
                   ? 'bg-emerald-600 text-white shadow-xs'
@@ -90,11 +120,11 @@ export const SwipeableItem: React.FC<SwipeableItemProps> = ({
               {isRead ? (
                 <>
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span className="font-bold">נקרא ✓</span>
+                  <span className="font-bold">{s.read}</span>
                 </>
               ) : (
                 <>
-                  <span className="text-[11px]">החלק ימינה</span>
+                  <span className="text-[11px]">{s.swipe}</span>
                   <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-emerald-700 transition-transform group-hover:translate-x-0.5" />
                 </>
               )}

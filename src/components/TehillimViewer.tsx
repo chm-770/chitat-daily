@@ -13,6 +13,122 @@ import {
 import { SwipePsalmCard } from './SwipePsalmCard';
 import { CustomPsalmsModal } from './CustomPsalmsModal';
 import { CheckCircle2, RotateCcw, ChevronDown, ChevronUp, Settings2 } from 'lucide-react';
+import { useLang, useStrings, Lang } from '../i18n';
+import type { TehillimPortionItem } from '../utils/hebrewCalendar';
+
+/** Range of today's psalms in English / French (the Hebrew title comes from the calendar data). */
+function latinRangeTitle(
+  lang: Lang,
+  items: TehillimPortionItem[] | undefined,
+  numbers: number[],
+  isShortMonthConclusion: boolean
+): string {
+  const en = lang === 'en';
+  if (isShortMonthConclusion) {
+    return en ? 'Psalms 140–150, completing a 29-day month' : 'Psaumes 140 à 150, fin du livre pour un mois de 29 jours';
+  }
+  const list = items && items.length > 0 ? items : numbers.map((chapter) => ({ chapter } as TehillimPortionItem));
+  if (list.length === 0) return '';
+  if (list.length === 1) {
+    const it = list[0];
+    if (it.fromVerse && it.toVerse) {
+      return en
+        ? `Psalm ${it.chapter}, verses ${it.fromVerse}–${it.toVerse}`
+        : `Psaume ${it.chapter}, versets ${it.fromVerse} à ${it.toVerse}`;
+    }
+    return en ? `Psalm ${it.chapter}` : `Psaume ${it.chapter}`;
+  }
+  const first = list[0].chapter;
+  const last = list[list.length - 1].chapter;
+  return en ? `Psalms ${first}–${last}` : `Psaumes ${first} à ${last}`;
+}
+
+const STRINGS = {
+  he: {
+    shortMonthRange: 'פרקים ק״מ – ק״נ (סיום לחודש חסר)',
+    chaptersList: (list: string) => `פרקים ${list}`,
+    chooseChapters: 'בחר פרקים',
+    bookTitle: 'ספר התהילים',
+    subtitle: (dayHe: string, _day: number, month: string, range: string) =>
+      `שיעור התהילים ליום ${dayHe} בחודש ${month} (${range})`,
+    loading: 'טוען את מזמורי התהילים של היום...',
+    personalBadge: 'פרקים אישיים',
+    chooseChaptersTitle: 'בחר פרקים שיופיעו כאן',
+    finishedBadge: 'סיימתי ✓',
+    leftCount: (n: number) => `${n} נותרו`,
+    remaining: (n: number, total: number): React.ReactNode => (
+      <>נותרו <strong>{n}</strong> מתוך {total} מזמורים</>
+    ),
+    remainingWithRange: (n: number, total: number, range: string): React.ReactNode => (
+      <>נותרו <strong>{n}</strong> מתוך {total} מזמורים ({range})</>
+    ),
+    personalDone: 'הפרקים האישיים הושלמו ✓',
+    finish: 'סיימתי',
+    readAgain: 'קרא שוב',
+    noPersonal: 'לא נבחרו עדיין פרקים אישיים.',
+    chooseNow: 'בחר פרקים כעת',
+    todayBadge: 'היום',
+    dayOfMonth: (dayHe: string, _day: number) => `יום ${dayHe} בחודש`,
+    psalmsCount: (n: number) => `${n} מזמורים`,
+    todayDone: 'שיעור התהילים היומי הושלם בהצלחה ✓',
+  },
+  en: {
+    shortMonthRange: '',
+    chaptersList: (list: string) => `Psalms ${list}`,
+    chooseChapters: 'Choose psalms',
+    bookTitle: 'Book of Tehillim',
+    subtitle: (_dayHe: string, day: number, _month: string, range: string) =>
+      `Tehillim for day ${day} of the Hebrew month (${range})`,
+    loading: "Loading today's psalms…",
+    personalBadge: 'Personal psalms',
+    chooseChaptersTitle: 'Choose the psalms shown here',
+    finishedBadge: 'Done ✓',
+    leftCount: (n: number) => `${n} left`,
+    remaining: (n: number, total: number): React.ReactNode => (
+      <><strong>{n}</strong> of {total} psalms left</>
+    ),
+    remainingWithRange: (n: number, total: number, range: string): React.ReactNode => (
+      <><strong>{n}</strong> of {total} psalms left ({range})</>
+    ),
+    personalDone: 'Personal psalms completed ✓',
+    finish: 'Done',
+    readAgain: 'Read again',
+    noPersonal: 'No personal psalms chosen yet.',
+    chooseNow: 'Choose psalms now',
+    todayBadge: 'Today',
+    dayOfMonth: (_dayHe: string, day: number) => `Day ${day} of the month`,
+    psalmsCount: (n: number) => `${n} psalms`,
+    todayDone: "Today's Tehillim completed ✓",
+  },
+  fr: {
+    shortMonthRange: '',
+    chaptersList: (list: string) => `Psaumes ${list}`,
+    chooseChapters: 'Choisir des psaumes',
+    bookTitle: 'Livre des Téhilim',
+    subtitle: (_dayHe: string, day: number, _month: string, range: string) =>
+      `Téhilim du ${day}e jour du mois hébraïque (${range})`,
+    loading: 'Chargement des psaumes du jour…',
+    personalBadge: 'Psaumes personnels',
+    chooseChaptersTitle: 'Choisir les psaumes affichés ici',
+    finishedBadge: 'Terminé ✓',
+    leftCount: (n: number) => `${n} restant${n > 1 ? 's' : ''}`,
+    remaining: (n: number, total: number): React.ReactNode => (
+      <>Il reste <strong>{n}</strong> psaume{n > 1 ? 's' : ''} sur {total}</>
+    ),
+    remainingWithRange: (n: number, total: number, range: string): React.ReactNode => (
+      <>Il reste <strong>{n}</strong> psaume{n > 1 ? 's' : ''} sur {total} ({range})</>
+    ),
+    personalDone: 'Psaumes personnels terminés ✓',
+    finish: 'Terminé',
+    readAgain: 'Relire',
+    noPersonal: "Aucun psaume personnel n'a encore été choisi.",
+    chooseNow: 'Choisir des psaumes',
+    todayBadge: "Aujourd'hui",
+    dayOfMonth: (_dayHe: string, day: number) => `${day === 1 ? '1er' : `${day}e`} jour du mois`,
+    psalmsCount: (n: number) => `${n} psaume${n > 1 ? 's' : ''}`,
+    todayDone: 'Téhilim du jour terminés ✓',
+  },
+};
 
 interface TehillimViewerProps {
   dateInfo: HebrewDateInfo;
@@ -50,6 +166,8 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
     return idx;
   };
 
+  const lang = useLang();
+  const s = useStrings(STRINGS);
   const [todayChapters, setTodayChapters] = useState<TehillimChapter[]>([]);
   const [customChapters, setCustomChapters] = useState<TehillimChapter[]>([]);
   const [customNumbers, setCustomNumbers] = useState<number[]>([]);
@@ -82,13 +200,24 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
 
   const dayOfMonth = dateInfo.dayOfMonth || 1;
   const isShortMonth = dateInfo.daysInMonth === 29;
-  const rangeInfo =
-    isShortMonth && dayOfMonth === 29
-      ? {
-          range: 'פרקים ק״מ – ק״נ (סיום לחודש חסר)',
-          numbers: [140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150],
-        }
-      : TEHILLIM_MONTHLY_RANGES[dayOfMonth] || TEHILLIM_MONTHLY_RANGES[1];
+  const isShortMonthConclusion = isShortMonth && dayOfMonth === 29;
+  const monthlyRange = TEHILLIM_MONTHLY_RANGES[dayOfMonth] || TEHILLIM_MONTHLY_RANGES[1];
+  const rangeInfo = isShortMonthConclusion
+    ? {
+        range: STRINGS.he.shortMonthRange,
+        numbers: [140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150],
+      }
+    : monthlyRange;
+  // Today's range in the interface language
+  const rangeLabel =
+    lang === 'he'
+      ? rangeInfo.range
+      : latinRangeTitle(
+          lang,
+          isShortMonthConclusion ? undefined : monthlyRange.items,
+          rangeInfo.numbers,
+          isShortMonthConclusion
+        );
 
   // Load custom psalm numbers from storage on mount and ensure they are active for all days
   useEffect(() => {
@@ -319,25 +448,27 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
 
   const customTitle =
     customNumbers.length > 0
-      ? `פרקים ${customNumbers.map((n) => getHebrewChapterNumber(n)).join(', ')}`
-      : 'בחר פרקים';
+      ? s.chaptersList(
+          customNumbers.map((n) => (lang === 'he' ? getHebrewChapterNumber(n) : String(n))).join(', ')
+        )
+      : s.chooseChapters;
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Title only */}
       <div className="text-center py-2 space-y-1">
         <h1 className="text-3xl md:text-5xl font-bold text-stone-900 font-torah tracking-wide">
-          ספר התהילים
+          {s.bookTitle}
         </h1>
         <p className="text-sm md:text-base text-stone-600 font-medium">
-          שיעור התהילים ליום {dateInfo.dayOfMonthHebrew} בחודש {dateInfo.monthName} ({rangeInfo.range})
+          {s.subtitle(dateInfo.dayOfMonthHebrew, dayOfMonth, dateInfo.monthName, rangeLabel)}
         </p>
       </div>
 
       {isLoading && (
         <div className="p-12 text-center text-stone-500 font-medium space-y-2">
           <div className="w-6 h-6 border-2 border-blue-800 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p>טוען את מזמורי התהילים של היום...</p>
+          <p>{s.loading}</p>
         </div>
       )}
 
@@ -346,11 +477,11 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
           {/* Card 1: Custom Psalms (פרקי תהילים אישיים / קפיטל הרבי) */}
           <div className="bg-white rounded-2xl border border-stone-200/90 shadow-xs overflow-hidden transition-all duration-200">
             {/* Header */}
-            <div className="w-full px-5 py-4 flex items-center justify-between gap-3 text-right bg-white hover:bg-stone-50/70 transition-colors">
+            <div className="w-full px-5 py-4 flex items-center justify-between gap-3 text-start bg-white hover:bg-stone-50/70 transition-colors">
               <button
                 type="button"
                 onClick={() => setIsCustomOpen(!isCustomOpen)}
-                className="flex items-center gap-2.5 flex-1 cursor-pointer text-right"
+                className="flex items-center gap-2.5 flex-1 cursor-pointer text-start"
               >
                 <div className="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 transition-transform">
                   {isCustomOpen ? (
@@ -363,7 +494,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-sans text-xs px-2 py-0.5 rounded-md font-bold bg-amber-100 text-amber-900">
-                      פרקים אישיים
+                      {s.personalBadge}
                     </span>
                     <span className="font-bold text-stone-900 font-torah text-lg md:text-xl">
                       {customTitle}
@@ -377,20 +508,20 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                   type="button"
                   onClick={() => setIsModalOpen(true)}
                   className="px-2.5 py-1 text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors flex items-center gap-1 cursor-pointer border border-stone-200"
-                  title="בחר פרקים שיופיעו כאן"
+                  title={s.chooseChaptersTitle}
                 >
                   <Settings2 className="w-3.5 h-3.5" />
-                  <span>בחר פרקים</span>
+                  <span>{s.chooseChapters}</span>
                 </button>
 
                 {isCustomCompleted ? (
                   <span className="bg-emerald-50 text-emerald-700 border border-emerald-300 text-xs px-3 py-1 rounded-full font-bold flex items-center gap-1.5 shadow-2xs">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
-                    <span>סיימתי ✓</span>
+                    <span>{s.finishedBadge}</span>
                   </span>
                 ) : (
                   <span className="text-xs text-stone-500 bg-stone-100 px-2.5 py-1 rounded-full font-medium">
-                    {remainingCustom.length} נותרו
+                    {s.leftCount(remainingCustom.length)}
                   </span>
                 )}
               </div>
@@ -402,9 +533,9 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                 <div className="flex items-center justify-between gap-3 bg-white p-3 rounded-xl border border-stone-200/80">
                   <span className="text-xs text-stone-600 font-medium">
                     {remainingCustom.length > 0 ? (
-                      <span>נותרו <strong>{remainingCustom.length}</strong> מתוך {customChapters.length} מזמורים</span>
+                      <span>{s.remaining(remainingCustom.length, customChapters.length)}</span>
                     ) : (
-                      <span className="text-emerald-700 font-bold">הפרקים האישיים הושלמו ✓</span>
+                      <span className="text-emerald-700 font-bold">{s.personalDone}</span>
                     )}
                   </span>
 
@@ -416,7 +547,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                         className="px-3.5 py-1.5 text-xs font-bold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-lg transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
                       >
                         <CheckCircle2 className="w-4 h-4 text-emerald-600 stroke-[2]" />
-                        <span>סיימתי</span>
+                        <span>{s.finish}</span>
                       </button>
                     ) : (
                       <button
@@ -425,7 +556,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                         className="px-3 py-1.5 text-xs font-medium text-stone-700 bg-white hover:bg-stone-100 border border-stone-300 rounded-lg transition-colors cursor-pointer flex items-center gap-1"
                       >
                         <RotateCcw className="w-3.5 h-3.5" />
-                        <span>קרא שוב</span>
+                        <span>{s.readAgain}</span>
                       </button>
                     )}
                   </div>
@@ -433,13 +564,13 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
 
                 {customChapters.length === 0 ? (
                   <div className="p-8 text-center bg-white rounded-xl border border-stone-200 text-stone-500 space-y-2">
-                    <p>לא נבחרו עדיין פרקים אישיים.</p>
+                    <p>{s.noPersonal}</p>
                     <button
                       type="button"
                       onClick={() => setIsModalOpen(true)}
                       className="px-4 py-2 bg-amber-900 text-white rounded-lg text-xs font-bold"
                     >
-                      בחר פרקים כעת
+                      {s.chooseNow}
                     </button>
                   </div>
                 ) : (
@@ -466,7 +597,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
             <button
               type="button"
               onClick={() => setIsTodayOpen(!isTodayOpen)}
-              className="w-full px-5 py-4 flex items-center justify-between gap-3 text-right cursor-pointer bg-white hover:bg-stone-50/70 transition-colors"
+              className="w-full px-5 py-4 flex items-center justify-between gap-3 text-start cursor-pointer bg-white hover:bg-stone-50/70 transition-colors"
             >
               <div className="flex items-center gap-2.5">
                 <div className="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 transition-transform">
@@ -480,10 +611,10 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-sans text-xs px-2 py-0.5 rounded-md font-bold bg-amber-100 text-amber-900">
-                      היום
+                      {s.todayBadge}
                     </span>
                     <span className="font-bold text-stone-900 font-torah text-lg md:text-xl">
-                      יום {dateInfo.dayOfMonthHebrew} בחודש
+                      {s.dayOfMonth(dateInfo.dayOfMonthHebrew, dayOfMonth)}
                     </span>
                   </div>
                 </div>
@@ -494,11 +625,11 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                 {isCompleted ? (
                   <span className="bg-emerald-50 text-emerald-700 border border-emerald-300 text-xs px-3 py-1 rounded-full font-bold flex items-center gap-1.5 shadow-2xs">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
-                    <span>סיימתי ✓</span>
+                    <span>{s.finishedBadge}</span>
                   </span>
                 ) : (
                   <span className="text-xs text-stone-500 bg-stone-100 px-2.5 py-1 rounded-full font-medium">
-                    {remainingToday.length} מזמורים
+                    {s.psalmsCount(remainingToday.length)}
                   </span>
                 )}
               </div>
@@ -511,9 +642,9 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                 <div className="flex items-center justify-between gap-3 bg-white p-3 rounded-xl border border-stone-200/80">
                   <div className="text-xs text-stone-600 font-medium">
                     {isCompleted ? (
-                      <span className="text-emerald-700 font-bold">שיעור התהילים היומי הושלם בהצלחה ✓</span>
+                      <span className="text-emerald-700 font-bold">{s.todayDone}</span>
                     ) : (
-                      <span>נותרו <strong>{remainingToday.length}</strong> מתוך {todayChapters.length} מזמורים ({rangeInfo.range})</span>
+                      <span>{s.remainingWithRange(remainingToday.length, todayChapters.length, rangeLabel)}</span>
                     )}
                   </div>
 
@@ -525,7 +656,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                         className="px-3.5 py-1.5 text-xs font-bold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-lg transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
                       >
                         <CheckCircle2 className="w-4 h-4 text-emerald-600 stroke-[2]" />
-                        <span>סיימתי</span>
+                        <span>{s.finish}</span>
                       </button>
                     ) : (
                       <button
@@ -534,7 +665,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                         className="px-3 py-1.5 text-xs font-medium text-stone-700 bg-white hover:bg-stone-100 border border-stone-300 rounded-lg transition-colors cursor-pointer flex items-center gap-1"
                       >
                         <RotateCcw className="w-3.5 h-3.5" />
-                        <span>קרא שוב</span>
+                        <span>{s.readAgain}</span>
                       </button>
                     )}
                   </div>

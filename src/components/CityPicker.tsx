@@ -8,6 +8,54 @@ import {
   searchCitiesOnline,
   searchLocalCities,
 } from '../services/zmanimService';
+import { type Lang, useLang, useStrings } from '../i18n';
+
+const HEBREW_LETTERS = /[\u0590-\u05FF]/;
+
+/**
+ * City name in the interface language: the Hebrew name in Hebrew, otherwise the English name
+ * (when there is one in Latin letters, e.g. not for cities found by the Hebrew online search).
+ */
+export function cityDisplayName(city: CityConfig, lang: Lang): string {
+  if (lang !== 'he' && city.nameEn && !HEBREW_LETTERS.test(city.nameEn)) return city.nameEn;
+  return city.nameHe;
+}
+
+const STRINGS = {
+  he: {
+    searchOffline: 'החיפוש העולמי דורש חיבור לאינטרנט. אפשר לבחור מהרשימה.',
+    geoUnsupported: 'שירותי המיקום אינם נתמכים בדפדפן זה',
+    geoDenied: 'הגישה למיקום נדחתה. אפשר לחפש עיר.',
+    geoFailed: 'לא ניתן לאתר מיקום. אפשר לחפש עיר.',
+    locating: 'מאתר מיקום...',
+    detect: 'זהה מיקום נוכחי (GPS)',
+    placeholder: 'חיפוש כל עיר בעולם (למשל: צפת, פריז, מיאמי...)',
+    noResults: 'לא נמצאו ערים בשם זה. אפשר לנסות לכתוב את השם באנגלית.',
+    minutes: (n: number) => `${n} דק׳`,
+  },
+  en: {
+    searchOffline: 'Searching all cities needs an internet connection. You can pick from the list.',
+    geoUnsupported: 'Location services are not supported in this browser',
+    geoDenied: 'Location access was denied. You can search for a city.',
+    geoFailed: 'Could not find your location. You can search for a city.',
+    locating: 'Finding your location...',
+    detect: 'Detect current location (GPS)',
+    placeholder: 'Search any city in the world (e.g. Safed, Paris, Miami...)',
+    noResults: 'No city found with this name.',
+    minutes: (n: number) => `${n} min`,
+  },
+  fr: {
+    searchOffline: 'La recherche mondiale nécessite une connexion Internet. Vous pouvez choisir dans la liste.',
+    geoUnsupported: 'La localisation n’est pas prise en charge par ce navigateur',
+    geoDenied: 'L’accès à la localisation a été refusé. Vous pouvez rechercher une ville.',
+    geoFailed: 'Impossible de vous localiser. Vous pouvez rechercher une ville.',
+    locating: 'Localisation en cours...',
+    detect: 'Détecter ma position (GPS)',
+    placeholder: 'Rechercher une ville (ex. : Safed, Paris, Miami...)',
+    noResults: 'Aucune ville trouvée avec ce nom. Essayez d’écrire le nom en anglais.',
+    minutes: (n: number) => `${n} min`,
+  },
+};
 
 interface CityPickerProps {
   selectedCity: CityConfig;
@@ -20,6 +68,8 @@ interface CityPickerProps {
  */
 export const CityPicker: React.FC<CityPickerProps> = ({ selectedCity, onSelect }) => {
   const [query, setQuery] = useState('');
+  const s = useStrings(STRINGS);
+  const lang = useLang();
   const [onlineResults, setOnlineResults] = useState<CityConfig[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
@@ -49,7 +99,7 @@ export const CityPicker: React.FC<CityPickerProps> = ({ selectedCity, onSelect }
           if (controller.signal.aborted) return;
           console.warn('City search failed:', err);
           setOnlineResults([]);
-          setSearchError('החיפוש העולמי דורש חיבור לאינטרנט. אפשר לבחור מהרשימה.');
+          setSearchError(s.searchOffline);
           setIsSearching(false);
         });
     }, 350);
@@ -67,7 +117,7 @@ export const CityPicker: React.FC<CityPickerProps> = ({ selectedCity, onSelect }
 
   const handleDetectLocation = () => {
     if (!navigator.geolocation) {
-      setGeoError('שירותי המיקום אינם נתמכים בדפדפן זה');
+      setGeoError(s.geoUnsupported);
       return;
     }
     setIsGeolocating(true);
@@ -105,8 +155,8 @@ export const CityPicker: React.FC<CityPickerProps> = ({ selectedCity, onSelect }
         setIsGeolocating(false);
         setGeoError(
           err.code === err.PERMISSION_DENIED
-            ? 'הגישה למיקום נדחתה. אפשר לחפש עיר.'
-            : 'לא ניתן לאתר מיקום. אפשר לחפש עיר.'
+            ? s.geoDenied
+            : s.geoFailed
         );
       },
       { timeout: 10000, enableHighAccuracy: true }
@@ -134,7 +184,7 @@ export const CityPicker: React.FC<CityPickerProps> = ({ selectedCity, onSelect }
         className="w-full py-2.5 px-3 rounded-xl bg-amber-900 text-white font-medium text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-amber-800 transition-all shadow-xs cursor-pointer disabled:opacity-50"
       >
         <Navigation className={`w-4 h-4 ${isGeolocating ? 'animate-spin' : ''}`} />
-        <span>{isGeolocating ? 'מאתר מיקום...' : 'זהה מיקום נוכחי (GPS)'}</span>
+        <span>{isGeolocating ? s.locating : s.detect}</span>
       </button>
 
       {geoError && (
@@ -142,22 +192,22 @@ export const CityPicker: React.FC<CityPickerProps> = ({ selectedCity, onSelect }
       )}
 
       <div className="relative">
-        <Search className="w-4 h-4 text-stone-400 absolute right-3 top-2.5" />
+        <Search className="w-4 h-4 text-stone-400 absolute start-3 top-2.5" />
         <input
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="חיפוש כל עיר בעולם (למשל: צפת, פריז, מיאמי...)"
-          className="w-full pr-9 pl-9 py-2 text-xs sm:text-sm bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-700 focus:bg-white text-stone-900"
+          placeholder={s.placeholder}
+          className="w-full ps-9 pe-9 py-2 text-xs sm:text-sm bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-700 focus:bg-white text-stone-900"
         />
-        {isSearching && <Loader2 className="w-4 h-4 text-amber-800 absolute left-3 top-2.5 animate-spin" />}
+        {isSearching && <Loader2 className="w-4 h-4 text-amber-800 absolute end-3 top-2.5 animate-spin" />}
       </div>
 
       {searchError && <p className="text-[11px] text-stone-500 text-center">{searchError}</p>}
 
       <div className="max-h-60 overflow-y-auto space-y-1.5 p-0.5">
         {results.length === 0 && !isSearching && (
-          <p className="text-xs text-stone-500 text-center py-3">לא נמצאו ערים בשם זה. אפשר לנסות לכתוב את השם באנגלית.</p>
+          <p className="text-xs text-stone-500 text-center py-3">{s.noResults}</p>
         )}
         {results.map((city) => {
           const isSelected =
@@ -169,17 +219,17 @@ export const CityPicker: React.FC<CityPickerProps> = ({ selectedCity, onSelect }
               type="button"
               key={city.id}
               onClick={() => handleSelect(city)}
-              className={`w-full p-2.5 rounded-xl text-right transition-all border flex items-center justify-between gap-2 cursor-pointer ${
+              className={`w-full p-2.5 rounded-xl text-start transition-all border flex items-center justify-between gap-2 cursor-pointer ${
                 isSelected
                   ? 'bg-amber-100 border-amber-400 text-amber-950 font-bold'
                   : 'bg-white border-stone-200 hover:border-amber-300 hover:bg-amber-50 text-stone-800'
               }`}
             >
-              <span className="text-xs truncate">{city.nameHe}</span>
+              <span className="text-xs truncate" dir="auto">{cityDisplayName(city, lang)}</span>
               {isSelected ? (
                 <Check className="w-3.5 h-3.5 text-amber-800 shrink-0" />
               ) : (
-                <span className="text-[10px] text-stone-400 shrink-0">{city.candleLightingMinutes} דק׳</span>
+                <span className="text-[10px] text-stone-400 shrink-0">{s.minutes(city.candleLightingMinutes)}</span>
               )}
             </button>
           );

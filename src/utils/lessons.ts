@@ -1,4 +1,5 @@
 import { DailyStudyKey, StudyCategory, TextFont } from '../types/chitas';
+import { Lang, getLang } from '../i18n';
 
 export const ALL_LESSONS: { key: DailyStudyKey; category: StudyCategory; label: string }[] = [
   { key: 'chumash', category: 'chumash', label: 'חומש עם רש״י' },
@@ -7,6 +8,36 @@ export const ALL_LESSONS: { key: DailyStudyKey; category: StudyCategory; label: 
   { key: 'hayomYom', category: 'hayom_yom', label: 'היום יום' },
   { key: 'rambam', category: 'rambam', label: 'רמב״ם' },
 ];
+
+/** Lesson names in the interface languages (`ALL_LESSONS[].label` stays the Hebrew name). */
+const LESSON_LABELS: Record<Lang, Record<DailyStudyKey, string>> = {
+  he: {
+    chumash: 'חומש עם רש״י',
+    tehillim: 'תהילים',
+    tanya: 'תניא',
+    hayomYom: 'היום יום',
+    rambam: 'רמב״ם',
+  },
+  en: {
+    chumash: 'Chumash with Rashi',
+    tehillim: 'Tehillim',
+    tanya: 'Tanya',
+    hayomYom: 'Hayom Yom',
+    rambam: 'Rambam',
+  },
+  fr: {
+    chumash: "'Houmach avec Rachi",
+    tehillim: 'Téhilim',
+    tanya: 'Tanya',
+    hayomYom: 'Hayom Yom',
+    rambam: 'Rambam',
+  },
+};
+
+/** Name of a lesson in the given language (default: the current interface language). */
+export function lessonLabel(key: DailyStudyKey, lang: Lang = getLang()): string {
+  return (LESSON_LABELS[lang] || LESSON_LABELS.he)[key] || LESSON_LABELS.he[key];
+}
 
 export function enabledLessonKeys(enabled?: DailyStudyKey[]): DailyStudyKey[] {
   const list = enabled && enabled.length > 0 ? enabled : ALL_LESSONS.map((l) => l.key);

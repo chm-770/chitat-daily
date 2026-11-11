@@ -8,6 +8,82 @@ import {
   type ReminderLesson,
   type ReminderPrefs,
 } from '../services/reminders';
+import { useStrings } from '../i18n';
+
+const STRINGS = {
+  he: {
+    lessons: {
+      chumash: 'חומש עם רש״י',
+      tehillim: 'תהילים',
+      tanya: 'תניא',
+      hayomYom: 'היום יום',
+      rambam: 'רמב״ם',
+    } as Record<DailyStudyKey, string>,
+    saved: 'התזכורות נשמרו.',
+    off: 'התזכורות כובו.',
+    iosHint: 'באייפון אפשר לקבל תזכורות רק אחרי שמוסיפים את האפליקציה למסך הבית (שיתוף ← הוספה למסך הבית) ופותחים אותה משם.',
+    unsupported: 'הדפדפן הזה לא תומך בהתראות.',
+    intro: 'התראה בשעה שתבחר ללימוד השיעורים, לפני סוף זמן קריאת שמע, ובערב שבת וחג עם זמן הדלקת הנרות. אין התראות בשבת ובחג.',
+    setUp: 'הגדרת תזכורות',
+    timeHint: 'שעת תזכורת לכל שיעור (אפשר להשאיר ריק):',
+    shema: 'סוף זמן קריאת שמע',
+    hourBefore: 'שעה לפני',
+    minutesBefore: (m: number) => `${m} דק׳ לפני`,
+    shabbat: 'ערב שבת וחג – זמן הדלקת נרות',
+    cityNote: 'הזמנים לפי העיר שנבחרה. אין התראות בשבת ובחג.',
+    saving: 'שומר…',
+    save: 'שמירת התזכורות',
+    turnOff: 'כיבוי',
+  },
+  en: {
+    lessons: {
+      chumash: 'Chumash with Rashi',
+      tehillim: 'Tehillim',
+      tanya: 'Tanya',
+      hayomYom: 'Hayom Yom',
+      rambam: 'Rambam',
+    } as Record<DailyStudyKey, string>,
+    saved: 'Reminders saved.',
+    off: 'Reminders turned off.',
+    iosHint: 'On iPhone, reminders work only after adding the app to the home screen (Share → Add to Home Screen) and opening it from there.',
+    unsupported: 'This browser does not support notifications.',
+    intro: 'A notification at the time you choose for each lesson, before Sof Zman Kriat Shema, and on Erev Shabbat and Yom Tov with the candle lighting time. No notifications on Shabbat and Yom Tov.',
+    setUp: 'Set up reminders',
+    timeHint: 'Reminder time for each lesson (can be left empty):',
+    shema: 'Sof Zman Kriat Shema',
+    hourBefore: '1 hour before',
+    minutesBefore: (m: number) => `${m} min before`,
+    shabbat: 'Erev Shabbat and Yom Tov – candle lighting time',
+    cityNote: 'Times are based on the selected city. No notifications on Shabbat and Yom Tov.',
+    saving: 'Saving…',
+    save: 'Save reminders',
+    turnOff: 'Turn off',
+  },
+  fr: {
+    lessons: {
+      chumash: '\'Houmach avec Rachi',
+      tehillim: 'Téhilim',
+      tanya: 'Tanya',
+      hayomYom: 'Hayom Yom',
+      rambam: 'Rambam',
+    } as Record<DailyStudyKey, string>,
+    saved: 'Rappels enregistrés.',
+    off: 'Rappels désactivés.',
+    iosHint: 'Sur iPhone, les rappels ne fonctionnent qu’après avoir ajouté l’application à l’écran d’accueil (Partager → Sur l’écran d’accueil) et l’avoir ouverte depuis celui-ci.',
+    unsupported: 'Ce navigateur ne prend pas en charge les notifications.',
+    intro: 'Une notification à l’heure choisie pour chaque leçon, avant la fin du Chéma (Sof Zman Kriat Chéma), et la veille de Chabbat et de Yom Tov avec l’heure d’allumage des bougies. Aucune notification pendant Chabbat et Yom Tov.',
+    setUp: 'Configurer les rappels',
+    timeHint: 'Heure du rappel pour chaque leçon (facultatif) :',
+    shema: 'Fin du Chéma',
+    hourBefore: '1 heure avant',
+    minutesBefore: (m: number) => `${m} min avant`,
+    shabbat: 'Veille de Chabbat et Yom Tov – allumage des bougies',
+    cityNote: 'Horaires selon la ville choisie. Aucune notification pendant Chabbat et Yom Tov.',
+    saving: 'Enregistrement…',
+    save: 'Enregistrer les rappels',
+    turnOff: 'Désactiver',
+  },
+};
 
 interface RemindersSectionProps {
   enabledLessons?: DailyStudyKey[];
@@ -29,6 +105,7 @@ function isStandalone(): boolean {
 /** Reminders: a time for each lesson, Sof Zman Kriat Shema, and the candle lighting time on Erev Shabbat / Yom Tov. */
 export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLessons }) => {
   const [prefs, setPrefs] = useState<ReminderPrefs>(() => loadReminderPrefs());
+  const s = useStrings(STRINGS);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ text: string; ok: boolean } | null>(null);
   const [dirty, setDirty] = useState(false);
@@ -51,15 +128,15 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
       return;
     }
     setDirty(false);
-    setMessage({ text: next.enabled ? 'התזכורות נשמרו.' : 'התזכורות כובו.', ok: true });
+    setMessage({ text: next.enabled ? s.saved : s.off, ok: true });
   };
 
   if (!notificationsSupported()) {
     return (
       <p className="text-[11px] text-stone-500">
         {isIOS() && !isStandalone()
-          ? 'באייפון אפשר לקבל תזכורות רק אחרי שמוסיפים את האפליקציה למסך הבית (שיתוף ← הוספה למסך הבית) ופותחים אותה משם.'
-          : 'הדפדפן הזה לא תומך בהתראות.'}
+          ? s.iosHint
+          : s.unsupported}
       </p>
     );
   }
@@ -68,7 +145,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
     return (
       <div className="space-y-2">
         <p className="text-[11px] text-stone-500">
-          התראה בשעה שתבחר ללימוד השיעורים, לפני סוף זמן קריאת שמע, ובערב שבת וחג עם זמן הדלקת הנרות. אין התראות בשבת ובחג.
+          {s.intro}
         </p>
         <button
           type="button"
@@ -80,7 +157,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
           }}
           className="w-full py-2 rounded-lg bg-amber-900 hover:bg-amber-800 text-white text-sm font-bold cursor-pointer disabled:opacity-50"
         >
-          הגדרת תזכורות
+          {s.setUp}
         </button>
         {message && <p className={`text-[11px] ${message.ok ? 'text-green-700' : 'text-red-600'}`}>{message.text}</p>}
       </div>
@@ -90,7 +167,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
   return (
     <div className="space-y-3">
       <div className="space-y-1.5">
-        <div className="text-[11px] text-stone-500">שעת תזכורת לכל שיעור (אפשר להשאיר ריק):</div>
+        <div className="text-[11px] text-stone-500">{s.timeHint}</div>
         {lessons.map((l) => {
           const key = l.key as ReminderLesson;
           const value = prefs.lessons[key];
@@ -105,7 +182,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
                   }
                   className="accent-amber-800 w-4 h-4"
                 />
-                <span>{l.label}</span>
+                <span>{s.lessons[l.key]}</span>
               </label>
               <input
                 type="time"
@@ -128,7 +205,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
             onChange={(e) => update({ shema: { ...prefs.shema, enabled: e.target.checked } })}
             className="accent-amber-800 w-4 h-4"
           />
-          <span>סוף זמן קריאת שמע</span>
+          <span>{s.shema}</span>
         </label>
         <select
           value={prefs.shema.minutesBefore}
@@ -138,7 +215,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
         >
           {SHEMA_OPTIONS.map((m) => (
             <option key={m} value={m}>
-              {m === 60 ? 'שעה לפני' : `${m} דק׳ לפני`}
+              {m === 60 ? s.hourBefore : s.minutesBefore(m)}
             </option>
           ))}
         </select>
@@ -152,7 +229,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
             onChange={(e) => update({ shabbat: { ...prefs.shabbat, enabled: e.target.checked } })}
             className="accent-amber-800 w-4 h-4"
           />
-          <span>ערב שבת וחג – זמן הדלקת נרות</span>
+          <span>{s.shabbat}</span>
         </label>
         <input
           type="time"
@@ -164,7 +241,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
         />
       </div>
 
-      <p className="text-[11px] text-stone-500">הזמנים לפי העיר שנבחרה. אין התראות בשבת ובחג.</p>
+      <p className="text-[11px] text-stone-500">{s.cityNote}</p>
 
       <div className="flex items-center gap-2">
         <button
@@ -173,7 +250,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
           onClick={() => save(prefs)}
           className="flex-1 py-2 rounded-lg bg-amber-900 hover:bg-amber-800 text-white text-sm font-bold cursor-pointer disabled:opacity-50"
         >
-          {busy ? 'שומר…' : 'שמירת התזכורות'}
+          {busy ? s.saving : s.save}
         </button>
         <button
           type="button"
@@ -185,7 +262,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
           }}
           className="px-3 py-2 rounded-lg bg-white border border-stone-300 text-stone-700 hover:bg-stone-100 text-sm font-semibold cursor-pointer disabled:opacity-50"
         >
-          כיבוי
+          {s.turnOff}
         </button>
       </div>
       {message && <p className={`text-[11px] ${message.ok ? 'text-green-700' : 'text-red-600'}`}>{message.text}</p>}

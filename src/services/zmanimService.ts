@@ -1,5 +1,6 @@
 import { Location, Zmanim, HebrewCalendar } from '@hebcal/core';
 import type { ZmanimMethod } from '../types/chitas';
+import { Lang, getLang, localeOf, pick } from '../i18n';
 
 export interface CityConfig {
   id: string;
@@ -258,6 +259,28 @@ export const CITIES_LIST: CityConfig[] = [
 
 export const DEFAULT_CITY = CITIES_LIST[0]; // Jerusalem
 
+/** French names of the built-in cities whose English name differs. */
+const CITY_NAMES_FR: Record<string, string> = {
+  jerusalem: 'Jérusalem',
+  haifa: 'Haïfa',
+  tiberias: 'Tibériade',
+  london: 'Londres',
+  montreal: 'Montréal',
+  moscow: 'Moscou',
+};
+
+/** City name in the interface language (Hebrew name in Hebrew, otherwise the English / French name). */
+export function cityDisplayName(city: CityConfig, lang: Lang = getLang()): string {
+  if (lang === 'he') return city.nameHe;
+  const en = city.nameEn || city.nameHe;
+  if (lang === 'fr') {
+    if (CITY_NAMES_FR[city.id]) return CITY_NAMES_FR[city.id];
+    if (en === 'Jerusalem (Current Location)') return 'Jérusalem (position actuelle)';
+    if (en === 'Current Location') return 'Position actuelle';
+  }
+  return en;
+}
+
 const CITY_STORAGE_KEY = 'chitas_user_city';
 
 export function getUserLocationCity(): CityConfig | null {
@@ -475,7 +498,7 @@ export interface ZmanimMethodInfo {
   description: string;
 }
 
-/** The methods the user can choose from in the settings. */
+/** The methods the user can choose from in the settings (Hebrew). */
 export const ZMANIM_METHODS: ZmanimMethodInfo[] = [
   {
     id: 'chabad',
@@ -504,12 +527,235 @@ export const ZMANIM_METHODS: ZmanimMethodInfo[] = [
   },
 ];
 
-export function getZmanimMethodLabel(method: ZmanimMethod | undefined): string {
-  return ZMANIM_METHODS.find((m) => m.id === (method || 'chabad'))?.label || ZMANIM_METHODS[0].label;
+const ZMANIM_METHODS_I18N: Record<Lang, ZmanimMethodInfo[]> = {
+  he: ZMANIM_METHODS,
+  en: [
+    {
+      id: 'chabad',
+      label: 'Alter Rebbe (Chabad)',
+      description: 'Times according to the Shulchan Aruch of the Alter Rebbe (as in Chabad calendars)',
+    },
+    {
+      id: 'gra',
+      label: 'Gra',
+      description: 'Proportional hours from sunrise to sunset; Tzeit HaKochavim at 8.5°',
+    },
+    {
+      id: 'mga72',
+      label: 'Magen Avraham – 72 minutes',
+      description: 'Proportional hours from Alot HaShachar (72 min) to Tzeit HaKochavim; Tzeit of Rabbeinu Tam',
+    },
+    {
+      id: 'mga16',
+      label: 'Magen Avraham – 16.1°',
+      description: 'Proportional hours from Alot HaShachar (16.1°) to Tzeit HaKochavim',
+    },
+    {
+      id: 'all',
+      label: 'All opinions',
+      description: 'Show the times of every opinion together',
+    },
+  ],
+  fr: [
+    {
+      id: 'chabad',
+      label: 'Admour Hazaken (Habad)',
+      description: "Horaires selon le Choul'han Aroukh de l'Admour Hazaken (comme dans les calendriers Habad)",
+    },
+    {
+      id: 'gra',
+      label: 'Gra',
+      description: 'Heures proportionnelles du lever au coucher du soleil ; Tsèt Hakokhavim à 8,5°',
+    },
+    {
+      id: 'mga72',
+      label: 'Maguen Avraham – 72 minutes',
+      description: "Heures proportionnelles de Alot Hacha'har (72 min) à Tsèt Hakokhavim ; Tsèt selon Rabbénou Tam",
+    },
+    {
+      id: 'mga16',
+      label: 'Maguen Avraham – 16,1°',
+      description: "Heures proportionnelles de Alot Hacha'har (16,1°) à Tsèt Hakokhavim",
+    },
+    {
+      id: 'all',
+      label: 'Toutes les opinions',
+      description: 'Afficher ensemble les horaires de toutes les opinions',
+    },
+  ],
+};
+
+/** The zmanim methods with labels in the interface language. */
+export function getZmanimMethods(lang: Lang = getLang()): ZmanimMethodInfo[] {
+  return ZMANIM_METHODS_I18N[lang] || ZMANIM_METHODS;
 }
+
+export function getZmanimMethodLabel(method: ZmanimMethod | undefined, lang: Lang = getLang()): string {
+  const list = getZmanimMethods(lang);
+  return list.find((m) => m.id === (method || 'chabad'))?.label || list[0].label;
+}
+
+/** Names of the zmanim (computed when the times are calculated, in the interface language). */
+const ZMAN_TITLES = {
+  he: {
+    alot: 'עלות השחר',
+    neitz: 'הנץ החמה',
+    shma: 'סוף זמן קריאת שמע',
+    tefilah: 'סוף זמן תפילה',
+    chatzot: 'חצות היום',
+    minchaGedola: 'מנחה גדולה',
+    minchaKetana: 'מנחה קטנה',
+    plag: 'פלג המנחה',
+    shkiah: 'שקיעת החמה',
+    tzeit: 'צאת הכוכבים',
+    chatzotNight: 'חצות הלילה',
+    misheyakir: 'משיכיר (טלית ותפילין)',
+    tzeitRT: 'צאת הכוכבים (רבנו תם)',
+    alot72: 'עלות השחר (72 דקות)',
+    alot16: 'עלות השחר (16.1°)',
+    alotChabad: 'עלות השחר (אדמו״ר הזקן)',
+    shmaChabad: 'סוף זמן ק״ש (אדמו״ר הזקן)',
+    shmaMga: 'סוף זמן ק״ש (מגן אברהם 72 דק׳)',
+    shmaMga16: 'סוף זמן ק״ש (מגן אברהם 16.1°)',
+    shmaGra: 'סוף זמן ק״ש (הגר״א)',
+    tefilahChabad: 'סוף זמן תפילה (אדמו״ר הזקן)',
+    tefilahMga: 'סוף זמן תפילה (מגן אברהם 72 דק׳)',
+    tefilahGra: 'סוף זמן תפילה (הגר״א)',
+    minchaGedolaChabad: 'מנחה גדולה (אדמו״ר הזקן)',
+    minchaGedolaGra: 'מנחה גדולה (הגר״א)',
+    minchaKetanaChabad: 'מנחה קטנה (אדמו״ר הזקן)',
+    minchaKetanaGra: 'מנחה קטנה (הגר״א)',
+    plagChabad: 'פלג המנחה (אדמו״ר הזקן)',
+    plagGra: 'פלג המנחה (הגר״א)',
+    tzeitChabad: 'צאת הכוכבים (אדמו״ר הזקן)',
+    tzeitRegular: 'צאת הכוכבים (8.5°)',
+  },
+  en: {
+    alot: 'Alot HaShachar',
+    neitz: 'Netz HaChamah (sunrise)',
+    shma: 'Sof Zman Kriat Shema',
+    tefilah: 'Sof Zman Tefillah',
+    chatzot: 'Chatzot',
+    minchaGedola: 'Mincha Gedolah',
+    minchaKetana: 'Mincha Ketanah',
+    plag: 'Plag HaMincha',
+    shkiah: 'Shkiah (sunset)',
+    tzeit: 'Tzeit HaKochavim',
+    chatzotNight: 'Chatzot HaLailah (midnight)',
+    misheyakir: 'Misheyakir (tallit and tefillin)',
+    tzeitRT: 'Tzeit HaKochavim (Rabbeinu Tam)',
+    alot72: 'Alot HaShachar (72 minutes)',
+    alot16: 'Alot HaShachar (16.1°)',
+    alotChabad: 'Alot HaShachar (Alter Rebbe)',
+    shmaChabad: 'Sof Zman Kriat Shema (Alter Rebbe)',
+    shmaMga: 'Sof Zman Kriat Shema (Magen Avraham, 72 min)',
+    shmaMga16: 'Sof Zman Kriat Shema (Magen Avraham, 16.1°)',
+    shmaGra: 'Sof Zman Kriat Shema (Gra)',
+    tefilahChabad: 'Sof Zman Tefillah (Alter Rebbe)',
+    tefilahMga: 'Sof Zman Tefillah (Magen Avraham, 72 min)',
+    tefilahGra: 'Sof Zman Tefillah (Gra)',
+    minchaGedolaChabad: 'Mincha Gedolah (Alter Rebbe)',
+    minchaGedolaGra: 'Mincha Gedolah (Gra)',
+    minchaKetanaChabad: 'Mincha Ketanah (Alter Rebbe)',
+    minchaKetanaGra: 'Mincha Ketanah (Gra)',
+    plagChabad: 'Plag HaMincha (Alter Rebbe)',
+    plagGra: 'Plag HaMincha (Gra)',
+    tzeitChabad: 'Tzeit HaKochavim (Alter Rebbe)',
+    tzeitRegular: 'Tzeit HaKochavim (8.5°)',
+  },
+  fr: {
+    alot: "Alot Hacha'har",
+    neitz: "Nets Ha'hama (lever du soleil)",
+    shma: 'Fin du Chéma (Sof Zman Kriat Chéma)',
+    tefilah: 'Fin de la Téfila',
+    chatzot: "'Hatsot",
+    minchaGedola: "Min'ha Guedola",
+    minchaKetana: "Min'ha Ketana",
+    plag: "Plag Hamin'ha",
+    shkiah: 'Chkia (coucher du soleil)',
+    tzeit: 'Tsèt Hakokhavim',
+    chatzotNight: "'Hatsot de la nuit",
+    misheyakir: 'Michéyakir (talit et téfilines)',
+    tzeitRT: 'Tsèt Hakokhavim (Rabbénou Tam)',
+    alot72: "Alot Hacha'har (72 minutes)",
+    alot16: "Alot Hacha'har (16,1°)",
+    alotChabad: "Alot Hacha'har (Admour Hazaken)",
+    shmaChabad: 'Fin du Chéma (Admour Hazaken)',
+    shmaMga: 'Fin du Chéma (Maguen Avraham, 72 min)',
+    shmaMga16: 'Fin du Chéma (Maguen Avraham, 16,1°)',
+    shmaGra: 'Fin du Chéma (Gra)',
+    tefilahChabad: 'Fin de la Téfila (Admour Hazaken)',
+    tefilahMga: 'Fin de la Téfila (Maguen Avraham, 72 min)',
+    tefilahGra: 'Fin de la Téfila (Gra)',
+    minchaGedolaChabad: "Min'ha Guedola (Admour Hazaken)",
+    minchaGedolaGra: "Min'ha Guedola (Gra)",
+    minchaKetanaChabad: "Min'ha Ketana (Admour Hazaken)",
+    minchaKetanaGra: "Min'ha Ketana (Gra)",
+    plagChabad: "Plag Hamin'ha (Admour Hazaken)",
+    plagGra: "Plag Hamin'ha (Gra)",
+    tzeitChabad: 'Tsèt Hakokhavim (Admour Hazaken)',
+    tzeitRegular: 'Tsèt Hakokhavim (8,5°)',
+  },
+};
+
+/** Opinion / method notes shown under a zman. */
+const ZMAN_OPINIONS = {
+  he: {
+    gra: 'הגר״א',
+    mga: 'מגן אברהם',
+    mga72: 'מגן אברהם (72 דק׳)',
+    mga16: 'מגן אברהם (16.1°)',
+    mgaAbbr: 'מג״א',
+    chabad: 'חב״ד',
+    before72: '72 דק׳ לפני הנץ',
+    after72: '72 דק׳ אחרי השקיעה',
+    solarAngle: 'מעלות השמש',
+    seaLevel: 'מישור',
+    stars3: '3 כוכבים בינוניים',
+    min72: '72 דקות',
+    deg161: '16.1°',
+    deg102: '10.2°',
+    deg85: '8.5°',
+  },
+  en: {
+    gra: 'Gra',
+    mga: 'Magen Avraham',
+    mga72: 'Magen Avraham (72 min)',
+    mga16: 'Magen Avraham (16.1°)',
+    mgaAbbr: 'Magen Avraham',
+    chabad: 'Chabad',
+    before72: '72 min before sunrise',
+    after72: '72 min after sunset',
+    solarAngle: 'Solar depression angle',
+    seaLevel: 'Sea level',
+    stars3: '3 medium stars',
+    min72: '72 minutes',
+    deg161: '16.1°',
+    deg102: '10.2°',
+    deg85: '8.5°',
+  },
+  fr: {
+    gra: 'Gra',
+    mga: 'Maguen Avraham',
+    mga72: 'Maguen Avraham (72 min)',
+    mga16: 'Maguen Avraham (16,1°)',
+    mgaAbbr: 'Maguen Avraham',
+    chabad: 'Habad',
+    before72: '72 min avant le lever du soleil',
+    after72: '72 min après le coucher du soleil',
+    solarAngle: 'Angle du soleil sous l’horizon',
+    seaLevel: 'Niveau de la mer',
+    stars3: '3 étoiles moyennes',
+    min72: '72 minutes',
+    deg161: '16,1°',
+    deg102: '10,2°',
+    deg85: '8,5°',
+  },
+};
 
 export interface ZmanItem {
   id: string;
+  /** Name of the zman in the interface language at calculation time (Hebrew in Hebrew mode). */
   titleHe: string;
   timeStr: string;
   opinion?: string;
@@ -520,6 +766,7 @@ export interface ZmanItem {
 export interface DayZmanimResult {
   city: CityConfig;
   date: Date;
+  /** Gregorian date, formatted for the interface language (name kept for compatibility). */
   dateStrHebrew: string;
   isFriday: boolean;
   candleLightingTime: string | null;
@@ -643,91 +890,94 @@ export function calculateZmanim(
     }
   };
 
+  const T = pick(ZMAN_TITLES);
+  const O = pick(ZMAN_OPINIONS);
+
   // Halachic order of daily times, according to the chosen method
   if (method === 'chabad') {
     // Shitas Admur HaZaken (Baal HaTanya), as in Chabad calendars
-    add('alot', 'עלות השחר', zman.alosBaalHatanya());
-    add('neitz', 'הנץ החמה', zman.sunrise());
-    add('shma', 'סוף זמן קריאת שמע', zman.sofZmanShmaBaalHatanya());
-    add('tefilah', 'סוף זמן תפילה', zman.sofZmanTfilaBaalHatanya());
-    add('chatzot', 'חצות היום', zman.chatzot());
-    add('mincha_gedola', 'מנחה גדולה', zman.minchaGedolaBaalHatanya());
-    add('mincha_ketana', 'מנחה קטנה', zman.minchaKetanaBaalHatanya());
-    add('plag', 'פלג המנחה', zman.plagHaminchaBaalHatanya());
-    add('shkiah', 'שקיעת החמה', zman.sunset());
-    add('tzeit', 'צאת הכוכבים', zman.tzaisBaalHatanya());
-    add('chatzot_night', 'חצות הלילה', zman.chatzotNight());
+    add('alot', T.alot, zman.alosBaalHatanya());
+    add('neitz', T.neitz, zman.sunrise());
+    add('shma', T.shma, zman.sofZmanShmaBaalHatanya());
+    add('tefilah', T.tefilah, zman.sofZmanTfilaBaalHatanya());
+    add('chatzot', T.chatzot, zman.chatzot());
+    add('mincha_gedola', T.minchaGedola, zman.minchaGedolaBaalHatanya());
+    add('mincha_ketana', T.minchaKetana, zman.minchaKetanaBaalHatanya());
+    add('plag', T.plag, zman.plagHaminchaBaalHatanya());
+    add('shkiah', T.shkiah, zman.sunset());
+    add('tzeit', T.tzeit, zman.tzaisBaalHatanya());
+    add('chatzot_night', T.chatzotNight, zman.chatzotNight());
   } else if (method === 'gra') {
-    add('alot', 'עלות השחר', zman.alotHaShachar(), '16.1°');
-    add('misheyakir', 'משיכיר (טלית ותפילין)', zman.misheyakir(), '10.2°');
-    add('neitz', 'הנץ החמה', zman.sunrise());
-    add('shma', 'סוף זמן קריאת שמע', zman.sofZmanShma(), 'הגר״א');
-    add('tefilah', 'סוף זמן תפילה', zman.sofZmanTfilla(), 'הגר״א');
-    add('chatzot', 'חצות היום', zman.chatzot());
-    add('mincha_gedola', 'מנחה גדולה', zman.minchaGedola(), 'הגר״א');
-    add('mincha_ketana', 'מנחה קטנה', zman.minchaKetana(), 'הגר״א');
-    add('plag', 'פלג המנחה', zman.plagHaMincha(), 'הגר״א');
-    add('shkiah', 'שקיעת החמה', zman.sunset());
-    add('tzeit', 'צאת הכוכבים', zman.tzeit(), '8.5°');
-    add('chatzot_night', 'חצות הלילה', zman.chatzotNight());
+    add('alot', T.alot, zman.alotHaShachar(), O.deg161);
+    add('misheyakir', T.misheyakir, zman.misheyakir(), O.deg102);
+    add('neitz', T.neitz, zman.sunrise());
+    add('shma', T.shma, zman.sofZmanShma(), O.gra);
+    add('tefilah', T.tefilah, zman.sofZmanTfilla(), O.gra);
+    add('chatzot', T.chatzot, zman.chatzot());
+    add('mincha_gedola', T.minchaGedola, zman.minchaGedola(), O.gra);
+    add('mincha_ketana', T.minchaKetana, zman.minchaKetana(), O.gra);
+    add('plag', T.plag, zman.plagHaMincha(), O.gra);
+    add('shkiah', T.shkiah, zman.sunset());
+    add('tzeit', T.tzeit, zman.tzeit(), O.deg85);
+    add('chatzot_night', T.chatzotNight, zman.chatzotNight());
   } else if (method === 'mga72') {
-    add('alot', 'עלות השחר', zman.alotHaShachar72(), '72 דק׳ לפני הנץ');
-    add('misheyakir', 'משיכיר (טלית ותפילין)', zman.misheyakir(), '10.2°');
-    add('neitz', 'הנץ החמה', zman.sunrise());
-    add('shma', 'סוף זמן קריאת שמע', zman.sofZmanShmaMGA(), 'מגן אברהם (72 דק׳)');
-    add('tefilah', 'סוף זמן תפילה', zman.sofZmanTfillaMGA(), 'מגן אברהם (72 דק׳)');
-    add('chatzot', 'חצות היום', zman.chatzot());
-    add('mincha_gedola', 'מנחה גדולה', zman.minchaGedolaMGA(), 'מגן אברהם');
-    add('mincha_ketana', 'מנחה קטנה', zman.minchaKetanaMGA(), 'מגן אברהם');
-    add('plag', 'פלג המנחה', zman.plagHaMincha(), 'הגר״א');
-    add('shkiah', 'שקיעת החמה', zman.sunset());
-    add('tzeit', 'צאת הכוכבים', zman.tzeit(), '8.5°');
-    add('tzeit_72', 'צאת הכוכבים (רבנו תם)', zman.tzeit72(), '72 דק׳ אחרי השקיעה');
-    add('chatzot_night', 'חצות הלילה', zman.chatzotNight());
+    add('alot', T.alot, zman.alotHaShachar72(), O.before72);
+    add('misheyakir', T.misheyakir, zman.misheyakir(), O.deg102);
+    add('neitz', T.neitz, zman.sunrise());
+    add('shma', T.shma, zman.sofZmanShmaMGA(), O.mga72);
+    add('tefilah', T.tefilah, zman.sofZmanTfillaMGA(), O.mga72);
+    add('chatzot', T.chatzot, zman.chatzot());
+    add('mincha_gedola', T.minchaGedola, zman.minchaGedolaMGA(), O.mga);
+    add('mincha_ketana', T.minchaKetana, zman.minchaKetanaMGA(), O.mga);
+    add('plag', T.plag, zman.plagHaMincha(), O.gra);
+    add('shkiah', T.shkiah, zman.sunset());
+    add('tzeit', T.tzeit, zman.tzeit(), O.deg85);
+    add('tzeit_72', T.tzeitRT, zman.tzeit72(), O.after72);
+    add('chatzot_night', T.chatzotNight, zman.chatzotNight());
   } else if (method === 'mga16') {
-    add('alot', 'עלות השחר', zman.alotHaShachar(), '16.1°');
-    add('misheyakir', 'משיכיר (טלית ותפילין)', zman.misheyakir(), '10.2°');
-    add('neitz', 'הנץ החמה', zman.sunrise());
-    add('shma', 'סוף זמן קריאת שמע', zman.sofZmanShmaMGA16Point1(), 'מגן אברהם (16.1°)');
-    add('tefilah', 'סוף זמן תפילה', zman.sofZmanTfillaMGA16Point1(), 'מגן אברהם (16.1°)');
-    add('chatzot', 'חצות היום', zman.chatzot());
-    add('mincha_gedola', 'מנחה גדולה', zman.minchaGedola(), 'הגר״א');
-    add('mincha_ketana', 'מנחה קטנה', zman.minchaKetana(), 'הגר״א');
-    add('plag', 'פלג המנחה', zman.plagHaMincha(), 'הגר״א');
-    add('shkiah', 'שקיעת החמה', zman.sunset());
-    add('tzeit', 'צאת הכוכבים', zman.tzeit(), '8.5°');
-    add('chatzot_night', 'חצות הלילה', zman.chatzotNight());
+    add('alot', T.alot, zman.alotHaShachar(), O.deg161);
+    add('misheyakir', T.misheyakir, zman.misheyakir(), O.deg102);
+    add('neitz', T.neitz, zman.sunrise());
+    add('shma', T.shma, zman.sofZmanShmaMGA16Point1(), O.mga16);
+    add('tefilah', T.tefilah, zman.sofZmanTfillaMGA16Point1(), O.mga16);
+    add('chatzot', T.chatzot, zman.chatzot());
+    add('mincha_gedola', T.minchaGedola, zman.minchaGedola(), O.gra);
+    add('mincha_ketana', T.minchaKetana, zman.minchaKetana(), O.gra);
+    add('plag', T.plag, zman.plagHaMincha(), O.gra);
+    add('shkiah', T.shkiah, zman.sunset());
+    add('tzeit', T.tzeit, zman.tzeit(), O.deg85);
+    add('chatzot_night', T.chatzotNight, zman.chatzotNight());
   } else {
-    add('alot_72', 'עלות השחר (72 דקות)', zman.alotHaShachar72(), '72 דק׳ לפני הנץ');
-    add('alot_16', 'עלות השחר (16.1°)', zman.alotHaShachar(), 'מעלות השמש');
-    add('alot_chabad', 'עלות השחר (אדמו״ר הזקן)', zman.alosBaalHatanya(), 'חב״ד', true);
-    add('misheyakir', 'משיכיר (טלית ותפילין)', zman.misheyakir(), '10.2°');
-    add('neitz', 'הנץ החמה', zman.sunrise(), 'מישור');
-    add('shma_chabad', 'סוף זמן ק״ש (אדמו״ר הזקן)', zman.sofZmanShmaBaalHatanya(), 'חב״ד', true);
-    add('shma_mga', 'סוף זמן ק״ש (מגן אברהם 72 דק׳)', zman.sofZmanShmaMGA(), 'מג״א');
-    add('shma_mga16', 'סוף זמן ק״ש (מגן אברהם 16.1°)', zman.sofZmanShmaMGA16Point1(), 'מג״א');
-    add('shma_gra', 'סוף זמן ק״ש (הגר״א)', zman.sofZmanShma(), 'הגר״א');
-    add('tefilah_chabad', 'סוף זמן תפילה (אדמו״ר הזקן)', zman.sofZmanTfilaBaalHatanya(), 'חב״ד', true);
-    add('tefilah_mga', 'סוף זמן תפילה (מגן אברהם 72 דק׳)', zman.sofZmanTfillaMGA(), 'מג״א');
-    add('tefilah_gra', 'סוף זמן תפילה (הגר״א)', zman.sofZmanTfilla(), 'הגר״א');
-    add('chatzot', 'חצות היום', zman.chatzot());
-    add('mincha_gedola_chabad', 'מנחה גדולה (אדמו״ר הזקן)', zman.minchaGedolaBaalHatanya(), 'חב״ד', true);
-    add('mincha_gedola_gra', 'מנחה גדולה (הגר״א)', zman.minchaGedola(), 'הגר״א');
-    add('mincha_ketana_chabad', 'מנחה קטנה (אדמו״ר הזקן)', zman.minchaKetanaBaalHatanya(), 'חב״ד', true);
-    add('mincha_ketana', 'מנחה קטנה (הגר״א)', zman.minchaKetana(), 'הגר״א');
-    add('plag_chabad', 'פלג המנחה (אדמו״ר הזקן)', zman.plagHaminchaBaalHatanya(), 'חב״ד', true);
-    add('plag_gra', 'פלג המנחה (הגר״א)', zman.plagHaMincha(), 'הגר״א');
-    add('shkiah', 'שקיעת החמה', zman.sunset(), 'מישור');
-    add('tzeit_chabad', 'צאת הכוכבים (אדמו״ר הזקן)', zman.tzaisBaalHatanya(), 'חב״ד', true);
-    add('tzeit_regular', 'צאת הכוכבים (8.5°)', zman.tzeit(), '3 כוכבים בינוניים');
-    add('tzeit_72', 'צאת הכוכבים (רבנו תם)', zman.tzeit72(), '72 דקות');
-    add('chatzot_night', 'חצות הלילה', zman.chatzotNight());
+    add('alot_72', T.alot72, zman.alotHaShachar72(), O.before72);
+    add('alot_16', T.alot16, zman.alotHaShachar(), O.solarAngle);
+    add('alot_chabad', T.alotChabad, zman.alosBaalHatanya(), O.chabad, true);
+    add('misheyakir', T.misheyakir, zman.misheyakir(), O.deg102);
+    add('neitz', T.neitz, zman.sunrise(), O.seaLevel);
+    add('shma_chabad', T.shmaChabad, zman.sofZmanShmaBaalHatanya(), O.chabad, true);
+    add('shma_mga', T.shmaMga, zman.sofZmanShmaMGA(), O.mgaAbbr);
+    add('shma_mga16', T.shmaMga16, zman.sofZmanShmaMGA16Point1(), O.mgaAbbr);
+    add('shma_gra', T.shmaGra, zman.sofZmanShma(), O.gra);
+    add('tefilah_chabad', T.tefilahChabad, zman.sofZmanTfilaBaalHatanya(), O.chabad, true);
+    add('tefilah_mga', T.tefilahMga, zman.sofZmanTfillaMGA(), O.mgaAbbr);
+    add('tefilah_gra', T.tefilahGra, zman.sofZmanTfilla(), O.gra);
+    add('chatzot', T.chatzot, zman.chatzot());
+    add('mincha_gedola_chabad', T.minchaGedolaChabad, zman.minchaGedolaBaalHatanya(), O.chabad, true);
+    add('mincha_gedola_gra', T.minchaGedolaGra, zman.minchaGedola(), O.gra);
+    add('mincha_ketana_chabad', T.minchaKetanaChabad, zman.minchaKetanaBaalHatanya(), O.chabad, true);
+    add('mincha_ketana', T.minchaKetanaGra, zman.minchaKetana(), O.gra);
+    add('plag_chabad', T.plagChabad, zman.plagHaminchaBaalHatanya(), O.chabad, true);
+    add('plag_gra', T.plagGra, zman.plagHaMincha(), O.gra);
+    add('shkiah', T.shkiah, zman.sunset(), O.seaLevel);
+    add('tzeit_chabad', T.tzeitChabad, zman.tzaisBaalHatanya(), O.chabad, true);
+    add('tzeit_regular', T.tzeitRegular, zman.tzeit(), O.stars3);
+    add('tzeit_72', T.tzeitRT, zman.tzeit72(), O.min72);
+    add('chatzot_night', T.chatzotNight, zman.chatzotNight());
   }
 
   return {
     city,
     date,
-    dateStrHebrew: date.toLocaleDateString('he-IL', {
+    dateStrHebrew: date.toLocaleDateString(localeOf(), {
       weekday: 'long',
       day: 'numeric',
       month: 'long',

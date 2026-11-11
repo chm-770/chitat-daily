@@ -1,4 +1,12 @@
 import { HDate } from '@hebcal/core';
+import { pick } from '../i18n';
+
+/** Interface messages (the Tanya text, chapter names and Hebrew dates stay in Hebrew). */
+const STRINGS = {
+  he: { notFound: (day: string) => `לא נמצא שיעור תניא עבור יום ${day} בלוח השיעורים.` },
+  en: { notFound: (day: string) => `No Tanya lesson was found for ${day} in the schedule.` },
+  fr: { notFound: (day: string) => `Aucun cours de Tanya n'a été trouvé pour le ${day} dans le calendrier.` },
+};
 
 export interface TanyaDailyPortion {
   dateHebrew: string;
@@ -193,7 +201,7 @@ export async function getTanyaDailyPortion(date: Date = new Date()): Promise<Tan
       chapter: '',
       isLeapYear: isLeap,
       cycleNote: isLeap ? 'שנה מעוברת' : 'שנה פשוטה',
-      paragraphs: [`לא נמצא שיעור תניא עבור יום ${displayTitle} בלוח השיעורים.`],
+      paragraphs: [pick(STRINGS).notFound(displayTitle)],
     };
   }
 

@@ -5,9 +5,71 @@ import {
   getSavedCity,
   calculateZmanim,
   DayZmanimResult,
+  cityDisplayName,
 } from '../services/zmanimService';
 import { CityPicker } from './CityPicker';
 import { Clock, MapPin, X, ChevronRight, ChevronLeft } from 'lucide-react';
+import { useLang, useStrings, dirOf } from '../i18n';
+
+const STRINGS = {
+  he: {
+    title: 'זמני היום',
+    close: 'סגור',
+    selectedCity: 'עיר נבחרת:',
+    candleMinutes: (n: number) => `(${n} דק׳ הדלקת נרות)`,
+    backToTimes: 'חזרה לזמנים',
+    changeCity: 'שנה עיר / זהה מיקום',
+    chooseCity: 'בחר עיר לקביעת זמני היום וכניסת השבת',
+    prevDay: 'יום קודם',
+    nextDay: 'יום הבא',
+    backToToday: 'חזור להיום',
+    candleTitle: 'הדלקת נרות שבת קודש',
+    candleNote: (city: string, n: number) => `לפי ${city} (${n} דק׳ לפני השקיעה)`,
+    havdalah: 'מוצאי שבת - הבדלה וצאת השבת:',
+    chabadDot: 'לשיטת רבנו הזקן בעל התניא',
+    chabadBadge: 'חב״ד',
+    computedNote: (city: string) => `מחושב לפי הקואורדינטות המדויקות של ${city} ואופק המישורין.`,
+    cityFooter: (city: string) => `עיר: ${city}`,
+  },
+  en: {
+    title: 'Zmanim',
+    close: 'Close',
+    selectedCity: 'City:',
+    candleMinutes: (n: number) => `(candle lighting ${n} min before sunset)`,
+    backToTimes: 'Back to zmanim',
+    changeCity: 'Change city / locate me',
+    chooseCity: 'Choose a city for the zmanim and Shabbat times',
+    prevDay: 'Previous day',
+    nextDay: 'Next day',
+    backToToday: 'Back to today',
+    candleTitle: 'Shabbat candle lighting',
+    candleNote: (city: string, n: number) => `For ${city} (${n} min before sunset)`,
+    havdalah: 'Motzei Shabbat – Havdalah / Shabbat ends:',
+    chabadDot: 'According to the Alter Rebbe, author of the Tanya',
+    chabadBadge: 'Chabad',
+    computedNote: (city: string) => `Calculated from the exact coordinates of ${city}, with a sea-level horizon.`,
+    cityFooter: (city: string) => `City: ${city}`,
+  },
+  fr: {
+    title: 'Horaires du jour (Zmanim)',
+    close: 'Fermer',
+    selectedCity: 'Ville :',
+    candleMinutes: (n: number) => `(allumage des bougies ${n} min avant le coucher du soleil)`,
+    backToTimes: 'Retour aux horaires',
+    changeCity: 'Changer de ville / me localiser',
+    chooseCity: 'Choisissez une ville pour les horaires du jour et de Chabbat',
+    prevDay: 'Jour précédent',
+    nextDay: 'Jour suivant',
+    backToToday: "Revenir à aujourd'hui",
+    candleTitle: 'Allumage des bougies de Chabbat',
+    candleNote: (city: string, n: number) => `Pour ${city} (${n} min avant le coucher du soleil)`,
+    havdalah: 'Motsaé Chabbat – Havdala / fin de Chabbat :',
+    chabadDot: "Selon l'Admour Hazaken, auteur du Tanya",
+    chabadBadge: 'Habad',
+    computedNote: (city: string) => `Calculé selon les coordonnées exactes de ${city}, avec l'horizon au niveau de la mer.`,
+    cityFooter: (city: string) => `Ville : ${city}`,
+  },
+};
 
 interface ZmanimModalProps {
   isOpen: boolean;
@@ -30,6 +92,9 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
     return Boolean(getSavedCity());
   });
 
+  const lang = useLang();
+  const s = useStrings(STRINGS);
+  const isRtl = dirOf(lang) === 'rtl';
   const [isChangingCity, setIsChangingCity] = useState<boolean>(false);
   const [viewDate, setViewDate] = useState<Date>(() => initialDate || new Date());
 
@@ -67,8 +132,10 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
 
   const zmanimData: DayZmanimResult = useMemo(() => {
     // Zmanim according to the Alter Rebbe (Baal HaTanya), as in Chabad calendars (see sources page)
+    // (recomputed when the language changes: the zmanim names and the date follow the interface language)
     return calculateZmanim(selectedCity, viewDate, 'chabad');
-  }, [selectedCity, viewDate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCity, viewDate, lang]);
 
   const handleSelectCity = (city: CityConfig) => {
     setSelectedCity(city);
@@ -97,10 +164,12 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
 
   if (!isOpen) return null;
 
+  const cityName = cityDisplayName(selectedCity, lang);
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/60 backdrop-blur-sm animate-in fade-in duration-200"
-      dir="rtl"
+      dir={dirOf(lang)}
     >
       <div className="relative w-full max-w-xl bg-amber-50 rounded-2xl shadow-2xl border border-amber-900/20 overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header Bar */}
@@ -111,10 +180,10 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
             </div>
             <div>
               <h3 className="text-lg font-bold font-torah tracking-wide flex items-center gap-2">
-                <span>זמני היום</span>
+                <span>{s.title}</span>
                 <span className="text-2xl leading-none">·</span>
                 <span className="text-amber-200 text-sm font-sans font-medium">
-                  {selectedCity.nameHe}
+                  {cityName}
                 </span>
               </h3>
             </div>
@@ -123,7 +192,7 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
           <button
             onClick={onClose}
             className="p-1.5 rounded-lg hover:bg-white/10 text-amber-200 hover:text-white transition-colors cursor-pointer"
-            title="סגור"
+            title={s.close}
           >
             <X className="w-5 h-5" />
           </button>
@@ -133,10 +202,10 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
         <div className="bg-amber-100/70 border-b border-amber-200/80 px-4 py-2.5 flex items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-1.5 text-amber-950 font-medium truncate">
             <MapPin className="w-3.5 h-3.5 text-amber-800 shrink-0" />
-            <span className="text-stone-600">עיר נבחרת:</span>
-            <span className="font-bold text-amber-950">{selectedCity.nameHe}</span>
+            <span className="text-stone-600">{s.selectedCity}</span>
+            <span className="font-bold text-amber-950">{cityName}</span>
             <span className="text-stone-500 text-[10px] hidden sm:inline">
-              ({selectedCity.candleLightingMinutes} דק׳ הדלקת נרות)
+              {s.candleMinutes(selectedCity.candleLightingMinutes)}
             </span>
           </div>
 
@@ -144,7 +213,7 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
             onClick={() => setIsChangingCity(!isChangingCity)}
             className="px-2.5 py-1 rounded-md bg-white border border-amber-300 text-amber-900 hover:bg-amber-50 font-semibold cursor-pointer shrink-0 transition-colors shadow-2xs"
           >
-            {isChangingCity ? 'חזרה לזמנים' : 'שנה עיר / זהה מיקום'}
+            {isChangingCity ? s.backToTimes : s.changeCity}
           </button>
         </div>
 
@@ -154,7 +223,7 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
           {isChangingCity ? (
             <div className="space-y-3 animate-in fade-in duration-150">
               <h4 className="font-bold text-stone-900 text-sm font-torah">
-                בחר עיר לקביעת זמני היום וכניסת השבת
+                {s.chooseCity}
               </h4>
               <CityPicker selectedCity={selectedCity} onSelect={handleSelectCity} />
             </div>
@@ -165,10 +234,10 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
               <div className="flex items-center justify-between bg-white rounded-xl border border-stone-200 p-2 shadow-2xs">
                 <button
                   onClick={handlePrevDay}
-                  title="יום קודם"
+                  title={s.prevDay}
                   className="p-1.5 rounded-lg hover:bg-amber-100/50 text-stone-700 cursor-pointer"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  {isRtl ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
                 </button>
 
                 <div className="text-center">
@@ -180,17 +249,17 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
                       onClick={handleResetToToday}
                       className="text-[10px] text-amber-800 hover:underline cursor-pointer"
                     >
-                      חזור להיום
+                      {s.backToToday}
                     </button>
                   )}
                 </div>
 
                 <button
                   onClick={handleNextDay}
-                  title="יום הבא"
+                  title={s.nextDay}
                   className="p-1.5 rounded-lg hover:bg-amber-100/50 text-stone-700 cursor-pointer"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  {isRtl ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
                 </button>
               </div>
 
@@ -201,11 +270,10 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
                     <span className="text-2xl">🕯️</span>
                     <div>
                       <h4 className="font-bold text-amber-950 text-sm font-torah">
-                        הדלקת נרות שבת קודש
+                        {s.candleTitle}
                       </h4>
                       <p className="text-[10px] text-amber-800">
-                        לפי {selectedCity.nameHe} ({selectedCity.candleLightingMinutes} דק׳ לפני
-                        השקיעה)
+                        {s.candleNote(cityName, selectedCity.candleLightingMinutes)}
                       </p>
                     </div>
                   </div>
@@ -218,7 +286,7 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
               {/* Saturday Havdalah Highlight Banner */}
               {zmanimData.havdalahTime && (
                 <div className="p-3 rounded-xl bg-stone-100 border border-stone-200 shadow-2xs flex items-center justify-between gap-3 text-xs">
-                  <span className="font-medium text-stone-700">מוצאי שבת - הבדלה וצאת השבת:</span>
+                  <span className="font-medium text-stone-700">{s.havdalah}</span>
                   <span className="font-bold text-stone-900 font-mono text-sm bg-white px-2 py-0.5 rounded border border-stone-300">
                     {zmanimData.havdalahTime}
                   </span>
@@ -241,7 +309,7 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
                         <div className="flex items-center gap-2">
                           {item.highlightChabad && (
                             <span
-                              title="לשיטת רבנו הזקן בעל התניא"
+                              title={s.chabadDot}
                               className="w-1.5 h-1.5 rounded-full bg-amber-600"
                             />
                           )}
@@ -250,7 +318,7 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
                               <span>{item.titleHe}</span>
                               {item.highlightChabad && (
                                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200/70 font-sans">
-                                  חב״ד
+                                  {s.chabadBadge}
                                 </span>
                               )}
                             </div>
@@ -271,7 +339,7 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
               </div>
 
               <div className="text-center text-[10px] text-stone-500 leading-relaxed">
-                מחושב לפי הקואורדינטות המדויקות של {selectedCity.nameHe} ואופק המישורין.
+                {s.computedNote(cityName)}
               </div>
             </div>
           )}
@@ -279,12 +347,12 @@ export const ZmanimModal: React.FC<ZmanimModalProps> = ({
 
         {/* Footer */}
         <div className="p-3 bg-stone-100/80 border-t border-stone-200 flex items-center justify-between text-xs text-stone-600">
-          <span>עיר: {selectedCity.nameHe}</span>
+          <span>{s.cityFooter(cityName)}</span>
           <button
             onClick={onClose}
             className="px-4 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-900 text-white font-medium cursor-pointer shadow-2xs"
           >
-            סגור
+            {s.close}
           </button>
         </div>
       </div>

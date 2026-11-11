@@ -3,6 +3,14 @@ import { useDoubleTap } from '../hooks/useDoubleTap';
 import { motion, PanInfo } from 'motion/react';
 import { TehillimChapter, getHebrewChapterNumber } from '../services/tehillimService';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { useLang, useStrings, dirOf } from '../i18n';
+
+/** Interface strings of the swipe cards (the card itself stays a right-to-left Hebrew card). */
+const STRINGS = {
+  he: { swipeHint: 'החלק ימינה לסימון', done: 'הושלם ✓' },
+  en: { swipeHint: 'Swipe to mark as read', done: 'Done ✓' },
+  fr: { swipeHint: 'Glissez pour marquer comme lu', done: 'Terminé ✓' },
+};
 
 interface SwipePsalmCardProps {
   chapter: TehillimChapter;
@@ -15,6 +23,8 @@ export const SwipePsalmCard: React.FC<SwipePsalmCardProps> = ({
   onSwipeRight,
   fontSizeClass,
 }) => {
+  const lang = useLang();
+  const s = useStrings(STRINGS);
   const handleTap = useDoubleTap(() => onSwipeRight());
 
   const handleDragEnd = (_: any, info: PanInfo) => {
@@ -27,6 +37,8 @@ export const SwipePsalmCard: React.FC<SwipePsalmCardProps> = ({
     <motion.div
       layout
       data-swipe-verse="true"
+      dir="rtl"
+      lang="he"
       drag="x"
       dragDirectionLock
       dragConstraints={{ left: 0, right: 300 }}
@@ -62,7 +74,7 @@ export const SwipePsalmCard: React.FC<SwipePsalmCardProps> = ({
         </div>
 
 <span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
-            <span>החלק ימינה לסימון</span>
+            <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </span>
       </div>

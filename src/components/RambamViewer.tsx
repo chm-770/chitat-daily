@@ -6,6 +6,64 @@ import { StudySettings, RambamTrack } from '../types/chitas';
 import { RambamDailyLesson, getRambamDailyLesson, getHebrewNumeral } from '../services/rambamService';
 import { SwipeHalachaCard } from './SwipeHalachaCard';
 import { CheckCircle2, RotateCcw, Settings2, Scale, Scroll, ExternalLink } from 'lucide-react';
+import { useLang, useStrings } from '../i18n';
+
+const STRINGS = {
+  he: {
+    dailyRambam: 'תקנת הרמב״ם היומי',
+    tracks: { three_chapters: 'ג׳ פרקים ליום', one_chapter: 'פרק אחד ליום', sefer_hamitzvot: 'ספר המצוות' },
+    seferHamitzvotTitle: 'ספר המצוות להרמב״ם',
+    mishnehTorahTitle: 'ספר משנה תורה – היד החזקה',
+    trackSettingsTitle: 'שינוי מסלול רמב״ם (ג׳ פרקים / פרק אחד / ספר המצוות)',
+    trackSettings: 'הגדרות מסלול',
+    finish: 'סיימתי',
+    readAgain: 'קרא שוב',
+    studyTrack: 'מסלול לימוד:',
+    loading: 'טוען את פרקי הרמב״ם היומי לפי מורה השיעור השנתי...',
+    tryAgain: 'נסה שוב',
+    readLessonAgain: 'קרא את שיעור הרמב״ם שוב',
+    chapterDone: 'הפרק הושלם ✓',
+    remaining: (n: number, total: number, mitzvot: boolean) =>
+      `נשארו ${n} מתוך ${total} ${mitzvot ? 'מצות' : 'הלכות'}`,
+    allHalachotRead: 'כל הלכות פרק זה נקראו בהצלחה ✓',
+  },
+  en: {
+    dailyRambam: 'Daily Rambam',
+    tracks: { three_chapters: '3 chapters a day', one_chapter: '1 chapter a day', sefer_hamitzvot: 'Sefer HaMitzvot' },
+    seferHamitzvotTitle: 'Sefer HaMitzvot of the Rambam',
+    mishnehTorahTitle: 'Mishneh Torah – Yad HaChazakah',
+    trackSettingsTitle: 'Change the Rambam track (3 chapters / 1 chapter / Sefer HaMitzvot)',
+    trackSettings: 'Track settings',
+    finish: 'Done',
+    readAgain: 'Read again',
+    studyTrack: 'Study track:',
+    loading: "Loading today's Rambam…",
+    tryAgain: 'Try again',
+    readLessonAgain: 'Read the Rambam lesson again',
+    chapterDone: 'Chapter completed ✓',
+    remaining: (n: number, total: number, mitzvot: boolean) =>
+      `${n} of ${total} ${mitzvot ? 'mitzvot' : 'halachot'} left`,
+    allHalachotRead: 'All the halachot of this chapter have been read ✓',
+  },
+  fr: {
+    dailyRambam: 'Rambam quotidien',
+    tracks: { three_chapters: '3 chapitres par jour', one_chapter: '1 chapitre par jour', sefer_hamitzvot: 'Séfer Hamitsvot' },
+    seferHamitzvotTitle: 'Séfer Hamitsvot du Rambam',
+    mishnehTorahTitle: "Michné Torah – Yad Ha'hazaka",
+    trackSettingsTitle: 'Changer de parcours de Rambam (3 chapitres / 1 chapitre / Séfer Hamitsvot)',
+    trackSettings: 'Parcours',
+    finish: 'Terminé',
+    readAgain: 'Relire',
+    studyTrack: "Parcours d'étude :",
+    loading: 'Chargement du Rambam du jour…',
+    tryAgain: 'Réessayer',
+    readLessonAgain: 'Relire le cours de Rambam',
+    chapterDone: 'Chapitre terminé ✓',
+    remaining: (n: number, total: number, mitzvot: boolean) =>
+      `Il reste ${n} ${mitzvot ? 'mitsvot' : 'halakhot'} sur ${total}`,
+    allHalachotRead: 'Toutes les halakhot de ce chapitre ont été lues ✓',
+  },
+};
 
 interface RambamViewerProps {
   dateInfo: HebrewDateInfo;
@@ -34,6 +92,8 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
   onMarkBatch,
   onAdvanceToNext,
 }) => {
+  const lang = useLang();
+  const s = useStrings(STRINGS);
   const track: RambamTrack = settings.rambamTrack || 'three_chapters';
   const [lesson, setLesson] = useState<RambamDailyLesson | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -188,16 +248,20 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2 text-xs text-stone-500 flex-wrap">
-                <span>תקנת הרמב״ם היומי</span>
+                <span>{s.dailyRambam}</span>
                 <span aria-hidden="true">·</span>
                 <span className="font-semibold text-purple-900">
-                  {lesson?.trackTitle || 'ג׳ פרקים ליום'}
+                  {lang === 'he' ? lesson?.trackTitle || 'ג׳ פרקים ליום' : s.tracks[track] || s.tracks.three_chapters}
                 </span>
                 <span aria-hidden="true">·</span>
-                <span>יום {dateInfo.dayOfMonthHebrew} ב{dateInfo.monthName}</span>
+                {lang === 'he' ? (
+                  <span>יום {dateInfo.dayOfMonthHebrew} ב{dateInfo.monthName}</span>
+                ) : (
+                  <span dir="rtl" lang="he">{dateInfo.dayOfMonthHebrew} {dateInfo.monthName}</span>
+                )}
               </div>
               <h1 className="text-2xl font-bold text-stone-900 font-torah">
-                {track === 'sefer_hamitzvot' ? 'ספר המצוות להרמב״ם' : 'ספר משנה תורה – היד החזקה'}
+                {track === 'sefer_hamitzvot' ? s.seferHamitzvotTitle : s.mishnehTorahTitle}
               </h1>
             </div>
           </div>
@@ -209,10 +273,10 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                 type="button"
                 onClick={onOpenSettings}
                 className="px-2.5 py-1.5 text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer border border-stone-200"
-                title="שינוי מסלול רמב״ם (ג׳ פרקים / פרק אחד / ספר המצוות)"
+                title={s.trackSettingsTitle}
               >
                 <Settings2 className="w-3.5 h-3.5 text-stone-600" />
-                <span>הגדרות מסלול</span>
+                <span>{s.trackSettings}</span>
               </button>
             )}
 
@@ -223,7 +287,7 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                 className="px-4 py-2 text-xs font-bold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-lg transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
               >
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 stroke-[2]" />
-                <span>סיימתי</span>
+                <span>{s.finish}</span>
               </button>
             ) : (
               <>
@@ -234,7 +298,7 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                 className="px-3.5 py-1.5 text-xs font-medium text-stone-700 bg-white hover:bg-stone-100 border border-stone-300 rounded-lg transition-colors cursor-pointer flex items-center gap-1"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>קרא שוב</span>
+                <span>{s.readAgain}</span>
               </button>
               </>
             )}
@@ -244,11 +308,11 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
         {/* Track Selector Quick Tabs */}
         {onUpdateTrack && (
           <div className="pt-3 border-t border-stone-100 flex items-center justify-start gap-1.5 overflow-x-auto text-xs">
-            <span className="text-stone-500 font-medium shrink-0 ml-1">מסלול לימוד:</span>
+            <span className="text-stone-500 font-medium shrink-0 me-1">{s.studyTrack}</span>
             {[
-              { id: 'three_chapters', label: 'ג׳ פרקים ליום' },
-              { id: 'one_chapter', label: 'פרק אחד ליום' },
-              { id: 'sefer_hamitzvot', label: 'ספר המצוות' },
+              { id: 'three_chapters', label: s.tracks.three_chapters },
+              { id: 'one_chapter', label: s.tracks.one_chapter },
+              { id: 'sefer_hamitzvot', label: s.tracks.sefer_hamitzvot },
             ].map((t) => (
               <button
                 key={t.id}
@@ -270,7 +334,7 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
       {isLoading && (
         <div className="p-12 text-center text-stone-500 font-medium space-y-2">
           <div className="w-6 h-6 border-2 border-purple-800 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p>טוען את פרקי הרמב״ם היומי לפי מורה השיעור השנתי...</p>
+          <p>{s.loading}</p>
         </div>
       )}
 
@@ -293,7 +357,7 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                 }}
                 className="px-5 py-2.5 bg-purple-900 hover:bg-purple-950 text-white rounded-xl font-medium transition-colors"
               >
-                נסה שוב
+                {s.tryAgain}
               </button>
             </div>
           )}
@@ -308,7 +372,7 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                   className="px-4 py-2 text-xs font-semibold text-emerald-900 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-xl transition-colors cursor-pointer inline-flex items-center gap-1.5"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
-                  <span>קרא את שיעור הרמב״ם שוב</span>
+                  <span>{s.readLessonAgain}</span>
                 </button>
               </div>
             </div>
@@ -344,10 +408,10 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                         {(chapter.chapterTitle.match(/פרק ([א-ת״׳0-9]+)/) || [])[1] || getHebrewNumeral(cIdx + 1)}
                       </span>
                       <div>
-                        <h2 className="font-bold text-stone-900 font-torah text-xl md:text-2xl">
+                        <h2 className="font-bold text-stone-900 font-torah text-xl md:text-2xl" dir="rtl" lang="he">
                           {chapter.chapterTitle || chapter.heRef}
                         </h2>
-                        <p className="text-xs text-stone-500 font-medium">
+                        <p className="text-xs text-stone-500 font-medium" dir="rtl" lang="he">
                           {chapter.heRef}
                         </p>
                       </div>
@@ -361,10 +425,12 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                       }`}
                     >
                       {isChapterDone
-                        ? 'הפרק הושלם ✓'
-                        : `נשארו ${chapterRemainingHalachot.length} מתוך ${chapter.halachot.length} ${
-                            track === 'sefer_hamitzvot' ? 'מצות' : 'הלכות'
-                          }`}
+                        ? s.chapterDone
+                        : s.remaining(
+                            chapterRemainingHalachot.length,
+                            chapter.halachot.length,
+                            track === 'sefer_hamitzvot'
+                          )}
                     </span>
                   </div>
 
@@ -410,7 +476,7 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
                     </div>
                   ) : (
                     <div className="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200 text-center text-xs text-emerald-800 font-medium">
-                      כל הלכות פרק זה נקראו בהצלחה ✓
+                      {s.allHalachotRead}
                     </div>
                   )}
                 </div>

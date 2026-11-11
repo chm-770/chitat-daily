@@ -5,6 +5,14 @@ import { motion, PanInfo } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { ChumashVerse, StudySettings } from '../types/chitas';
 import { toHebrewNumeral } from '../utils/hebrewNumerals';
+import { useLang, useStrings, dirOf } from '../i18n';
+
+/** Interface strings of the swipe cards (the card itself stays a right-to-left Hebrew card). */
+const STRINGS = {
+  he: { swipeHint: 'החלק ימינה לסימון', done: 'הושלם ✓', rashi: 'פירוש רש״י:' },
+  en: { swipeHint: 'Swipe to mark as read', done: 'Done ✓', rashi: 'Rashi:' },
+  fr: { swipeHint: 'Glissez pour marquer comme lu', done: 'Terminé ✓', rashi: 'Commentaire de Rachi :' },
+};
 
 interface SwipeVerseCardProps {
   verse: ChumashVerse;
@@ -69,6 +77,8 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
   settings,
   getFontSizeClass,
 }) => {
+  const lang = useLang();
+  const s = useStrings(STRINGS);
   const handleTap = useDoubleTap(() => onSwipeRight(verseIndex));
 
   const handleDragEnd = (_: any, info: PanInfo) => {
@@ -86,6 +96,8 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
     <motion.div
       layout
       data-swipe-verse="true"
+      dir="rtl"
+      lang="he"
       drag="x"
       dragDirectionLock
       dragConstraints={{ left: 0, right: 300 }}
@@ -102,7 +114,7 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
             {verseRefLabel}
           </span>
 <span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
-            <span>החלק ימינה לסימון</span>
+            <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </span>
         </div>
@@ -118,8 +130,8 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
         {/* Rashi commentary with bolded Dibbur HaMaschil */}
         {showRashi && verse.rashi && verse.rashi.length > 0 && (
           <div className="pt-2.5 border-t border-amber-900/10 space-y-1.5">
-            <span className="text-xs font-bold text-stone-500 font-sans">
-              פירוש רש״י:
+            <span className="text-xs font-bold text-stone-500 font-sans" dir={dirOf(lang)} lang={lang}>
+              {s.rashi}
             </span>
             <div className="space-y-2 pr-3 border-r-2 border-amber-400">
               {verse.rashi.map((r, i) => {

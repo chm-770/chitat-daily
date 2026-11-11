@@ -8,6 +8,28 @@
  */
 import { DEFAULT_CITY, getSavedCity, type CityConfig } from './zmanimService';
 import { isUserInIsrael } from '../utils/jewishCalendarService';
+import { getLang, pick, type Lang } from '../i18n';
+
+const ERRORS = {
+  he: {
+    deviceUnsupported: 'המכשיר או הדפדפן הזה לא תומך בהתראות.',
+    denied: 'לא ניתנה הרשאה להתראות. אפשר לאשר אותה בהגדרות הדפדפן או הטלפון.',
+    browserUnsupported: 'הדפדפן הזה לא תומך בהתראות.',
+    failed: 'שמירת התזכורות נכשלה. בדוק את החיבור לאינטרנט ונסה שוב.',
+  },
+  en: {
+    deviceUnsupported: 'This device or browser does not support notifications.',
+    denied: 'Notification permission was not granted. You can allow it in your browser or phone settings.',
+    browserUnsupported: 'This browser does not support notifications.',
+    failed: 'Saving the reminders failed. Check your internet connection and try again.',
+  },
+  fr: {
+    deviceUnsupported: 'Cet appareil ou ce navigateur ne prend pas en charge les notifications.',
+    denied: 'L’autorisation des notifications n’a pas été accordée. Vous pouvez l’activer dans les réglages du navigateur ou du téléphone.',
+    browserUnsupported: 'Ce navigateur ne prend pas en charge les notifications.',
+    failed: 'L’enregistrement des rappels a échoué. Vérifiez votre connexion Internet et réessayez.',
+  },
+};
 
 const FIREBASE_CONFIG = {
   apiKey: 'AIzaSyCmReTgx27sbugQjIB0k-Vivxxv3Si6APM',
@@ -99,7 +121,7 @@ function load() {
 
 /**
  * Saves the preferences locally and on the server. Asks for notification permission when
- * reminders are turned on. Returns an error message in Hebrew, or null on success.
+ * reminders are turned on. Returns an error message in the interface language, or null on success.
  */
 export async function saveReminders(
   prefs: ReminderPrefs,
@@ -107,6 +129,8 @@ export async function saveReminders(
   inIsrael: boolean = isUserInIsrael()
 ): Promise<string | null> {
   savePrefsLocally(prefs);
+  const err = pick(ERRORS);
+  const lang = getLang();
   try {
     const { fs, messaging, app, uid } = await load();
     const db = fs.getFirestore(app);
@@ -116,10 +140,10 @@ export async function saveReminders(
       await fs.deleteDoc(ref).catch(() => {});
       return null;
     }
-    if (!notificationsSupported()) return 'המכשיר או הדפדפן הזה לא תומך בהתראות.';
+    if (!notificationsSupported()) return err.deviceUnsupported;
     const permission = await Notification.requestPermission();
-    if (permission !== 'granted') return 'לא ניתנה הרשאה להתראות. אפשר לאשר אותה בהגדרות הדפדפן או הטלפון.';
-    if (!(await messaging.isSupported())) return 'הדפדפן הזה לא תומך בהתראות.';
+    if (permission !== 'granted') return err.denied;
+    if (!(await messaging.isSupported())) return err.browserUnsupported;
 
     const registration = await navigator.serviceWorker.ready;
     const token = await messaging.getToken(messaging.getMessaging(app), {
@@ -132,6 +156,8 @@ export async function saveReminders(
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || city.timeZone,
       city: {
         name: city.nameHe,
+        // Latin-letter name for English / French notifications (cities from the online search have only Hebrew)
+        nameEn: city.nameEn && !/[\u0590-\u05FF]/.test(city.nameEn) ? city.nameEn : city.nameHe,
         latitude: city.latitude,
         longitude: city.longitude,
         timeZone: city.timeZone,
@@ -139,6 +165,8 @@ export async function saveReminders(
         candleLightingMinutes: city.candleLightingMinutes,
       },
       inIsrael,
+      // Language of the notifications sent by the server
+      lang,
       lessons: prefs.lessons,
       shema: prefs.shema,
       shabbat: prefs.shabbat,
@@ -147,24 +175,24 @@ export async function saveReminders(
       updatedAt: fs.serverTimestamp(),
     });
     try {
-      localStorage.setItem(SYNC_KEY, JSON.stringify({ sig: syncSignature(prefs, city, inIsrael), at: Date.now() }));
+      localStorage.setItem(SYNC_KEY, JSON.stringify({ sig: syncSignature(prefs, city, inIsrael, lang), at: Date.now() }));
     } catch {
       // ignore
     }
     return null;
   } catch (e) {
     console.warn('Saving reminders failed:', e);
-    return 'שמירת התזכורות נכשלה. בדוק את החיבור לאינטרנט ונסה שוב.';
+    return err.failed;
   }
 }
 
-function syncSignature(prefs: ReminderPrefs, city: CityConfig, inIsrael: boolean): string {
-  return JSON.stringify([prefs, city.latitude, city.longitude, city.timeZone, city.candleLightingMinutes, inIsrael]);
+function syncSignature(prefs: ReminderPrefs, city: CityConfig, inIsrael: boolean, lang: Lang): string {
+  return JSON.stringify([prefs, city.latitude, city.longitude, city.timeZone, city.candleLightingMinutes, inIsrael, lang]);
 }
 
 /**
  * Called when the app opens and when the city changes: if reminders are on, sends the current
- * city and a fresh device token to the server (once a day, or right away when something changed).
+ * city, the interface language and a fresh device token to the server (once a day, or right away when something changed).
  * Never asks for permission by itself.
  */
 export function refreshReminders(): void {
@@ -174,7 +202,7 @@ export function refreshReminders(): void {
   const inIsrael = isUserInIsrael();
   try {
     const last = JSON.parse(localStorage.getItem(SYNC_KEY) || 'null');
-    const fresh = last && last.sig === syncSignature(prefs, city, inIsrael) && Date.now() - last.at < 24 * 3600 * 1000;
+    const fresh = last && last.sig === syncSignature(prefs, city, inIsrael, getLang()) && Date.now() - last.at < 24 * 3600 * 1000;
     if (fresh) return;
   } catch {
     // ignore

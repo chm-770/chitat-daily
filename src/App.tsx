@@ -17,10 +17,38 @@ import { OfflineIndicator } from './components/OfflineIndicator';
 import { CalendarModal } from './components/CalendarModal';
 import { getSavedCity, DEFAULT_CITY } from './services/zmanimService';
 import { refreshReminders } from './services/reminders';
+import { LangProvider, detectLang, dirOf, pick, setCurrentLang } from './i18n';
 import { emptyProgress, loadProgress, localDateKey } from './utils/progress';
 import { enabledLessonKeys, nextSection, sectionSequence, textFontFamily } from './utils/lessons';
 import { OnboardingModal } from './components/OnboardingModal';
 import { AccountUser, pushProgress, pushSettings, syncAfterSignIn, wasSignedIn, watchUser } from './services/account';
+
+const STRINGS = {
+  he: {
+    appName: 'חִתַּ״ת יומי',
+    lessons: 'חומש, תהילים, תניא, היום יום ורמב״ם',
+    readingSettings: 'הגדרות קריאה',
+    print: 'הדפסת שיעור',
+    sources: 'מקורות',
+    privacy: 'מדיניות פרטיות',
+  },
+  en: {
+    appName: 'Daily Chitas',
+    lessons: 'Chumash, Tehillim, Tanya, Hayom Yom and Rambam',
+    readingSettings: 'Reading settings',
+    print: 'Print lesson',
+    sources: 'Sources',
+    privacy: 'Privacy policy',
+  },
+  fr: {
+    appName: '\'Hitat quotidien',
+    lessons: '\'Houmach, Téhilim, Tanya, Hayom Yom et Rambam',
+    readingSettings: 'Paramètres de lecture',
+    print: 'Imprimer la leçon',
+    sources: 'Sources',
+    privacy: 'Politique de confidentialité',
+  },
+};
 
 const DEFAULT_SETTINGS: StudySettings = {
   fontSize: 'medium',
@@ -390,17 +418,23 @@ export default function App() {
   };
 
   // Keeps the reminders server up to date with the city and this device's token
+  // (and with the interface language, used for the notifications)
   useEffect(() => {
     refreshReminders();
-  }, [cityId, settings.inIsrael]);
+  }, [cityId, settings.inIsrael, settings.language]);
 
   const handleCityChanged = (city: { id: string }) => {
     setCityId(`${city.id}_${Date.now()}`);
     if (accountUser) pushSettings(accountUser.uid).catch(() => {});
   };
 
+  const lang = settings.language || detectLang();
+  setCurrentLang(lang);
+  const s = pick(STRINGS, lang);
+
   return (
-    <div className={getThemeClass()} dir="rtl">
+    <LangProvider lang={lang}>
+    <div className={getThemeClass()} dir={dirOf(lang)}>
       {/* Top Header with navigation, green checkmarks on completed items, and small undo arrow */}
       <Header
         currentCategory={currentCategory}
@@ -523,33 +557,33 @@ export default function App() {
       {/* Clean Footer */}
       <footer className="mt-16 border-t border-amber-900/10 bg-amber-50/40 py-8 text-stone-600 text-xs">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-stone-800 font-torah text-base">חִתַּ״ת יומי</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5">
+            <span className="font-bold text-stone-800 font-torah text-base whitespace-nowrap">{s.appName}</span>
             <span aria-hidden="true">·</span>
-            <span>חומש, תהילים, תניא, היום יום ורמב״ם</span>
+            <span>{s.lessons}</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <button
               onClick={() => setIsSettingsOpen(true)}
               className="hover:text-amber-900 transition-colors cursor-pointer"
             >
-              הגדרות קריאה
+              {s.readingSettings}
             </button>
             <span aria-hidden="true">·</span>
             <button
               onClick={() => window.print()}
               className="hover:text-amber-900 transition-colors cursor-pointer"
             >
-              הדפסת שיעור
+              {s.print}
             </button>
             <span aria-hidden="true">·</span>
             <a href="/sources.html" className="hover:text-amber-900 transition-colors">
-              מקורות
+              {s.sources}
             </a>
             <span aria-hidden="true">·</span>
             <a href="/privacy.html" className="hover:text-amber-900 transition-colors">
-              מדיניות פרטיות
+              {s.privacy}
             </a>
           </div>
         </div>
@@ -579,6 +613,7 @@ export default function App() {
       {!settings.onboardingDone && (
         <OnboardingModal
           settings={settings}
+          onChangeLanguage={(language) => handleUpdateSettings({ language })}
           onDone={(update: Partial<StudySettings>) => handleUpdateSettings({ ...update, onboardingDone: true })}
         />
       )}
@@ -601,5 +636,6 @@ export default function App() {
       {/* Offline Status Toast Indicator */}
       <OfflineIndicator />
     </div>
+    </LangProvider>
   );
 }

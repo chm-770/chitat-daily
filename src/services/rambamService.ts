@@ -10,6 +10,26 @@ import {
 } from '@hebcal/learning';
 import { toHebrewNumeral } from '../utils/hebrewNumerals';
 import { getHebrewDateInfo, HebrewDateInfo } from '../utils/hebrewCalendar';
+import { pick } from '../i18n';
+
+/** Interface messages (the halachot, chapter titles and Hebrew references stay in Hebrew). */
+const STRINGS = {
+  he: {
+    smNotFound: 'לא נמצא שיעור ספר המצוות לתאריך זה בלוח השיעורים.',
+    smLoadError: 'שגיאה בטעינת שיעור ספר המצוות ליום זה מהשרת. אנא בדוק את החיבור לרשת ונסה שנית.',
+    loadError: 'שגיאה בטעינת שיעור הרמב״ם ליום זה מהשרת. אנא בדוק את החיבור לרשת ונסה שנית.',
+  },
+  en: {
+    smNotFound: 'No Sefer HaMitzvot lesson was found for this date in the schedule.',
+    smLoadError: "Could not load today's Sefer HaMitzvot lesson from the server. Please check your connection and try again.",
+    loadError: "Could not load today's Rambam lesson from the server. Please check your connection and try again.",
+  },
+  fr: {
+    smNotFound: "Aucun cours de Séfer Hamitsvot n'a été trouvé pour cette date dans le calendrier.",
+    smLoadError: 'Erreur de chargement du cours de Séfer Hamitsvot du jour depuis le serveur. Vérifiez votre connexion et réessayez.',
+    loadError: 'Erreur de chargement du cours de Rambam du jour depuis le serveur. Vérifiez votre connexion et réessayez.',
+  },
+};
 
 export interface RambamChapter {
   id: string;
@@ -268,7 +288,7 @@ export async function getRambamDailyLesson(
         track,
         trackTitle,
         hebrewDate: `${dateInfo.dayOfMonthHebrew} ${dateInfo.monthName}`,
-        errorMessage: 'לא נמצא שיעור ספר המצוות לתאריך זה בלוח השיעורים.',
+        errorMessage: pick(STRINGS).smNotFound,
         chapters: [],
       };
     }
@@ -468,7 +488,7 @@ export async function getRambamDailyLesson(
       track,
       trackTitle,
       hebrewDate: `${dateInfo.dayOfMonthHebrew} ${dateInfo.monthName}`,
-      errorMessage: 'שגיאה בטעינת שיעור ספר המצוות ליום זה מהשרת. אנא בדוק את החיבור לרשת ונסה שנית.',
+      errorMessage: pick(STRINGS).smLoadError,
       chapters: [],
     };
   }
@@ -610,7 +630,7 @@ export async function getRambamDailyLesson(
     track,
     trackTitle,
     hebrewDate: `${dateInfo.dayOfMonthHebrew} ${dateInfo.monthName}`,
-    errorMessage: 'שגיאה בטעינת שיעור הרמב״ם ליום זה מהשרת. אנא בדוק את החיבור לרשת ונסה שנית.',
+    errorMessage: pick(STRINGS).loadError,
     chapters: [],
   };
 }

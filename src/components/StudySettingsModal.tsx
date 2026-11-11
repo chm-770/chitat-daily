@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { DailyStudyKey, RambamTrack, StudySettings, ThemeMode } from '../types/chitas';
 import { ALL_LESSONS, enabledLessonKeys, TEXT_FONTS } from '../utils/lessons';
-import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell } from 'lucide-react';
+import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell, Languages } from 'lucide-react';
 import { CityConfig, DEFAULT_CITY, getSavedCity } from '../services/zmanimService';
 import { CityPicker } from './CityPicker';
 import { AccountSection } from './AccountSection';
 import { RemindersSection } from './RemindersSection';
 import type { AccountUser } from '../services/account';
+import { LANGUAGES, detectLang, useLang, useStrings } from '../i18n';
+import { cityDisplayName } from './CityPicker';
 
 interface StudySettingsModalProps {
   isOpen: boolean;
@@ -19,23 +21,155 @@ interface StudySettingsModalProps {
   onBeforeSignIn?: () => void;
 }
 
-const THEMES: { id: ThemeMode; label: string; swatch: string }[] = [
-  { id: 'parchment', label: 'קלף', swatch: '#fbf3e1' },
-  { id: 'light', label: 'לבן', swatch: '#ffffff' },
-  { id: 'dark', label: 'כהה', swatch: '#292524' },
-  { id: 'black', label: 'שחור', swatch: '#000000' },
-  { id: 'system', label: 'לפי המכשיר', swatch: 'linear-gradient(135deg, #ffffff 50%, #1c1917 50%)' },
+const THEMES: { id: ThemeMode; swatch: string }[] = [
+  { id: 'parchment', swatch: '#fbf3e1' },
+  { id: 'light', swatch: '#ffffff' },
+  { id: 'dark', swatch: '#292524' },
+  { id: 'black', swatch: '#000000' },
+  { id: 'system', swatch: 'linear-gradient(135deg, #ffffff 50%, #1c1917 50%)' },
 ];
 
-const RAMBAM_TRACKS: { id: RambamTrack; label: string; description: string }[] = [
-  { id: 'three_chapters', label: 'ג׳ פרקים ליום', description: 'כל היד החזקה בשנה' },
-  { id: 'one_chapter', label: 'פרק אחד ליום', description: 'משנה תורה ב־3 שנים' },
-  { id: 'sefer_hamitzvot', label: 'ספר המצוות', description: 'המצוות לפי מסלול פרק אחד' },
-];
+const RAMBAM_TRACK_IDS: RambamTrack[] = ['three_chapters', 'one_chapter', 'sefer_hamitzvot'];
+const FONT_SIZES: StudySettings['fontSize'][] = ['small', 'medium', 'large', 'xlarge'];
+
+const STRINGS = {
+  he: {
+    title: 'הגדרות',
+    close: 'סגור',
+    language: 'שפת הממשק:',
+    fontSize: 'גודל גופן:',
+    fontSizes: { small: 'קטן', medium: 'בינוני', large: 'גדול', xlarge: 'ענק' } as Record<StudySettings['fontSize'], string>,
+    textFont: 'גופן הטקסט:',
+    fonts: {
+      frank: 'פרנק רוהל',
+      david: 'דוד',
+      'noto-serif': 'נוטו',
+      'noto-sans': 'נוטו סאנס',
+      assistant: 'אסיסטנט',
+    } as Record<string, string>,
+    theme: 'צבע הממשק:',
+    themes: { parchment: 'קלף', light: 'לבן', dark: 'כהה', black: 'שחור', system: 'לפי המכשיר' } as Record<ThemeMode, string>,
+    rashiFont: 'גופן רש״י מעוטר',
+    rashiFontHint: 'הצגת פירוש רש״י בסגנון כתב מסורתי',
+    city: 'עיר לזמני היום וכניסת השבת:',
+    candleMinutes: (n: number) => `הדלקת נרות ${n} דק׳ לפני השקיעה`,
+    israel: ' · ארץ ישראל',
+    abroad: ' · חוץ לארץ',
+    changeCity: 'שנה עיר',
+    myLessons: 'השיעורים שלי:',
+    lessons: {
+      chumash: 'חומש עם רש״י',
+      tehillim: 'תהילים',
+      tanya: 'תניא',
+      hayomYom: 'היום יום',
+      rambam: 'רמב״ם',
+    } as Record<DailyStudyKey, string>,
+    rambamTrack: 'מסלול לימוד הרמב״ם היומי:',
+    rambamTracks: {
+      three_chapters: { label: 'ג׳ פרקים ליום', description: 'כל היד החזקה בשנה' },
+      one_chapter: { label: 'פרק אחד ליום', description: 'משנה תורה ב־3 שנים' },
+      sefer_hamitzvot: { label: 'ספר המצוות', description: 'המצוות לפי מסלול פרק אחד' },
+    } as Record<RambamTrack, { label: string; description: string }>,
+    reminders: 'תזכורות:',
+    account: 'חשבון (לא חובה):',
+    savedNote: 'כל הבחירות נשמרות במכשיר לפעם הבאה.',
+    resetConfirm: 'האם לאפס את סימוני הלימוד ליום המוצג?',
+    reset: 'אפס סימוני לימוד ליום המוצג',
+    closeSettings: 'סגור הגדרות',
+  },
+  en: {
+    title: 'Settings',
+    close: 'Close',
+    language: 'Interface language:',
+    fontSize: 'Font size:',
+    fontSizes: { small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'Huge' } as Record<StudySettings['fontSize'], string>,
+    textFont: 'Text font:',
+    fonts: {
+      frank: 'Frank Ruhl',
+      david: 'David',
+      'noto-serif': 'Noto',
+      'noto-sans': 'Noto Sans',
+      assistant: 'Assistant',
+    } as Record<string, string>,
+    theme: 'Color theme:',
+    themes: { parchment: 'Parchment', light: 'White', dark: 'Dark', black: 'Black', system: 'Device' } as Record<ThemeMode, string>,
+    rashiFont: 'Rashi script',
+    rashiFontHint: 'Show Rashi’s commentary in the traditional script',
+    city: 'City for zmanim and Shabbat times:',
+    candleMinutes: (n: number) => `Candle lighting ${n} min before sunset`,
+    israel: ' · Israel',
+    abroad: ' · Diaspora',
+    changeCity: 'Change city',
+    myLessons: 'My lessons:',
+    lessons: {
+      chumash: 'Chumash with Rashi',
+      tehillim: 'Tehillim',
+      tanya: 'Tanya',
+      hayomYom: 'Hayom Yom',
+      rambam: 'Rambam',
+    } as Record<DailyStudyKey, string>,
+    rambamTrack: 'Daily Rambam track:',
+    rambamTracks: {
+      three_chapters: { label: '3 chapters a day', description: 'The whole Mishneh Torah in a year' },
+      one_chapter: { label: '1 chapter a day', description: 'The Mishneh Torah in 3 years' },
+      sefer_hamitzvot: { label: 'Sefer HaMitzvot', description: 'The mitzvot, alongside the 1-chapter track' },
+    } as Record<RambamTrack, { label: string; description: string }>,
+    reminders: 'Reminders:',
+    account: 'Account (optional):',
+    savedNote: 'All your choices are saved on this device for next time.',
+    resetConfirm: 'Reset the study marks for the day shown?',
+    reset: 'Reset study marks for the day shown',
+    closeSettings: 'Close settings',
+  },
+  fr: {
+    title: 'Paramètres',
+    close: 'Fermer',
+    language: 'Langue de l’interface :',
+    fontSize: 'Taille du texte :',
+    fontSizes: { small: 'Petite', medium: 'Moyenne', large: 'Grande', xlarge: 'Très grande' } as Record<StudySettings['fontSize'], string>,
+    textFont: 'Police du texte :',
+    fonts: {
+      frank: 'Frank Ruhl',
+      david: 'David',
+      'noto-serif': 'Noto',
+      'noto-sans': 'Noto Sans',
+      assistant: 'Assistant',
+    } as Record<string, string>,
+    theme: 'Couleur de l’interface :',
+    themes: { parchment: 'Parchemin', light: 'Blanc', dark: 'Sombre', black: 'Noir', system: 'Appareil' } as Record<ThemeMode, string>,
+    rashiFont: 'Écriture Rachi',
+    rashiFontHint: 'Afficher le commentaire de Rachi dans l’écriture traditionnelle',
+    city: 'Ville pour les horaires et le Chabbat :',
+    candleMinutes: (n: number) => `Allumage des bougies ${n} min avant le coucher du soleil`,
+    israel: ' · Israël',
+    abroad: ' · Diaspora',
+    changeCity: 'Changer de ville',
+    myLessons: 'Mes leçons :',
+    lessons: {
+      chumash: '\'Houmach avec Rachi',
+      tehillim: 'Téhilim',
+      tanya: 'Tanya',
+      hayomYom: 'Hayom Yom',
+      rambam: 'Rambam',
+    } as Record<DailyStudyKey, string>,
+    rambamTrack: 'Rythme du Rambam quotidien :',
+    rambamTracks: {
+      three_chapters: { label: '3 chapitres par jour', description: 'Tout le Michné Torah en un an' },
+      one_chapter: { label: '1 chapitre par jour', description: 'Le Michné Torah en 3 ans' },
+      sefer_hamitzvot: { label: 'Séfer Hamitsvot', description: 'Les mitsvot, au rythme d’un chapitre par jour' },
+    } as Record<RambamTrack, { label: string; description: string }>,
+    reminders: 'Rappels :',
+    account: 'Compte (facultatif) :',
+    savedNote: 'Tous vos choix sont enregistrés sur cet appareil.',
+    resetConfirm: 'Réinitialiser les marques d’étude du jour affiché ?',
+    reset: 'Réinitialiser les marques d’étude du jour affiché',
+    closeSettings: 'Fermer les paramètres',
+  },
+};
 
 const sectionTitle = 'text-xs font-semibold text-stone-700 flex items-center gap-1.5';
 const optionClass = (active: boolean) =>
-  `rounded-xl border text-right transition-all cursor-pointer ${
+  `rounded-xl border text-start transition-all cursor-pointer ${
     active
       ? 'bg-amber-100 border-amber-900 text-amber-950 font-bold'
       : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
@@ -53,6 +187,8 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
 }) => {
   const [currentCity, setCurrentCity] = useState<CityConfig>(() => getSavedCity() || DEFAULT_CITY);
   const [isChangingCity, setIsChangingCity] = useState(false);
+  const s = useStrings(STRINGS);
+  const lang = useLang();
 
   useEffect(() => {
     if (isOpen) {
@@ -72,7 +208,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
         <div className="flex items-center justify-between p-5 border-b border-stone-100">
           <div className="flex items-center gap-2">
             <Type className="w-5 h-5 text-amber-800" />
-            <h2 className="font-bold text-stone-900 font-torah text-lg">הגדרות</h2>
+            <h2 className="font-bold text-stone-900 font-torah text-lg">{s.title}</h2>
           </div>
           <button
             onClick={onClose}
@@ -84,25 +220,43 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
 
         {/* Content */}
         <div className="p-5 space-y-6 overflow-y-auto">
+          {/* Interface language */}
+          <div className="space-y-2">
+            <label className={sectionTitle}>
+              <Languages className="w-3.5 h-3.5 text-amber-800" />
+              <span>{s.language}</span>
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {LANGUAGES.map((l) => (
+                <button
+                  key={l.id}
+                  type="button"
+                  lang={l.id}
+                  onClick={() => onUpdateSettings({ language: l.id })}
+                  className={`py-2 px-1 text-xs font-medium flex items-center justify-center ${optionClass(
+                    (settings.language || detectLang()) === l.id
+                  )}`}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Font Size */}
           <div className="space-y-2">
             <label className={sectionTitle}>
               <Type className="w-3.5 h-3.5 text-amber-800" />
-              <span>גודל גופן:</span>
+              <span>{s.fontSize}</span>
             </label>
             <div className="grid grid-cols-4 gap-2">
-              {[
-                { id: 'small', label: 'קטן' },
-                { id: 'medium', label: 'בינוני' },
-                { id: 'large', label: 'גדול' },
-                { id: 'xlarge', label: 'ענק' },
-              ].map((size) => (
+              {FONT_SIZES.map((size) => (
                 <button
-                  key={size.id}
-                  onClick={() => onUpdateSettings({ fontSize: size.id as StudySettings['fontSize'] })}
-                  className={`py-2 text-xs font-medium text-center ${optionClass(settings.fontSize === size.id)}`}
+                  key={size}
+                  onClick={() => onUpdateSettings({ fontSize: size })}
+                  className={`py-2 text-xs font-medium text-center ${optionClass(settings.fontSize === size)}`}
                 >
-                  {size.label}
+                  {s.fontSizes[size]}
                 </button>
               ))}
             </div>
@@ -112,7 +266,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           <div className="space-y-2">
             <label className={sectionTitle}>
               <Type className="w-3.5 h-3.5 text-amber-800" />
-              <span>גופן הטקסט:</span>
+              <span>{s.textFont}</span>
             </label>
             <div className="grid grid-cols-1 gap-2">
               {TEXT_FONTS.map((f) => (
@@ -124,8 +278,13 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                     (settings.textFont || 'frank') === f.id
                   )}`}
                 >
-                  <span className="text-[11px] shrink-0">{f.label}</span>
-                  <span className="text-lg text-stone-900 font-normal truncate" style={{ fontFamily: f.family }}>
+                  <span className="text-[11px] shrink-0">{s.fonts[f.id] || f.label}</span>
+                  <span
+                    className="text-lg text-stone-900 font-normal truncate"
+                    style={{ fontFamily: f.family }}
+                    dir="rtl"
+                    lang="he"
+                  >
                     וַיִּבֶן שָׁם מִזְבֵּחַ וַיִּקְרָא בְּשֵׁם
                   </span>
                 </button>
@@ -137,7 +296,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           <div className="space-y-2">
             <label className={sectionTitle}>
               <Palette className="w-3.5 h-3.5 text-amber-800" />
-              <span>צבע הממשק:</span>
+              <span>{s.theme}</span>
             </label>
             <div className="grid grid-cols-5 gap-2">
               {THEMES.map((th) => (
@@ -153,7 +312,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                     style={{ background: th.swatch }}
                     aria-hidden="true"
                   />
-                  <span className="text-center leading-tight">{th.label}</span>
+                  <span className="text-center leading-tight">{s.themes[th.id]}</span>
                 </button>
               ))}
             </div>
@@ -162,8 +321,8 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           {/* Rashi Script Toggle */}
           <div className="flex items-center justify-between p-3 bg-stone-50 rounded-xl border border-stone-200">
             <div>
-              <div className="text-xs font-semibold text-stone-900">גופן רש״י מעוטר</div>
-              <div className="text-[11px] text-stone-500">הצגת פירוש רש״י בסגנון כתב מסורתי</div>
+              <div className="text-xs font-semibold text-stone-900">{s.rashiFont}</div>
+              <div className="text-[11px] text-stone-500">{s.rashiFontHint}</div>
             </div>
             <button
               onClick={() => onUpdateSettings({ rashiFontScript: !settings.rashiFontScript })}
@@ -173,7 +332,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
             >
               <div
                 className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${
-                  settings.rashiFontScript ? 'left-1' : 'right-1'
+                  settings.rashiFontScript ? 'end-1' : 'start-1'
                 }`}
               />
             </button>
@@ -183,14 +342,16 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           <div className="space-y-2 pt-2 border-t border-stone-100">
             <label className={sectionTitle}>
               <MapPin className="w-3.5 h-3.5 text-amber-800" />
-              <span>עיר לזמני היום וכניסת השבת:</span>
+              <span>{s.city}</span>
             </label>
             <div className="flex items-center justify-between gap-2 p-2.5 bg-stone-50 border border-stone-200 rounded-xl">
               <div className="min-w-0">
-                <div className="text-xs font-bold text-stone-900 truncate">{currentCity.nameHe}</div>
+                <div className="text-xs font-bold text-stone-900 truncate" dir="auto">
+                  {cityDisplayName(currentCity, lang)}
+                </div>
                 <div className="text-[11px] text-stone-500">
-                  הדלקת נרות {currentCity.candleLightingMinutes} דק׳ לפני השקיעה
-                  {currentCity.isIsrael ? ' · ארץ ישראל' : ' · חוץ לארץ'}
+                  {s.candleMinutes(currentCity.candleLightingMinutes)}
+                  {currentCity.isIsrael ? s.israel : s.abroad}
                 </div>
               </div>
               <button
@@ -198,7 +359,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                 onClick={() => setIsChangingCity(!isChangingCity)}
                 className="px-2.5 py-1 rounded-md bg-white border border-amber-300 text-amber-900 hover:bg-amber-50 text-xs font-semibold cursor-pointer shrink-0"
               >
-                {isChangingCity ? 'סגור' : 'שנה עיר'}
+                {isChangingCity ? s.close : s.changeCity}
               </button>
             </div>
             {isChangingCity && (
@@ -217,7 +378,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           <div className="space-y-2 pt-2 border-t border-stone-100">
             <label className={sectionTitle}>
               <BookOpen className="w-3.5 h-3.5 text-amber-800" />
-              <span>השיעורים שלי:</span>
+              <span>{s.myLessons}</span>
             </label>
             <div className="grid grid-cols-2 gap-2">
               {ALL_LESSONS.map((l) => {
@@ -233,7 +394,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                     }}
                     className={`p-2.5 text-xs flex items-center justify-between gap-2 ${optionClass(on)}`}
                   >
-                    <span>{l.label}</span>
+                    <span>{s.lessons[l.key]}</span>
                     {on && <Check className="w-3.5 h-3.5 text-amber-800" />}
                   </button>
                 );
@@ -245,18 +406,18 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           <div className="space-y-2 pt-2 border-t border-stone-100">
             <label className={sectionTitle}>
               <Scale className="w-3.5 h-3.5 text-amber-800" />
-              <span>מסלול לימוד הרמב״ם היומי:</span>
+              <span>{s.rambamTrack}</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-              {RAMBAM_TRACKS.map((t) => (
+              {RAMBAM_TRACK_IDS.map((id) => (
                 <button
-                  key={t.id}
+                  key={id}
                   type="button"
-                  onClick={() => onUpdateSettings({ rambamTrack: t.id })}
-                  className={`p-2.5 ${optionClass(rambamTrack === t.id)}`}
+                  onClick={() => onUpdateSettings({ rambamTrack: id })}
+                  className={`p-2.5 ${optionClass(rambamTrack === id)}`}
                 >
-                  <div className="text-xs sm:text-sm">{t.label}</div>
-                  <div className="text-[10px] text-stone-500 font-normal mt-0.5">{t.description}</div>
+                  <div className="text-xs sm:text-sm">{s.rambamTracks[id].label}</div>
+                  <div className="text-[10px] text-stone-500 font-normal mt-0.5">{s.rambamTracks[id].description}</div>
                 </button>
               ))}
             </div>
@@ -266,7 +427,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           <div className="space-y-2 pt-2 border-t border-stone-100">
             <label className={sectionTitle}>
               <Bell className="w-3.5 h-3.5 text-amber-800" />
-              <span>תזכורות:</span>
+              <span>{s.reminders}</span>
             </label>
             <RemindersSection enabledLessons={settings.enabledLessons} />
           </div>
@@ -275,25 +436,25 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           <div className="space-y-2 pt-2 border-t border-stone-100">
             <label className={sectionTitle}>
               <UserCircle2 className="w-3.5 h-3.5 text-amber-800" />
-              <span>חשבון (לא חובה):</span>
+              <span>{s.account}</span>
             </label>
             <AccountSection user={accountUser} onBeforeSignIn={onBeforeSignIn} />
           </div>
 
-          <p className="text-[11px] text-stone-500 text-center">כל הבחירות נשמרות במכשיר לפעם הבאה.</p>
+          <p className="text-[11px] text-stone-500 text-center">{s.savedNote}</p>
 
           {/* Reset progress */}
           <div className="pt-2 border-t border-stone-100">
             <button
               onClick={() => {
-                if (window.confirm('האם לאפס את סימוני הלימוד ליום המוצג?')) {
+                if (window.confirm(s.resetConfirm)) {
                   onResetProgress();
                 }
               }}
               className="text-xs text-red-600 hover:text-red-700 font-medium flex items-center gap-1.5 cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              <span>אפס סימוני לימוד ליום המוצג</span>
+              <span>{s.reset}</span>
             </button>
           </div>
         </div>
@@ -304,7 +465,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 text-xs font-semibold text-white bg-stone-900 hover:bg-stone-800 rounded-lg transition-colors cursor-pointer"
           >
-            סגור הגדרות
+            {s.closeSettings}
           </button>
         </div>
       </div>

@@ -48,6 +48,7 @@ const STRINGS = {
     shortMonthRange: 'פרקים ק״מ – ק״נ (סיום לחודש חסר)',
     chaptersList: (list: string) => `פרקים ${list}`,
     chooseChapters: 'בחר פרקים',
+    chooseButton: 'בחר פרקים',
     bookTitle: 'ספר התהילים',
     subtitle: (dayHe: string, _day: number, month: string, range: string) =>
       `שיעור התהילים ליום ${dayHe} בחודש ${month} (${range})`,
@@ -76,6 +77,7 @@ const STRINGS = {
     shortMonthRange: '',
     chaptersList: (list: string) => `Psalms ${list}`,
     chooseChapters: 'Choose psalms',
+    chooseButton: 'Choose psalms',
     bookTitle: 'Book of Tehillim',
     subtitle: (_dayHe: string, day: number, _month: string, range: string) =>
       `Tehillim for day ${day} of the Hebrew month (${range})`,
@@ -104,9 +106,10 @@ const STRINGS = {
     shortMonthRange: '',
     chaptersList: (list: string) => `Psaumes ${list}`,
     chooseChapters: 'Choisir des psaumes',
+    chooseButton: 'Choisir',
     bookTitle: 'Livre des Téhilim',
     subtitle: (_dayHe: string, day: number, _month: string, range: string) =>
-      `Téhilim du ${day}e jour du mois hébraïque (${range})`,
+      `Téhilim du ${day === 1 ? '1er' : `${day}e`} jour du mois hébraïque (${range})`,
     loading: 'Chargement des psaumes du jour…',
     personalBadge: 'Psaumes personnels',
     chooseChaptersTitle: 'Choisir les psaumes affichés ici',
@@ -511,7 +514,7 @@ export const TehillimViewer: React.FC<TehillimViewerProps> = ({
                   title={s.chooseChaptersTitle}
                 >
                   <Settings2 className="w-3.5 h-3.5" />
-                  <span>{s.chooseChapters}</span>
+                  <span>{s.chooseButton}</span>
                 </button>
 
                 {isCustomCompleted ? (

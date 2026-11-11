@@ -76,13 +76,13 @@ export const SwipeTanyaCard: React.FC<SwipeTanyaCardProps> = ({
         <div className="space-y-4">
           {/* Header of paragraph */}
           <div className="flex items-center justify-between gap-3 border-b border-stone-100 pb-3">
-            <span className="font-bold text-emerald-950 font-torah text-sm bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+            <span className={`font-bold text-emerald-950 font-torah text-sm bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 ${lang === 'he' ? '' : 'shrink-0'}`}>
               <span dir={dirOf(lang)} lang={lang}>{s.paragraphOf(paragraphIndex + 1, totalParagraphs)}</span>
             </span>
 
-            <span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
+            <span className={`flex items-center gap-1 text-[11px] text-stone-400 font-sans ${lang === 'he' ? 'shrink-0' : 'min-w-0'}`}>
               <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </span>
           </div>
 

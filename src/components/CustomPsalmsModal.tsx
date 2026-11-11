@@ -138,7 +138,7 @@ const STRINGS = {
     plusAdd: '+ Ajouter',
     reset: 'Rétablir par défaut',
     cancel: 'Annuler',
-    save: 'Enregistrer pour tous les jours',
+    save: 'Enregistrer',
   },
 };
 
@@ -274,7 +274,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-stone-800 flex items-center gap-1.5">
                 <span>{s.yourList}</span>
-                <span className="bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full text-[11px]">
+                <span className="bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full text-[11px] whitespace-nowrap">
                   {s.count(currentList.length)}
                 </span>
               </span>

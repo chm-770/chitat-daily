@@ -6,7 +6,7 @@
  * Reminders do not need an account: they use a separate Firebase app instance with anonymous
  * sign-in, so they never mix with the optional account sign-in.
  */
-import { DEFAULT_CITY, getSavedCity, type CityConfig } from './zmanimService';
+import { DEFAULT_CITY, cityDisplayName, getSavedCity, type CityConfig } from './zmanimService';
 import { isUserInIsrael } from '../utils/jewishCalendarService';
 import { getLang, pick, type Lang } from '../i18n';
 
@@ -156,8 +156,8 @@ export async function saveReminders(
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || city.timeZone,
       city: {
         name: city.nameHe,
-        // Latin-letter name for English / French notifications (cities from the online search have only Hebrew)
-        nameEn: city.nameEn && !/[\u0590-\u05FF]/.test(city.nameEn) ? city.nameEn : city.nameHe,
+        // Name for English / French notifications
+        nameEn: cityDisplayName(city, getLang() === 'fr' ? 'fr' : 'en'),
         latitude: city.latitude,
         longitude: city.longitude,
         timeZone: city.timeZone,

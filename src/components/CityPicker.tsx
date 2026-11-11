@@ -3,6 +3,7 @@ import { Check, Loader2, Navigation, Search } from 'lucide-react';
 import {
   CITIES_LIST,
   CityConfig,
+  cityDisplayName,
   defaultCandleLightingMinutes,
   saveCity,
   searchCitiesOnline,
@@ -10,16 +11,8 @@ import {
 } from '../services/zmanimService';
 import { type Lang, useLang, useStrings } from '../i18n';
 
-const HEBREW_LETTERS = /[\u0590-\u05FF]/;
-
-/**
- * City name in the interface language: the Hebrew name in Hebrew, otherwise the English name
- * (when there is one in Latin letters, e.g. not for cities found by the Hebrew online search).
- */
-export function cityDisplayName(city: CityConfig, lang: Lang): string {
-  if (lang !== 'he' && city.nameEn && !HEBREW_LETTERS.test(city.nameEn)) return city.nameEn;
-  return city.nameHe;
-}
+// City name in the interface language (also used by other components)
+export { cityDisplayName } from '../services/zmanimService';
 
 const STRINGS = {
   he: {

@@ -110,12 +110,12 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
       <div className="space-y-3">
         {/* Clean verse badge */}
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold text-amber-900 bg-amber-100/70 px-2.5 py-0.5 rounded font-torah">
+          <span className={`text-xs font-bold text-amber-900 bg-amber-100/70 px-2.5 py-0.5 rounded font-torah ${lang === 'he' ? '' : 'shrink-0'}`}>
             {verseRefLabel}
           </span>
-<span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
+<span className={`flex items-center gap-1 text-[11px] text-stone-400 font-sans ${lang === 'he' ? 'shrink-0' : 'min-w-0'}`}>
             <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
           </span>
         </div>
 

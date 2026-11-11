@@ -272,7 +272,8 @@ const CITY_NAMES_FR: Record<string, string> = {
 /** City name in the interface language (Hebrew name in Hebrew, otherwise the English / French name). */
 export function cityDisplayName(city: CityConfig, lang: Lang = getLang()): string {
   if (lang === 'he') return city.nameHe;
-  const en = city.nameEn || city.nameHe;
+  // Cities from the online search may have only a Hebrew name
+  const en = city.nameEn && !/[\u0590-\u05FF]/.test(city.nameEn) ? city.nameEn : city.nameHe;
   if (lang === 'fr') {
     if (CITY_NAMES_FR[city.id]) return CITY_NAMES_FR[city.id];
     if (en === 'Jerusalem (Current Location)') return 'Jérusalem (position actuelle)';

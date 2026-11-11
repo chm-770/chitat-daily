@@ -57,7 +57,7 @@ export const SwipePsalmCard: React.FC<SwipePsalmCardProps> = ({
 
       {/* Chapter Title Bar */}
       <div className="flex items-center justify-between border-b border-amber-900/10 pb-2.5">
-        <div className="flex items-center gap-2">
+        <div className={`flex items-center gap-2 ${lang === 'he' ? '' : 'shrink-0'}`}>
           <span className="w-7 h-7 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-xs font-torah">
             {getHebrewChapterNumber(chapter.number).replace(/[׳״]/g, '')}
           </span>
@@ -73,9 +73,9 @@ export const SwipePsalmCard: React.FC<SwipePsalmCardProps> = ({
           </div>
         </div>
 
-<span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
+<span className={`flex items-center gap-1 text-[11px] text-stone-400 font-sans ${lang === 'he' ? 'shrink-0' : 'min-w-0'}`}>
             <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
           </span>
       </div>
 

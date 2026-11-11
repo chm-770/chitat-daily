@@ -92,9 +92,9 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
               </span>
             </div>
 
-            <span className="flex items-center gap-1 text-[11px] text-stone-400 font-sans shrink-0">
+            <span className={`flex items-center gap-1 text-[11px] text-stone-400 font-sans ${lang === 'he' ? 'shrink-0' : 'min-w-0'}`}>
               <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </span>
           </div>
 

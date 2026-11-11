@@ -19,6 +19,7 @@ import { getSavedCity, DEFAULT_CITY } from './services/zmanimService';
 import { emptyProgress, loadProgress, localDateKey } from './utils/progress';
 import { enabledLessonKeys, nextSection, sectionSequence, textFontFamily } from './utils/lessons';
 import { OnboardingModal } from './components/OnboardingModal';
+import { AccountUser, pushProgress, pushSettings, syncAfterSignIn, wasSignedIn, watchUser } from './services/account';
 
 const DEFAULT_SETTINGS: StudySettings = {
   fontSize: 'medium',
@@ -86,6 +87,36 @@ export default function App() {
     }
   });
 
+  // Optional account: settings and progress synced across devices (Firebase is loaded only if used)
+  const [accountUser, setAccountUser] = useState<AccountUser | null>(null);
+  const watchingRef = useRef(false);
+  const startAccount = () => {
+    if (watchingRef.current) return;
+    watchingRef.current = true;
+    let prevUid: string | null = null;
+    watchUser(async (u) => {
+      setAccountUser(u);
+      if (u && u.uid !== prevUid) {
+        try {
+          const changed = await syncAfterSignIn(u.uid);
+          if (changed) {
+            const saved = localStorage.getItem('chitas_settings');
+            if (saved) setSettings({ ...DEFAULT_SETTINGS, ...JSON.parse(saved) });
+            setProgress(loadProgress(localDateKey(new Date())) || emptyProgress(localDateKey(new Date())));
+            setCityId(`sync_${Date.now()}`);
+            setCurrentDate(new Date());
+          }
+        } catch (e) {
+          console.warn('Account sync failed:', e);
+        }
+      }
+      prevUid = u ? u.uid : null;
+    }).catch((e) => console.warn('Account unavailable:', e));
+  };
+  useEffect(() => {
+    if (wasSignedIn()) startAccount();
+  }, []);
+
   // Local date (not UTC), so that after midnight in Israel progress is saved under the right day
   const dateKey = localDateKey(currentDate);
 
@@ -136,7 +167,18 @@ export default function App() {
     } catch {
       // ignore
     }
-  }, [settings]);
+    if (!accountUser) return;
+    const t = setTimeout(() => pushSettings(accountUser.uid).catch(() => {}), 1500);
+    return () => clearTimeout(t);
+  }, [settings, accountUser]);
+
+  // Personal psalms changed: save them to the account too
+  useEffect(() => {
+    if (!accountUser) return;
+    const onChange = () => pushSettings(accountUser.uid).catch(() => {});
+    window.addEventListener('chitas_custom_psalms_updated', onChange);
+    return () => window.removeEventListener('chitas_custom_psalms_updated', onChange);
+  }, [accountUser]);
 
   useEffect(() => {
     // Right after switching days, `progress` still holds the previous day until it is reloaded
@@ -148,12 +190,18 @@ export default function App() {
       // Don't store days that were only viewed, so the calendar shows progress only where there is some
       if (!isEmpty || localStorage.getItem(`chitas_progress_${dateKey}`)) {
         localStorage.setItem(`chitas_progress_${dateKey}`, JSON.stringify({ ...progress, date: dateKey }));
+        if (accountUser) {
+          const t = setTimeout(
+            () => pushProgress(accountUser.uid, { ...progress, date: dateKey }).catch(() => {}),
+            1500
+          );
+          return () => clearTimeout(t);
+        }
       }
     } catch {
       // ignore
     }
-
-  }, [progress, dateKey]);
+  }, [progress, dateKey, accountUser]);
 
   // Mark a batch of items (e.g. cascading verses) as read
   const handleMarkBatch = (ids: string[]) => {
@@ -342,6 +390,7 @@ export default function App() {
 
   const handleCityChanged = (city: { id: string }) => {
     setCityId(`${city.id}_${Date.now()}`);
+    if (accountUser) pushSettings(accountUser.uid).catch(() => {});
   };
 
   return (
@@ -508,6 +557,8 @@ export default function App() {
         onUpdateSettings={handleUpdateSettings}
         onResetProgress={handleResetProgress}
         onCityChanged={handleCityChanged}
+        accountUser={accountUser}
+        onBeforeSignIn={startAccount}
       />
 
       {/* Halachic Zmanim Modal */}

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DailyStudyKey, RambamTrack, StudySettings, ThemeMode } from '../types/chitas';
 import { ALL_LESSONS, enabledLessonKeys, TEXT_FONTS } from '../utils/lessons';
-import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check } from 'lucide-react';
+import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2 } from 'lucide-react';
 import { CityConfig, DEFAULT_CITY, getSavedCity } from '../services/zmanimService';
 import { CityPicker } from './CityPicker';
+import { AccountSection } from './AccountSection';
+import type { AccountUser } from '../services/account';
 
 interface StudySettingsModalProps {
   isOpen: boolean;
@@ -12,6 +14,8 @@ interface StudySettingsModalProps {
   onUpdateSettings: (newSettings: Partial<StudySettings>) => void;
   onResetProgress: () => void;
   onCityChanged?: (city: CityConfig) => void;
+  accountUser?: AccountUser | null;
+  onBeforeSignIn?: () => void;
 }
 
 const THEMES: { id: ThemeMode; label: string; swatch: string }[] = [
@@ -43,6 +47,8 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
   onUpdateSettings,
   onResetProgress,
   onCityChanged,
+  accountUser = null,
+  onBeforeSignIn = () => {},
 }) => {
   const [currentCity, setCurrentCity] = useState<CityConfig>(() => getSavedCity() || DEFAULT_CITY);
   const [isChangingCity, setIsChangingCity] = useState(false);
@@ -253,6 +259,15 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Optional account */}
+          <div className="space-y-2 pt-2 border-t border-stone-100">
+            <label className={sectionTitle}>
+              <UserCircle2 className="w-3.5 h-3.5 text-amber-800" />
+              <span>חשבון (לא חובה):</span>
+            </label>
+            <AccountSection user={accountUser} onBeforeSignIn={onBeforeSignIn} />
           </div>
 
           <p className="text-[11px] text-stone-500 text-center">כל הבחירות נשמרות במכשיר לפעם הבאה.</p>

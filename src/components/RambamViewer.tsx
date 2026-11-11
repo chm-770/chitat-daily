@@ -329,6 +329,9 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
               // If all halachot in this chapter are finished
               const isChapterDone = chapterRemainingHalachot.length === 0;
 
+              // A finished chapter disappears, like its halachot
+              if (isChapterDone) return null;
+
               return (
                 <div
                   key={chapter.id || cIdx}

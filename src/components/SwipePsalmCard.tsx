@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDoubleTap } from '../hooks/useDoubleTap';
 import { motion, PanInfo } from 'motion/react';
 import { TehillimChapter, getHebrewChapterNumber } from '../services/tehillimService';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
@@ -14,6 +15,8 @@ export const SwipePsalmCard: React.FC<SwipePsalmCardProps> = ({
   onSwipeRight,
   fontSizeClass,
 }) => {
+  const handleTap = useDoubleTap(() => onSwipeRight());
+
   const handleDragEnd = (_: any, info: PanInfo) => {
     if (info.offset.x > 60 || info.velocity.x > 250) {
       onSwipeRight();
@@ -31,6 +34,7 @@ export const SwipePsalmCard: React.FC<SwipePsalmCardProps> = ({
       data-swipe-card="true"
       data-swipe="true"
       onDragEnd={handleDragEnd}
+        onTap={handleTap}
       exit={{ x: 400, opacity: 0, height: 0, marginBottom: 0, transition: { duration: 0.25 } }}
       className="relative select-none cursor-grab active:cursor-grabbing bg-white rounded-2xl border border-stone-200/90 hover:border-amber-300 p-6 shadow-xs transition-shadow duration-200 space-y-4"
     >

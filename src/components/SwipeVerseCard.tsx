@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDoubleTap } from '../hooks/useDoubleTap';
 import { vocalizeRashiHeading } from '../utils/hebrewText';
 import { motion, PanInfo } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
@@ -68,6 +69,8 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
   settings,
   getFontSizeClass,
 }) => {
+  const handleTap = useDoubleTap(() => onSwipeRight(verseIndex));
+
   const handleDragEnd = (_: any, info: PanInfo) => {
     // If dragged to the right by more than 50px or flicked quickly
     if (info.offset.x > 50 || info.velocity.x > 200) {
@@ -88,6 +91,7 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
       dragConstraints={{ left: 0, right: 300 }}
       dragElastic={0.4}
       onDragEnd={handleDragEnd}
+        onTap={handleTap}
       exit={{ x: 400, opacity: 0, height: 0, marginBottom: 0, transition: { duration: 0.25 } }}
       className="relative select-none cursor-grab active:cursor-grabbing bg-white rounded-xl border border-stone-200/90 hover:border-amber-300 p-5 shadow-xs transition-shadow duration-200"
     >

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDoubleTap } from '../hooks/useDoubleTap';
 import { motion, PanInfo } from 'motion/react';
 import { Check, ArrowRight } from 'lucide-react';
 
@@ -23,6 +24,8 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
   fontSizeClass,
   onSwipeRight,
 }) => {
+  const handleTap = useDoubleTap(() => onSwipeRight());
+
   const handleDragEnd = (_: any, info: PanInfo) => {
     if (info.offset.x > 80 || info.velocity.x > 350) {
       onSwipeRight();
@@ -59,6 +62,7 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
         dragConstraints={{ left: 0, right: 260 }}
         dragElastic={0.2}
         onDragEnd={handleDragEnd}
+        onTap={handleTap}
         className="relative z-10 bg-white border border-stone-200/90 hover:border-purple-300 p-6 md:p-7 rounded-2xl cursor-grab active:cursor-grabbing transition-colors duration-150"
       >
         <div className="space-y-4">

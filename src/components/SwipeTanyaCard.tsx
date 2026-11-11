@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDoubleTap } from '../hooks/useDoubleTap';
 import { motion, PanInfo } from 'motion/react';
 import { Check, ArrowRight } from 'lucide-react';
 
@@ -18,6 +19,8 @@ export const SwipeTanyaCard: React.FC<SwipeTanyaCardProps> = ({
   fontSizeClass,
   onSwipeRight,
 }) => {
+  const handleTap = useDoubleTap(() => onSwipeRight());
+
   const handleDragEnd = (_: any, info: PanInfo) => {
     // When dragged sufficiently to the right, mark and disappear
     if (info.offset.x > 80 || info.velocity.x > 350) {
@@ -55,6 +58,7 @@ export const SwipeTanyaCard: React.FC<SwipeTanyaCardProps> = ({
         dragConstraints={{ left: 0, right: 260 }}
         dragElastic={0.2}
         onDragEnd={handleDragEnd}
+        onTap={handleTap}
         className="relative z-10 bg-white border border-stone-200/90 hover:border-emerald-300 p-6 md:p-8 rounded-2xl cursor-grab active:cursor-grabbing transition-colors duration-150"
       >
         <div className="space-y-4">

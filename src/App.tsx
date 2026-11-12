@@ -472,7 +472,7 @@ export default function App() {
       />
 
       {/* Dedication of the displayed day */}
-      <DedicationBanner dateKey={dateKey} />
+      <DedicationBanner dateKey={dateKey} accountEmail={accountUser?.email} />
 
       {/* Main Content Area with page swipe gesture support */}
       <main

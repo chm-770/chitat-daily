@@ -23,7 +23,7 @@ const STRINGS = {
     want: 'רוצים להקדיש את הלימוד?',
     title: 'הקדשת הלימוד',
     intro:
-      'חת״ת יומי הוא פרויקט פרטי שאינו מרוויח כסף. ההקדשות עוזרות להמשיך לנהל ולפתח אותו כמו שצריך. ההקדשה מוצגת לכל הלומדים בימים שנבחרו.',
+      'חת״ת יומי הוא פרויקט פרטי שלא למטרות רווח. ההקדשות עוזרות להמשיך לנהל ולפתח אותו כמו שצריך. ההקדשה מוצגת לכל הלומדים בימים שנבחרו.',
     type: 'סוג ההקדשה',
     duration: 'משך ההקדשה',
     durations: { day: 'יום אחד', week: 'שבוע', month: 'חודש' } as Record<DedicationDuration, string>,
@@ -34,7 +34,6 @@ const STRINGS = {
     until: (d: string) => `עד ${d}`,
     donor: 'שם התורם (לא חובה)',
     amount: 'סכום התמיכה (€)',
-    amountHint: (min: number) => `לפחות ${min} €. אפשר להוסיף.`,
     email: 'מייל ליצירת קשר',
     emailHint: 'נחזור אליך במייל לאישור ההקדשה ולפרטי התשלום.',
     send: 'שליחת הבקשה',
@@ -49,7 +48,7 @@ const STRINGS = {
     want: 'Would you like to dedicate the learning?',
     title: 'Dedicate the learning',
     intro:
-      'Daily Chitas is a private, non-profit project. Dedications help keep it running and growing as it should. The dedication is shown to everyone who learns on the chosen days.',
+      'Daily Chitas is a private project, not for profit. Dedications help keep it running and growing as it should. The dedication is shown to everyone who learns on the chosen days.',
     type: 'Type of dedication',
     duration: 'Duration',
     durations: { day: 'One day', week: 'One week', month: 'One month' } as Record<DedicationDuration, string>,
@@ -60,7 +59,6 @@ const STRINGS = {
     until: (d: string) => `until ${d}`,
     donor: 'Donor name (optional)',
     amount: 'Contribution (€)',
-    amountHint: (min: number) => `At least €${min}. You may give more.`,
     email: 'Contact email',
     emailHint: 'We will email you to confirm the dedication and the payment details.',
     send: 'Send request',
@@ -86,7 +84,6 @@ const STRINGS = {
     until: (d: string) => `jusqu'au ${d}`,
     donor: 'Nom du donateur (facultatif)',
     amount: 'Montant du soutien (€)',
-    amountHint: (min: number) => `Au moins ${min} €. Vous pouvez donner plus.`,
     email: 'E-mail de contact',
     emailHint: 'Nous vous écrirons pour confirmer la dédicace et les modalités de paiement.',
     send: 'Envoyer la demande',
@@ -114,7 +111,7 @@ function formatDate(key: string, lang: string): string {
 }
 
 /** The dedication line under the date bar: tap to open it and see the "dedicate" button. */
-export const DedicationBanner: React.FC<{ dateKey: string }> = ({ dateKey }) => {
+export const DedicationBanner: React.FC<{ dateKey: string; accountEmail?: string | null }> = ({ dateKey, accountEmail }) => {
   const s = useStrings(STRINGS);
   const lang = useLang();
   const [all, setAll] = useState<Dedication[]>([]);
@@ -142,9 +139,16 @@ export const DedicationBanner: React.FC<{ dateKey: string }> = ({ dateKey }) => 
               <Flame className="w-3 h-3" />
               <span>{s.todayDedicated}</span>
             </div>
-            {today.map((d) => (
-              <div key={d.id} className="font-torah font-bold text-amber-950 text-base leading-snug" dir="auto">
-                {dedicationLine(d, lang)}
+            {today.map((d, i) => (
+              <div key={d.id} className={i > 0 ? 'pt-1.5 mt-1.5 border-t border-amber-200/70' : ''}>
+                <div className="font-torah font-bold text-amber-950 text-base leading-snug" dir="auto">
+                  {dedicationLine(d, lang)}
+                </div>
+                {open && d.donor && (
+                  <div className="text-[11px] text-stone-600" dir="auto">
+                    {s.donatedBy(d.donor)}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -155,11 +159,6 @@ export const DedicationBanner: React.FC<{ dateKey: string }> = ({ dateKey }) => 
 
       {open && (
         <div className="mt-1.5 rounded-xl border border-amber-200 bg-white p-3 flex flex-col items-center gap-2 animate-in fade-in slide-in-from-top-1 duration-200">
-          {today.filter((d) => d.donor).map((d) => (
-            <p key={d.id} className="text-xs text-stone-600" dir="auto">
-              {s.donatedBy(d.donor!)}
-            </p>
-          ))}
           <button
             type="button"
             onClick={() => setFormOpen(true)}
@@ -171,12 +170,12 @@ export const DedicationBanner: React.FC<{ dateKey: string }> = ({ dateKey }) => 
         </div>
       )}
 
-      {formOpen && <DedicationForm onClose={() => setFormOpen(false)} />}
+      {formOpen && <DedicationForm defaultEmail={accountEmail || ''} onClose={() => setFormOpen(false)} />}
     </div>
   );
 };
 
-const DedicationForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+const DedicationForm: React.FC<{ defaultEmail: string; onClose: () => void }> = ({ defaultEmail, onClose }) => {
   const s = useStrings(STRINGS);
   const lang = useLang();
   const [type, setType] = useState<DedicationType>('ilui');
@@ -185,7 +184,8 @@ const DedicationForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [startDate, setStartDate] = useState(() => addDays(todayKey(), 1));
   const [donor, setDonor] = useState('');
   const [amount, setAmount] = useState(25);
-  const [email, setEmail] = useState('');
+  // The account email by default (can be changed)
+  const [email, setEmail] = useState(defaultEmail);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
   const [error, setError] = useState<string | null>(null);
 
@@ -323,7 +323,6 @@ const DedicationForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                   className={`${inputClass} w-32`}
                   dir="ltr"
                 />
-                <div className="text-[11px] text-stone-500">{s.amountHint(dur.price)}</div>
               </div>
 
               <div className="space-y-1.5">

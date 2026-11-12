@@ -3,13 +3,12 @@ import {
   X,
   Plus,
   Trash2,
-  ArrowUp,
-  ArrowDown,
-  Sparkles,
+  GripVertical,
   BookOpen,
   Check,
   RotateCcw,
 } from 'lucide-react';
+import { Reorder, useDragControls } from 'motion/react';
 import { getHebrewChapterNumber } from '../services/tehillimService';
 import { useLang, useStrings, dirOf } from '../i18n';
 
@@ -30,34 +29,48 @@ const COMMON_CHAPTERS = [
   { num: 150, label: 'שבח והודיה', desc: 'כֹּל הַנְּשָׁמָה תְּהַלֵּל יָהּ' },
 ];
 
+const LETTER_VALUES: Record<string, number> = {
+  א: 1, ב: 2, ג: 3, ד: 4, ה: 5, ו: 6, ז: 7, ח: 8, ט: 9,
+  י: 10, כ: 20, ך: 20, ל: 30, מ: 40, ם: 40, נ: 50, ן: 50, ס: 60, ע: 70, פ: 80, ף: 80, צ: 90, ץ: 90,
+  ק: 100, ר: 200, ש: 300, ת: 400,
+};
+
+/** Value of a number written in Hebrew letters, or 0 if it contains anything else. */
+function hebrewLettersToNumber(text: string): number {
+  const clean = text.replace(/[\s'"׳״`]/g, '');
+  if (!clean) return 0;
+  let sum = 0;
+  for (const ch of clean) {
+    const v = LETTER_VALUES[ch];
+    if (!v) return 0;
+    sum += v;
+  }
+  return sum;
+}
+
 const STRINGS = {
   he: {
     commonLabels: {} as Record<number, string>,
     errInvalid: 'נא להזין מספר מזמור תקין בין 1 ל-150',
     errExists: (num: number) => `מזמור ${getHebrewChapterNumber(num)} (${num}) כבר קיים ברשימה שלך`,
-    errAge: 'נא להזין גיל תקין (למשל: 30)',
+    errLetters: 'נא לכתוב מזמור באותיות, למשל: קכא',
     title: 'פרקי תהילים אישיים',
     subtitle: 'הפרקים שתוסיף יישמרו מעתה לכל הימים. ניתן להוסיף, למחוק ולשנות את הסדר.',
     close: 'סגור',
     yourList: 'הרשימה שלך כעת',
     count: (n: number) => `${n} פרקים`,
-    reorderHint: 'השתמש בחצים לשינוי סדר הקריאה',
+    reorderHint: 'גרור את ⠿ כדי לשנות את הסדר',
     empty: 'אין כרגע פרקים אישיים ברשימה.',
-    emptyHint: 'הוסף מזמור למטה לפי מספר או גיל.',
+    emptyHint: 'הוסף מזמור למטה לפי מספר או באותיות.',
     psalmName: (num: number) => `מזמור ${getHebrewChapterNumber(num)}`,
     psalmAside: (num: number) => `(${num})`,
-    moveUp: 'העבר למעלה',
-    moveDown: 'העבר למטה',
     remove: 'מחק פרק זה',
     byNumber: 'הוסף לפי מספר מזמור (1–150):',
     numberPlaceholder: 'מספר (למשל 20)',
     add: 'הוסף',
-    byAge: 'הוסף לפי גיל (גיל + 1):',
-    agePlaceholder: 'גיל (למשל 28 -> פרק כ״ט)',
-    quickAdd: 'הוספה מהירה של מזמורים מיוחדים:',
-    quickName: (num: number) => `מזמור ${getHebrewChapterNumber(num)} (${num})`,
-    selected: 'נבחר ✓',
-    plusAdd: '+ הוסף',
+    byLetters: 'הוסף לפי שם המזמור באותיות:',
+    lettersPlaceholder: 'למשל קכא',
+    dragHandle: 'גרירה לשינוי הסדר',
     reset: 'איפוס לברירת מחדל',
     cancel: 'ביטול',
     save: 'שמור פרקים לכל הימים',
@@ -74,29 +87,24 @@ const STRINGS = {
     } as Record<number, string>,
     errInvalid: 'Please enter a psalm number between 1 and 150',
     errExists: (num: number) => `Psalm ${num} is already in your list`,
-    errAge: 'Please enter a valid age (e.g. 30)',
+    errLetters: 'Please write the psalm in Hebrew letters, e.g. קכא',
     title: 'Personal Tehillim',
     subtitle: 'The psalms you add are kept for every day. You can add, remove and reorder them.',
     close: 'Close',
     yourList: 'Your current list',
     count: (n: number) => `${n} ${n === 1 ? 'psalm' : 'psalms'}`,
-    reorderHint: 'Use the arrows to change the order',
+    reorderHint: 'Drag ⠿ to change the order',
     empty: 'No personal psalms in the list yet.',
-    emptyHint: 'Add a psalm below by number or by age.',
+    emptyHint: 'Add a psalm below by number or in Hebrew letters.',
     psalmName: (num: number) => `Psalm ${num}`,
     psalmAside: (num: number) => `(${getHebrewChapterNumber(num)})`,
-    moveUp: 'Move up',
-    moveDown: 'Move down',
     remove: 'Remove this psalm',
     byNumber: 'Add by psalm number (1–150):',
     numberPlaceholder: 'Number (e.g. 20)',
     add: 'Add',
-    byAge: 'Add by age (age + 1):',
-    agePlaceholder: 'Age (e.g. 28 → Psalm 29)',
-    quickAdd: 'Quick add – special psalms:',
-    quickName: (num: number) => `Psalm ${num} (${getHebrewChapterNumber(num)})`,
-    selected: 'Added ✓',
-    plusAdd: '+ Add',
+    byLetters: 'Add by Hebrew letters:',
+    lettersPlaceholder: 'e.g. קכא',
+    dragHandle: 'Drag to reorder',
     reset: 'Reset to default',
     cancel: 'Cancel',
     save: 'Save for every day',
@@ -113,33 +121,81 @@ const STRINGS = {
     } as Record<number, string>,
     errInvalid: 'Veuillez saisir un numéro de psaume entre 1 et 150',
     errExists: (num: number) => `Le psaume ${num} est déjà dans votre liste`,
-    errAge: 'Veuillez saisir un âge valide (par ex. 30)',
+    errLetters: 'Veuillez écrire le psaume en lettres hébraïques, par ex. קכא',
     title: 'Téhilim personnels',
     subtitle: 'Les psaumes ajoutés sont conservés pour tous les jours. Vous pouvez en ajouter, en supprimer et changer leur ordre.',
     close: 'Fermer',
     yourList: 'Votre liste actuelle',
     count: (n: number) => `${n} psaume${n > 1 ? 's' : ''}`,
-    reorderHint: "Utilisez les flèches pour changer l'ordre",
+    reorderHint: "Faites glisser ⠿ pour changer l'ordre",
     empty: "Aucun psaume personnel dans la liste pour l'instant.",
-    emptyHint: 'Ajoutez un psaume ci-dessous par numéro ou selon votre âge.',
+    emptyHint: 'Ajoutez un psaume ci-dessous par numéro ou en lettres hébraïques.',
     psalmName: (num: number) => `Psaume ${num}`,
     psalmAside: (num: number) => `(${getHebrewChapterNumber(num)})`,
-    moveUp: 'Monter',
-    moveDown: 'Descendre',
     remove: 'Supprimer ce psaume',
     byNumber: 'Ajouter par numéro de psaume (1–150) :',
     numberPlaceholder: 'Numéro (par ex. 20)',
     add: 'Ajouter',
-    byAge: "Ajouter selon l'âge (âge + 1) :",
-    agePlaceholder: 'Âge (par ex. 28 → psaume 29)',
-    quickAdd: 'Ajout rapide de psaumes particuliers :',
-    quickName: (num: number) => `Psaume ${num} (${getHebrewChapterNumber(num)})`,
-    selected: 'Ajouté ✓',
-    plusAdd: '+ Ajouter',
+    byLetters: 'Ajouter en lettres hébraïques :',
+    lettersPlaceholder: 'par ex. קכא',
+    dragHandle: 'Glisser pour réordonner',
     reset: 'Rétablir par défaut',
     cancel: 'Annuler',
     save: 'Enregistrer',
   },
+};
+
+/** One psalm of the list: drag the handle (⠿) up or down to reorder. */
+const PsalmRow: React.FC<{
+  num: number;
+  idx: number;
+  label: string;
+  name: string;
+  aside: string;
+  removeTitle: string;
+  dragTitle: string;
+  onRemove: () => void;
+}> = ({ num, idx, label, name, aside, removeTitle, dragTitle, onRemove }) => {
+  const controls = useDragControls();
+  return (
+    <Reorder.Item
+      value={num}
+      dragListener={false}
+      dragControls={controls}
+      className="flex items-center justify-between p-2.5 bg-amber-50/50 border border-amber-200/80 rounded-xl select-none"
+      whileDrag={{ scale: 1.02, boxShadow: '0 6px 16px rgba(0,0,0,0.12)', zIndex: 10 }}
+    >
+      <div className="flex items-center gap-2.5 min-w-0">
+        <button
+          type="button"
+          title={dragTitle}
+          aria-label={dragTitle}
+          onPointerDown={(e) => controls.start(e)}
+          className="p-1 -m-1 text-stone-400 hover:text-stone-700 cursor-grab active:cursor-grabbing touch-none shrink-0"
+        >
+          <GripVertical className="w-5 h-5" />
+        </button>
+        <span className="w-6 h-6 rounded-full bg-amber-200/80 text-amber-900 font-bold text-xs flex items-center justify-center shrink-0">
+          {idx + 1}
+        </span>
+        <div className="min-w-0">
+          <div className="font-bold text-stone-900 font-torah text-base flex items-center gap-2">
+            <span>{name}</span>
+            <span className="text-xs font-sans text-stone-500 font-normal">{aside}</span>
+          </div>
+          {label && <div className="text-[11px] text-amber-900 font-sans">{label}</div>}
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={onRemove}
+        title={removeTitle}
+        className="p-1.5 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer shrink-0"
+      >
+        <Trash2 className="w-3.5 h-3.5" />
+      </button>
+    </Reorder.Item>
+  );
 };
 
 export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
@@ -153,7 +209,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
   const commonLabel = (item: { num: number; label: string }) => s.commonLabels[item.num] || item.label;
   const [currentList, setCurrentList] = useState<number[]>(selectedChapters);
   const [inputVal, setInputVal] = useState<string>('');
-  const [ageVal, setAgeVal] = useState<string>('');
+  const [lettersVal, setLettersVal] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>('');
 
   // Always synchronize with incoming prop when modal opens
@@ -161,7 +217,7 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
     if (isOpen) {
       setCurrentList([...selectedChapters]);
       setInputVal('');
-      setAgeVal('');
+      setLettersVal('');
       setErrorMsg('');
     }
   }, [isOpen, selectedChapters]);
@@ -189,40 +245,21 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
     handleAddChapter(parsed);
   };
 
-  const handleAddByAge = (e: React.FormEvent) => {
+  // Psalm written in Hebrew letters (קכא, קכ״א, קכ"א…)
+  const handleAddByLetters = (e: React.FormEvent) => {
     e.preventDefault();
-    const age = parseInt(ageVal.trim(), 10);
-    if (isNaN(age) || age < 0 || age >= 150) {
-      setErrorMsg(s.errAge);
+    const num = hebrewLettersToNumber(lettersVal);
+    if (!num || num > 150) {
+      setErrorMsg(s.errLetters);
       return;
     }
-    // Chabad custom: say chapter of current year = age + 1
-    const chapterNum = age + 1;
-    handleAddChapter(chapterNum);
-    setAgeVal('');
+    handleAddChapter(num);
+    setLettersVal('');
   };
 
   const handleRemove = (indexToRemove: number) => {
     setCurrentList(currentList.filter((_, idx) => idx !== indexToRemove));
     setErrorMsg('');
-  };
-
-  const handleMoveUp = (index: number) => {
-    if (index <= 0) return;
-    const next = [...currentList];
-    const temp = next[index - 1];
-    next[index - 1] = next[index];
-    next[index] = temp;
-    setCurrentList(next);
-  };
-
-  const handleMoveDown = (index: number) => {
-    if (index >= currentList.length - 1) return;
-    const next = [...currentList];
-    const temp = next[index + 1];
-    next[index + 1] = next[index];
-    next[index] = temp;
-    setCurrentList(next);
   };
 
   const handleResetToDefault = () => {
@@ -291,70 +328,24 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
                 <p className="text-[11px] text-stone-400">{s.emptyHint}</p>
               </div>
             ) : (
-              <div className="space-y-2">
-                {currentList.map((num, idx) => {
-                  const commonMatch = COMMON_CHAPTERS.find((c) => c.num === num);
-                  return (
-                    <div
-                      key={`${num}_${idx}`}
-                      className="flex items-center justify-between p-2.5 bg-amber-50/50 hover:bg-amber-50 border border-amber-200/80 rounded-xl transition-all"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-6 h-6 rounded-full bg-amber-200/80 text-amber-900 font-bold text-xs flex items-center justify-center shrink-0">
-                          {idx + 1}
-                        </span>
-                        <div>
-                          <div className="font-bold text-stone-900 font-torah text-base flex items-center gap-2">
-                            <span>{s.psalmName(num)}</span>
-                            <span className="text-xs font-sans text-stone-500 font-normal">
-                              {s.psalmAside(num)}
-                            </span>
-                          </div>
-                          {commonMatch && (
-                            <div className="text-[11px] text-amber-900 font-sans">
-                              {commonLabel(commonMatch)}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-1">
-                        {/* Move Up */}
-                        <button
-                          type="button"
-                          onClick={() => handleMoveUp(idx)}
-                          disabled={idx === 0}
-                          title={s.moveUp}
-                          className="p-1.5 rounded-lg text-stone-500 hover:text-stone-800 hover:bg-stone-200/60 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
-                        >
-                          <ArrowUp className="w-3.5 h-3.5" />
-                        </button>
-
-                        {/* Move Down */}
-                        <button
-                          type="button"
-                          onClick={() => handleMoveDown(idx)}
-                          disabled={idx === currentList.length - 1}
-                          title={s.moveDown}
-                          className="p-1.5 rounded-lg text-stone-500 hover:text-stone-800 hover:bg-stone-200/60 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
-                        >
-                          <ArrowDown className="w-3.5 h-3.5" />
-                        </button>
-
-                        {/* Delete Chapter */}
-                        <button
-                          type="button"
-                          onClick={() => handleRemove(idx)}
-                          title={s.remove}
-                          className="p-1.5 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer me-1"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              <Reorder.Group axis="y" values={currentList} onReorder={setCurrentList} className="space-y-2">
+                {currentList.map((num, idx) => (
+                  <PsalmRow
+                    key={num}
+                    num={num}
+                    idx={idx}
+                    label={(() => {
+                      const c = COMMON_CHAPTERS.find((x) => x.num === num);
+                      return c ? commonLabel(c) : '';
+                    })()}
+                    name={s.psalmName(num)}
+                    aside={s.psalmAside(num)}
+                    removeTitle={s.remove}
+                    dragTitle={s.dragHandle}
+                    onRemove={() => handleRemove(idx)}
+                  />
+                ))}
+              </Reorder.Group>
             )}
           </div>
 
@@ -388,28 +379,26 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
               </div>
             </form>
 
-            {/* By Age (Chabad Custom) */}
+            {/* By the psalm's name in Hebrew letters */}
             <form
-              onSubmit={handleAddByAge}
+              onSubmit={handleAddByLetters}
               className="p-3 bg-stone-50 rounded-xl border border-stone-200 space-y-2"
             >
-              <label className="text-xs font-semibold text-stone-700 block flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-amber-700" />
-                <span>{s.byAge}</span>
-              </label>
+              <label className="text-xs font-semibold text-stone-700 block">{s.byLetters}</label>
               <div className="flex gap-1.5">
                 <input
-                  type="number"
-                  min="0"
-                  max="149"
-                  value={ageVal}
-                  onChange={(e) => setAgeVal(e.target.value)}
-                  placeholder={s.agePlaceholder}
-                  className="flex-1 px-3 py-1.5 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:border-amber-600"
+                  type="text"
+                  dir="rtl"
+                  lang="he"
+                  value={lettersVal}
+                  onChange={(e) => setLettersVal(e.target.value)}
+                  placeholder={s.lettersPlaceholder}
+                  maxLength={6}
+                  className="flex-1 min-w-0 px-3 py-1.5 text-sm font-torah bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:border-amber-600"
                 />
                 <button
                   type="submit"
-                  className="px-3 py-1.5 bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                  className="px-3 py-1.5 bg-amber-900 hover:bg-amber-800 text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{s.add}</span>
@@ -418,50 +407,6 @@ export const CustomPsalmsModal: React.FC<CustomPsalmsModalProps> = ({
             </form>
           </div>
 
-          {/* Quick Common Suggestions */}
-          <div className="space-y-2 pt-2 border-t border-stone-100">
-            <span className="text-xs font-semibold text-stone-500 block">
-              {s.quickAdd}
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-              {COMMON_CHAPTERS.map((item) => {
-                const isAlreadySelected = currentList.includes(item.num);
-                return (
-                  <button
-                    key={item.num}
-                    type="button"
-                    onClick={() => {
-                      if (!isAlreadySelected) {
-                        handleAddChapter(item.num);
-                      }
-                    }}
-                    disabled={isAlreadySelected}
-                    className={`p-2 rounded-lg text-start text-xs border transition-all flex items-center justify-between cursor-pointer ${
-                      isAlreadySelected
-                        ? 'bg-stone-100/70 border-stone-200 text-stone-400 cursor-default'
-                        : 'bg-white hover:bg-amber-50 border-stone-200 text-stone-700 hover:border-amber-300'
-                    }`}
-                  >
-                    <div>
-                      <div className="font-bold font-torah text-stone-800">
-                        {s.quickName(item.num)}
-                      </div>
-                      <div className="text-[10px] text-stone-500 font-sans">{commonLabel(item)}</div>
-                    </div>
-                    {isAlreadySelected ? (
-                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-sm border border-emerald-200">
-                        {s.selected}
-                      </span>
-                    ) : (
-                      <span className="text-amber-900 hover:underline text-[11px] font-medium">
-                        {s.plusAdd}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
         </div>
 
         {/* Footer */}

@@ -33,7 +33,7 @@ const STRINGS = {
     print: 'הדפסת שיעור',
     sources: 'מקורות',
     privacy: 'מדיניות פרטיות',
-    contact: 'יצירת קשר',
+    contact: 'יצירת קשר / דיווח על טעות',
   },
   en: {
     appName: 'Daily Chitas',
@@ -42,7 +42,7 @@ const STRINGS = {
     print: 'Print lesson',
     sources: 'Sources',
     privacy: 'Privacy policy',
-    contact: 'Contact us',
+    contact: 'Contact / report a mistake',
   },
   fr: {
     appName: '\'Hitat quotidien',
@@ -51,7 +51,7 @@ const STRINGS = {
     print: 'Imprimer la leçon',
     sources: 'Sources',
     privacy: 'Politique de confidentialité',
-    contact: 'Nous contacter',
+    contact: 'Contact / signaler une erreur',
   },
 };
 

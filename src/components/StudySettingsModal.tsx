@@ -38,19 +38,19 @@ const SM_STRINGS = {
     title: 'שניים מקרא ואחד תרגום:',
     enable: 'להציג ביום שישי את כל הפרשה: מקרא פעמיים ותרגום אונקלוס',
     rashi: 'להציג גם רש״י',
-    contact: 'יצירת קשר',
+    contact: 'יצירת קשר / דיווח על טעות',
   },
   en: {
     title: "Shnayim Mikra ve'Echad Targum:",
     enable: 'On Friday, show the whole parasha: each verse twice and Targum Onkelos',
     rashi: 'Also show Rashi',
-    contact: 'Contact us',
+    contact: 'Contact / report a mistake',
   },
   fr: {
     title: 'Chnayim Mikra véé\'had Targoum :',
     enable: 'Le vendredi, afficher toute la Paracha : chaque verset deux fois et le Targoum Onkelos',
     rashi: 'Afficher aussi Rachi',
-    contact: 'Nous contacter',
+    contact: 'Contact / signaler une erreur',
   },
 };
 

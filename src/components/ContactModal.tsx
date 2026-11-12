@@ -13,8 +13,8 @@ export const CONTACT_ENABLED = WEB3FORMS_KEY.length > 0;
 
 const STRINGS = {
   he: {
-    title: 'יצירת קשר',
-    intro: 'שאלה, הערה, טעות בטקסט או רעיון? נשמח לשמוע.',
+    title: 'יצירת קשר / דיווח על טעות',
+    intro: 'מצאת טעות בטקסט? יש לך שאלה, הערה או רעיון? נשמח לשמוע. בדיווח על טעות כדאי לציין את השיעור והתאריך.',
     name: 'שם (לא חובה)',
     email: 'מייל לתשובה (לא חובה)',
     message: 'ההודעה',
@@ -27,8 +27,8 @@ const STRINGS = {
     subject: 'הודעה חדשה מחת״ת יומי',
   },
   en: {
-    title: 'Contact us',
-    intro: 'A question, a comment, a mistake in a text or an idea? We would love to hear from you.',
+    title: 'Contact / report a mistake',
+    intro: 'Found a mistake in a text? A question, a comment or an idea? We would love to hear from you. When reporting a mistake, please mention the lesson and the date.',
     name: 'Name (optional)',
     email: 'Email for a reply (optional)',
     message: 'Message',
@@ -41,8 +41,8 @@ const STRINGS = {
     subject: 'New message from Daily Chitas',
   },
   fr: {
-    title: 'Nous contacter',
-    intro: 'Une question, une remarque, une erreur dans un texte ou une idée ? Écrivez-nous.',
+    title: 'Contact / signaler une erreur',
+    intro: 'Vous avez trouvé une erreur dans un texte ? Une question, une remarque ou une idée ? Écrivez-nous. Pour signaler une erreur, précisez la leçon et la date.',
     name: 'Nom (facultatif)',
     email: 'E-mail pour la réponse (facultatif)',
     message: 'Message',

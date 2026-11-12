@@ -180,7 +180,29 @@ export function getRambamBookHebrewName(baseRef: string): string {
  * Locate the Rambam's introductory count and list of Mitzvot for this set of Halachot.
  * Must NEVER be shown over the Introduction (הקדמה) or unrelated chapters!
  */
-function findMitzvotIntro(heRef: string, chapterNumber: number): string | undefined {
+/**
+ * Names of the halachot as Sefaria writes them → the name under which their opening is kept in
+ * rambamMitzvotHeaders.json (spelling differs). Without this the opening is not found.
+ */
+const HILCHOT_NAME_ALIASES: Record<string, string> = {
+  'הלכות קריאת שמע': 'הלכות קרית שמע',
+  'הלכות תפילה וברכת כהנים': 'הלכות תפילה וברכת כוהנים',
+  'הלכות יבום וחליצה': 'הלכות ייבום וחליצה',
+  'הלכות ערכים וחרמין': 'הלכות ערכין וחרמים',
+  'הלכות כלאים': 'הלכות כלאיים',
+  'הלכות מעשרות': 'הלכות מעשר',
+  'הלכות ביכורים ושאר מתנות כהונה שבגבולין': 'הלכות ביכורים עם שאר מתנות כהונה שבגבולין',
+  'הלכות כלי המקדש והעובדין בו': 'הלכות כלי המקדש והעובדים בו',
+  'הלכות ביאת מקדש': 'הלכות ביאת המקדש',
+  'הלכות איסורי המזבח': 'הלכות איסורי מזבח',
+  'הלכות תמידים ומוספין': 'הלכות תמידין ומוספין',
+  'הלכות עבודת יום הכפורים': 'הלכות עבודת יום הכיפורים',
+  'הלכות שאר אבות הטומאות': 'הלכות שאר אבות הטמאות',
+  'הלכות טומאת אוכלים': 'הלכות טומאת אוכלין',
+  'הלכות מקואות': 'הלכות מקוות',
+};
+
+export function findMitzvotIntro(heRef: string, chapterNumber: number): string | undefined {
   if (chapterNumber !== 1) return undefined;
   if (
     /הקדמה|Introduction|מסירת תורה שבעל פה|Transmission|מניין המצוות|מנין המצוות|Positive Commandments|Negative Commandments|נוסח|סדר תפלות|הגדה|Haggadah/i.test(
@@ -197,14 +219,8 @@ function findMitzvotIntro(heRef: string, chapterNumber: number): string | undefi
     .trim();
 
   const headers = RAMBAM_MITZVOT_HEADERS as Record<string, string>;
-  if (headers[cleaned]) return headers[cleaned];
-
-  for (const [key, val] of Object.entries(headers)) {
-    if (cleaned === key) return val;
-    const cleanNoHilchot = key.replace(/^הלכות\s+/, '');
-    if (cleaned.endsWith(cleanNoHilchot)) return val;
-  }
-  return undefined;
+  const key = HILCHOT_NAME_ALIASES[cleaned] || cleaned;
+  return headers[key];
 }
 
 async function fetchWithRetry(url: string, retries = 2): Promise<any> {

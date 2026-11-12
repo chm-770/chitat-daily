@@ -5,15 +5,16 @@
   "type": "module",
   "scripts": {
     "studio": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts Promo out/chitat-promo.mp4 --codec h264 --crf 18 --browser-executable /opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell"
+    "render": "remotion render src/index.ts Story out/chitat-story.mp4 --codec h264 --crf 18 --browser-executable /opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell"
   },
   "dependencies": {
     "@remotion/cli": "4.0.543",
-    "@remotion/transitions": "4.0.543",
     "@remotion/google-fonts": "4.0.543",
-    "remotion": "4.0.543",
+    "@remotion/transitions": "4.0.543",
+    "lucide-react": "^0.546.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "remotion": "4.0.543"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

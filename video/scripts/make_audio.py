@@ -92,3 +92,46 @@ save('notify.wav', reverb(notif))
 rise = t(1.2); shimmer = sum(np.sin(2*np.pi*hz(74+s)*rise) for s in (0, 7, 12, 19)) * 0.06 * (rise/1.2)**2
 save('rise.wav', reverb(shimmer))
 print('ok')
+
+# ================= Upbeat track for the one-minute video =================
+BPM2 = 116; b2 = 60 / BPM2; L2 = 64.0
+m2 = np.zeros(int(SR * L2))
+def add(x, at):
+    a = int(at * SR)
+    if a >= len(m2): return
+    m2[a:a+len(x)] += x[:len(m2)-a]
+prog = [[62, 66, 69, 73], [59, 62, 66, 69], [55, 59, 62, 66], [57, 61, 64, 67]]  # Dmaj7 Bm7 Gmaj7 A7
+bar2 = b2 * 4
+k = 0; pos = 0.0
+hat_t = t(0.05)
+while pos < L2:
+    ch = prog[k % 4]
+    add(pad([hz(m) for m in ch[:3]], bar2 * 1.02, 0.05), pos)
+    intro = pos < bar2 * 2          # first two bars: pads + plucks only
+    for s in range(8):              # eighth-note plucks
+        st = pos + s * b2 / 2
+        m = [ch[0]+12, ch[2]+12, ch[1]+12, ch[3]+12, ch[0]+24, ch[3]+12, ch[2]+12, ch[1]+12][s]
+        add(note(hz(m), 0.35, 0.06, 9.0), st)
+    if not intro:
+        for s in range(4):
+            st = pos + s * b2
+            kt = t(0.22); add(0.5*np.sin(2*np.pi*(45+90*np.exp(-28*kt))*kt)*np.exp(-14*kt), st)       # kick
+            add(note(hz(ch[0]-24), b2*0.45, 0.17, 4.0, (1, .35)), st)                               # bass
+            add(note(hz(ch[0]-24), b2*0.4, 0.12, 5.0, (1, .35)), st + b2/2)
+            if s in (1, 3):                                                                       # clap
+                ct = t(0.18); add(lowpass(rng.standard_normal(len(ct)), 2) * np.exp(-20*ct) * 0.22, st)
+            for h in (0, 0.5):                                                                    # hats
+                add(np.diff(np.concatenate([[0], rng.standard_normal(len(hat_t))])) * np.exp(-60*hat_t) * 0.05, st + h*b2)
+    pos += bar2; k += 1
+m2 = reverb(m2, (0.05, 0.11, 0.17), 0.25)
+m2 *= env(len(m2), 0.6, 2.5)
+m2 /= np.max(np.abs(m2)) / 0.65
+save('music2.wav', m2)
+
+tap = note(hz(96), 0.08, 0.45, 60, (1, .2))
+clk = lowpass(rng.standard_normal(int(SR*0.012)), 2) * 0.3
+tap[:len(clk)] += clk
+save('tap.wav', tap)
+ty = np.zeros(int(SR*0.06)); ty[:int(SR*0.01)] = rng.standard_normal(int(SR*0.01)) * 0.25
+save('type.wav', lowpass(ty, 3))
+print('ok2')

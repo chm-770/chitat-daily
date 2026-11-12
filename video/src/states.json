@@ -1,0 +1,227 @@
+{
+ "home0": {
+  "file": "states/home0.png",
+  "taps": {
+   "start": {
+    "x": 752,
+    "y": 1349
+   }
+  }
+ },
+ "chumash0": {
+  "file": "states/chumash0.png",
+  "taps": {
+   "card": {
+    "x": 111,
+    "y": 1529,
+    "w": 858,
+    "h": 320
+   }
+  }
+ },
+ "chumash1": {
+  "file": "states/chumash1.png",
+  "taps": {}
+ },
+ "home1": {
+  "file": "states/home1.png",
+  "taps": {
+   "done": {
+    "x": 159,
+    "y": 1859
+   }
+  }
+ },
+ "home2": {
+  "file": "states/home2.png",
+  "taps": {}
+ },
+ "teh0": {
+  "file": "states/teh0.png",
+  "taps": {
+   "gear": {
+    "x": 425,
+    "y": 1298
+   }
+  }
+ },
+ "teh1": {
+  "file": "states/teh1.png",
+  "taps": {
+   "input": {
+    "x": 648,
+    "y": 1657
+   }
+  }
+ },
+ "teh2": {
+  "file": "states/teh2.png",
+  "taps": {
+   "add": {
+    "x": 237,
+    "y": 1657
+   }
+  }
+ },
+ "teh3": {
+  "file": "states/teh3.png",
+  "taps": {
+   "from": {
+    "x": 918,
+    "y": 1144
+   },
+   "to": {
+    "x": 918,
+    "y": 721
+   }
+  }
+ },
+ "teh4": {
+  "file": "states/teh4.png",
+  "taps": {}
+ },
+ "tanya": {
+  "file": "states/tanya.png",
+  "taps": {}
+ },
+ "hayomyom": {
+  "file": "states/hayomyom.png",
+  "taps": {}
+ },
+ "rambam": {
+  "file": "states/rambam.png",
+  "taps": {}
+ },
+ "cal0": {
+  "file": "states/cal0.png",
+  "taps": {
+   "cal": {
+    "x": 180,
+    "y": 96
+   }
+  }
+ },
+ "cal1": {
+  "file": "states/cal1.png",
+  "taps": {}
+ },
+ "z0": {
+  "file": "states/z0.png",
+  "taps": {
+   "open": {
+    "x": 762,
+    "y": 96
+   }
+  }
+ },
+ "z1": {
+  "file": "states/z1.png",
+  "taps": {
+   "next": {
+    "x": 156,
+    "y": 582
+   }
+  }
+ },
+ "z2": {
+  "file": "states/z2.png",
+  "taps": {}
+ },
+ "rem0": {
+  "file": "states/rem0.png",
+  "taps": {
+   "gear": {
+    "x": 78,
+    "y": 96
+   }
+  }
+ },
+ "rem1": {
+  "file": "states/rem1.png",
+  "taps": {
+   "topic": {
+    "x": 540,
+    "y": 1229
+   }
+  }
+ },
+ "rem2": {
+  "file": "states/rem2.png",
+  "taps": {
+   "setup": {
+    "x": 540,
+    "y": 1401
+   }
+  }
+ },
+ "rem3": {
+  "file": "states/rem3.png",
+  "taps": {
+   "t1": {
+    "x": 894,
+    "y": 1288
+   },
+   "t2": {
+    "x": 894,
+    "y": 1508
+   },
+   "t3": {
+    "x": 894,
+    "y": 1882
+   }
+  }
+ },
+ "rem4": {
+  "file": "states/rem4.png",
+  "taps": {}
+ },
+ "shnayim": {
+  "file": "states/shnayim.png",
+  "taps": {}
+ },
+ "comp0": {
+  "file": "states/comp0.png",
+  "taps": {
+   "open": {
+    "x": 584,
+    "y": 96
+   }
+  }
+ },
+ "comp1": {
+  "file": "states/comp1.png",
+  "taps": {}
+ },
+ "comp2": {
+  "file": "states/comp2.png",
+  "taps": {}
+ },
+ "comp3": {
+  "file": "states/comp3.png",
+  "taps": {}
+ },
+ "comp4": {
+  "file": "states/comp4.png",
+  "taps": {}
+ },
+ "comp5": {
+  "file": "states/comp5.png",
+  "taps": {}
+ },
+ "home-dark": {
+  "file": "states/home-dark.png",
+  "taps": {}
+ },
+ "home-black": {
+  "file": "states/home-black.png",
+  "taps": {}
+ },
+ "home-en": {
+  "file": "states/home-en.png",
+  "taps": {}
+ },
+ "home-fr": {
+  "file": "states/home-fr.png",
+  "taps": {}
+ }
+}

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { StudyCategory, DailyProgress, StudySettings, DailyStudyKey } from '../types/chitas';
 import { enabledLessonKeys } from '../utils/lessons';
-import { Check, Undo2, Settings, Clock, CalendarDays } from 'lucide-react';
+import { Check, Undo2, Settings, Clock, CalendarDays, Compass } from 'lucide-react';
 import { PWAInstallButton } from './PWAInstallButton';
 import { useStrings } from '../i18n';
 
@@ -11,6 +11,7 @@ const STRINGS = {
     tagline: 'הלימוד היומי',
     zmanimTitle: 'זמני היום הלכתיים לפי העיר שנבחרה',
     zmanim: 'זמני היום',
+    compass: 'מצפן – כיוון התפילה לירושלים',
     nav: {
       overview: 'ראשי',
       chumash: 'חומש היומי',
@@ -35,6 +36,7 @@ const STRINGS = {
     tagline: 'Daily study',
     zmanimTitle: 'Halachic times for the selected city',
     zmanim: 'Zmanim',
+    compass: 'Compass – direction of prayer to Jerusalem',
     nav: {
       overview: 'Home',
       chumash: 'Chumash',
@@ -59,6 +61,7 @@ const STRINGS = {
     tagline: 'L’étude quotidienne',
     zmanimTitle: 'Horaires halakhiques pour la ville choisie',
     zmanim: 'Horaires',
+    compass: 'Boussole – direction de la prière vers Jérusalem',
     nav: {
       overview: 'Accueil',
       chumash: '\'Houmach',
@@ -86,6 +89,7 @@ interface HeaderProps {
   progress: DailyProgress;
   onOpenSettings: () => void;
   onOpenZmanim: () => void;
+  onOpenCompass: () => void;
   onOpenCalendar: () => void;
   canUndo: boolean;
   onUndo: () => void;
@@ -102,6 +106,7 @@ export const Header: React.FC<HeaderProps> = ({
   progress,
   onOpenSettings,
   onOpenZmanim,
+  onOpenCompass,
   onOpenCalendar,
   canUndo,
   onUndo,
@@ -178,6 +183,16 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Clock className="w-3.5 h-3.5 text-amber-800 shrink-0" />
             <span>{s.zmanim}</span>
+          </button>
+
+          {/* Compass: direction of prayer */}
+          <button
+            onClick={onOpenCompass}
+            title={s.compass}
+            aria-label={s.compass}
+            className="p-1 sm:p-1.5 rounded-lg bg-amber-100/90 hover:bg-amber-200/90 text-amber-800 border border-amber-300 transition-all shadow-2xs active:scale-95 cursor-pointer shrink-0"
+          >
+            <Compass className="w-4 h-4" />
           </button>
         </div>
 

@@ -9,6 +9,7 @@ import { ChumashViewer } from './components/ChumashViewer';
 import { ShnayimMikraViewer } from './components/ShnayimMikraViewer';
 import { CONTACT_ENABLED, ContactModal } from './components/ContactModal';
 import { DedicationBanner } from './components/Dedications';
+import { CompassModal } from './components/CompassModal';
 import { TehillimViewer } from './components/TehillimViewer';
 import { TanyaViewer } from './components/TanyaViewer';
 import { HayomYomViewer } from './components/HayomYomViewer';
@@ -82,6 +83,7 @@ export default function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isZmanimOpen, setIsZmanimOpen] = useState<boolean>(false);
   const [isContactOpen, setIsContactOpen] = useState<boolean>(false);
+  const [isCompassOpen, setIsCompassOpen] = useState<boolean>(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   // Changes when the user picks another city, to refresh the parasha (Israel / Diaspora) and times
   const [cityId, setCityId] = useState<string>(() => (getSavedCity() || DEFAULT_CITY).id);
@@ -451,6 +453,7 @@ export default function App() {
         progress={progress}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenZmanim={() => setIsZmanimOpen(true)}
+        onOpenCompass={() => setIsCompassOpen(true)}
         onOpenCalendar={() => setIsCalendarOpen(true)}
         canUndo={undoStack.length > 0}
         onUndo={handleUndo}
@@ -638,6 +641,7 @@ export default function App() {
       />
 
       <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+      <CompassModal isOpen={isCompassOpen} onClose={() => setIsCompassOpen(false)} />
 
       {/* Halachic Zmanim Modal */}
       <ZmanimModal

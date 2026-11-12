@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DailyStudyKey, RambamTrack, StudySettings, ThemeMode } from '../types/chitas';
 import { ALL_LESSONS, enabledLessonKeys, TEXT_FONTS } from '../utils/lessons';
-import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell, Languages, Mail } from 'lucide-react';
+import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell, Languages, Mail, ChevronDown } from 'lucide-react';
 import { CityConfig, DEFAULT_CITY, getSavedCity } from '../services/zmanimService';
 import { CityPicker } from './CityPicker';
 import { AccountSection } from './AccountSection';
@@ -197,6 +197,82 @@ const optionClass = (active: boolean) =>
       : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
   }`;
 
+const TOPIC_STRINGS = {
+  he: {
+    display: 'תצוגה ושפה',
+    lessons: 'השיעורים',
+    city: 'עיר וזמני היום',
+    reminders: 'תזכורות',
+    account: 'חשבון',
+    notSignedIn: 'לא מחובר',
+    fontSizes: { small: 'גופן קטן', medium: 'גופן בינוני', large: 'גופן גדול', xlarge: 'גופן ענק' } as Record<StudySettings['fontSize'], string>,
+    lessonsCount: (n: number) => (n === 5 ? 'כל חמשת השיעורים' : `${n} שיעורים`),
+  },
+  en: {
+    display: 'Display and language',
+    lessons: 'Lessons',
+    city: 'City and Zmanim',
+    reminders: 'Reminders',
+    account: 'Account',
+    notSignedIn: 'Not signed in',
+    fontSizes: { small: 'Small text', medium: 'Medium text', large: 'Large text', xlarge: 'Extra large text' } as Record<StudySettings['fontSize'], string>,
+    lessonsCount: (n: number) => (n === 5 ? 'All five lessons' : `${n} lessons`),
+  },
+  fr: {
+    display: 'Affichage et langue',
+    lessons: 'Leçons',
+    city: 'Ville et horaires',
+    reminders: 'Rappels',
+    account: 'Compte',
+    notSignedIn: 'Non connecté',
+    fontSizes: { small: 'Petit texte', medium: 'Texte moyen', large: 'Grand texte', xlarge: 'Très grand texte' } as Record<StudySettings['fontSize'], string>,
+    lessonsCount: (n: number) => (n === 5 ? 'Les cinq leçons' : `${n} leçons`),
+  },
+};
+
+/** One topic of the settings: a header that opens and closes its content (one topic open at a time). */
+const SettingsTopic: React.FC<{
+  id: string;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  summary?: string;
+  open: string | null;
+  onToggle: (id: string | null) => void;
+  /** The topic has a single section: its own heading is hidden (the topic title says it) */
+  single?: boolean;
+  children: React.ReactNode;
+}> = ({ id, icon: Icon, title, summary, open, onToggle, single, children }) => {
+  const isOpen = open === id;
+  return (
+    <div className={`rounded-xl border transition-colors ${isOpen ? 'border-amber-300 bg-white' : 'border-stone-200 bg-stone-50/60'}`}>
+      <button
+        type="button"
+        onClick={() => onToggle(isOpen ? null : id)}
+        aria-expanded={isOpen}
+        className="w-full flex items-center justify-between gap-3 px-4 py-3 cursor-pointer text-start"
+      >
+        <span className="flex items-center gap-2.5 min-w-0">
+          <Icon className="w-4 h-4 text-amber-800 shrink-0" />
+          <span className="min-w-0">
+            <span className="block text-sm font-bold text-stone-900">{title}</span>
+            {summary && !isOpen && <span className="block text-[11px] text-stone-500 truncate" dir="auto">{summary}</span>}
+          </span>
+        </span>
+        <ChevronDown className={`w-4 h-4 text-stone-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      {isOpen && (
+        <div
+          className={`px-4 pb-4 space-y-5 [&>*:first-child]:border-t-0 [&>*:first-child]:pt-0 ${
+            single ? '[&>*:first-child>label:first-child]:hidden' : ''
+          }`}
+        >
+          {children}
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
   isOpen,
   onClose,
@@ -210,6 +286,8 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
 }) => {
   const [currentCity, setCurrentCity] = useState<CityConfig>(() => getSavedCity() || DEFAULT_CITY);
   const [isChangingCity, setIsChangingCity] = useState(false);
+  const [openTopic, setOpenTopic] = useState<string | null>(null);
+  const tt = useStrings(TOPIC_STRINGS);
   const s = useStrings(STRINGS);
   const sm = useStrings(SM_STRINGS);
   const lang = useLang();
@@ -218,12 +296,19 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
     if (isOpen) {
       setCurrentCity(getSavedCity() || DEFAULT_CITY);
       setIsChangingCity(false);
+      setOpenTopic(null);
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   const rambamTrack = settings.rambamTrack || 'three_chapters';
+  const activeLang = settings.language || detectLang();
+  const displaySummary = [
+    LANGUAGES.find((l) => l.id === activeLang)?.label,
+    tt.fontSizes[settings.fontSize],
+  ].join(' · ');
+  const lessonsSummary = tt.lessonsCount(enabledLessonKeys(settings.enabledLessons).length);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
@@ -243,255 +328,266 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-5 space-y-6 overflow-y-auto">
-          {/* Interface language */}
-          <div className="space-y-2">
-            <label className={sectionTitle}>
-              <Languages className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.language}</span>
-            </label>
-            <div className="grid grid-cols-3 gap-2">
-              {LANGUAGES.map((l) => (
-                <button
-                  key={l.id}
-                  type="button"
-                  lang={l.id}
-                  onClick={() => onUpdateSettings({ language: l.id })}
-                  className={`py-2 px-1 text-xs font-medium flex items-center justify-center ${optionClass(
-                    (settings.language || detectLang()) === l.id
-                  )}`}
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Font Size */}
-          <div className="space-y-2">
-            <label className={sectionTitle}>
-              <Type className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.fontSize}</span>
-            </label>
-            <div className="grid grid-cols-4 gap-2">
-              {FONT_SIZES.map((size) => (
-                <button
-                  key={size}
-                  onClick={() => onUpdateSettings({ fontSize: size })}
-                  className={`py-2 text-xs font-medium text-center ${optionClass(settings.fontSize === size)}`}
-                >
-                  {s.fontSizes[size]}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Text font, with a sample */}
-          <div className="space-y-2">
-            <label className={sectionTitle}>
-              <Type className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.textFont}</span>
-            </label>
-            <div className="grid grid-cols-1 gap-2">
-              {TEXT_FONTS.map((f) => (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => onUpdateSettings({ textFont: f.id })}
-                  className={`p-2.5 flex items-center justify-between gap-3 ${optionClass(
-                    (settings.textFont || 'frank') === f.id
-                  )}`}
-                >
-                  <span className="text-[11px] shrink-0">{s.fonts[f.id] || f.label}</span>
-                  <span
-                    className="text-lg text-stone-900 font-normal truncate"
-                    style={{ fontFamily: f.family }}
-                    dir="rtl"
-                    lang="he"
-                  >
-                    וַיִּבֶן שָׁם מִזְבֵּחַ וַיִּקְרָא בְּשֵׁם
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Theme */}
-          <div className="space-y-2">
-            <label className={sectionTitle}>
-              <Palette className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.theme}</span>
-            </label>
-            <div className="grid grid-cols-5 gap-2">
-              {THEMES.map((th) => (
-                <button
-                  key={th.id}
-                  onClick={() => onUpdateSettings({ theme: th.id })}
-                  className={`py-2 px-1 text-[11px] font-medium flex flex-col items-center gap-1 ${optionClass(
-                    settings.theme === th.id
-                  )}`}
-                >
-                  <span
-                    className="w-6 h-6 rounded-full border border-stone-300"
-                    style={{ background: th.swatch }}
-                    aria-hidden="true"
-                  />
-                  <span className="text-center leading-tight">{s.themes[th.id]}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Rashi Script Toggle */}
-          <div className="flex items-center justify-between p-3 bg-stone-50 rounded-xl border border-stone-200">
-            <div>
-              <div className="text-xs font-semibold text-stone-900">{s.rashiFont}</div>
-              <div className="text-[11px] text-stone-500">{s.rashiFontHint}</div>
-            </div>
-            <button
-              onClick={() => onUpdateSettings({ rashiFontScript: !settings.rashiFontScript })}
-              className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                settings.rashiFontScript ? 'bg-amber-800' : 'bg-stone-300'
-              }`}
-            >
-              <div
-                className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${
-                  settings.rashiFontScript ? 'end-1' : 'start-1'
-                }`}
-              />
-            </button>
-          </div>
-
-          {/* City */}
-          <div className="space-y-2 pt-2 border-t border-stone-100">
-            <label className={sectionTitle}>
-              <MapPin className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.city}</span>
-            </label>
-            <div className="flex items-center justify-between gap-2 p-2.5 bg-stone-50 border border-stone-200 rounded-xl">
-              <div className="min-w-0">
-                <div className="text-xs font-bold text-stone-900 truncate" dir="auto">
-                  {cityDisplayName(currentCity, lang)}
-                </div>
-                <div className="text-[11px] text-stone-500">
-                  {s.candleMinutes(currentCity.candleLightingMinutes)}
-                  {currentCity.isIsrael ? s.israel : s.abroad}
+        <div className="p-5 space-y-2.5 overflow-y-auto">
+          {/* Topics: tap a topic to open it */}
+          <SettingsTopic id="display" icon={Palette} title={tt.display} summary={displaySummary} open={openTopic} onToggle={setOpenTopic}>
+              {/* Interface language */}
+              <div className="space-y-2">
+                <label className={sectionTitle}>
+                  <Languages className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.language}</span>
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {LANGUAGES.map((l) => (
+                    <button
+                      key={l.id}
+                      type="button"
+                      lang={l.id}
+                      onClick={() => onUpdateSettings({ language: l.id })}
+                      className={`py-2 px-1 text-xs font-medium flex items-center justify-center ${optionClass(
+                        (settings.language || detectLang()) === l.id
+                      )}`}
+                    >
+                      {l.label}
+                    </button>
+                  ))}
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setIsChangingCity(!isChangingCity)}
-                className="px-2.5 py-1 rounded-md bg-white border border-amber-300 text-amber-900 hover:bg-amber-50 text-xs font-semibold cursor-pointer shrink-0"
-              >
-                {isChangingCity ? s.close : s.changeCity}
-              </button>
-            </div>
-            {isChangingCity && (
-              <CityPicker
-                selectedCity={currentCity}
-                onSelect={(city) => {
-                  setCurrentCity(city);
-                  setIsChangingCity(false);
-                  onCityChanged?.(city);
-                }}
-              />
-            )}
-          </div>
 
-          {/* The lessons the user learns */}
-          <div className="space-y-2 pt-2 border-t border-stone-100">
-            <label className={sectionTitle}>
-              <BookOpen className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.myLessons}</span>
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              {ALL_LESSONS.map((l) => {
-                const current = enabledLessonKeys(settings.enabledLessons);
-                const on = current.includes(l.key);
-                return (
-                  <button
-                    key={l.key}
-                    type="button"
-                    onClick={() => {
-                      const next: DailyStudyKey[] = on ? current.filter((k) => k !== l.key) : [...current, l.key];
-                      if (next.length > 0) onUpdateSettings({ enabledLessons: next });
-                    }}
-                    className={`p-2.5 text-xs flex items-center justify-between gap-2 ${optionClass(on)}`}
-                  >
-                    <span>{s.lessons[l.key]}</span>
-                    {on && <Check className="w-3.5 h-3.5 text-amber-800" />}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+              {/* Font Size */}
+              <div className="space-y-2">
+                <label className={sectionTitle}>
+                  <Type className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.fontSize}</span>
+                </label>
+                <div className="grid grid-cols-4 gap-2">
+                  {FONT_SIZES.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => onUpdateSettings({ fontSize: size })}
+                      className={`py-2 text-xs font-medium text-center ${optionClass(settings.fontSize === size)}`}
+                    >
+                      {s.fontSizes[size]}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-          {/* Rambam Track Selection */}
-          <div className="space-y-2 pt-2 border-t border-stone-100">
-            <label className={sectionTitle}>
-              <Scale className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.rambamTrack}</span>
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-              {RAMBAM_TRACK_IDS.map((id) => (
+              {/* Text font, with a sample */}
+              <div className="space-y-2">
+                <label className={sectionTitle}>
+                  <Type className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.textFont}</span>
+                </label>
+                <div className="grid grid-cols-1 gap-2">
+                  {TEXT_FONTS.map((f) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => onUpdateSettings({ textFont: f.id })}
+                      className={`p-2.5 flex items-center justify-between gap-3 ${optionClass(
+                        (settings.textFont || 'frank') === f.id
+                      )}`}
+                    >
+                      <span className="text-[11px] shrink-0">{s.fonts[f.id] || f.label}</span>
+                      <span
+                        className="text-lg text-stone-900 font-normal truncate"
+                        style={{ fontFamily: f.family }}
+                        dir="rtl"
+                        lang="he"
+                      >
+                        וַיִּבֶן שָׁם מִזְבֵּחַ וַיִּקְרָא בְּשֵׁם
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Theme */}
+              <div className="space-y-2">
+                <label className={sectionTitle}>
+                  <Palette className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.theme}</span>
+                </label>
+                <div className="grid grid-cols-5 gap-2">
+                  {THEMES.map((th) => (
+                    <button
+                      key={th.id}
+                      onClick={() => onUpdateSettings({ theme: th.id })}
+                      className={`py-2 px-1 text-[11px] font-medium flex flex-col items-center gap-1 ${optionClass(
+                        settings.theme === th.id
+                      )}`}
+                    >
+                      <span
+                        className="w-6 h-6 rounded-full border border-stone-300"
+                        style={{ background: th.swatch }}
+                        aria-hidden="true"
+                      />
+                      <span className="text-center leading-tight">{s.themes[th.id]}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Rashi Script Toggle */}
+              <div className="flex items-center justify-between p-3 bg-stone-50 rounded-xl border border-stone-200">
+                <div>
+                  <div className="text-xs font-semibold text-stone-900">{s.rashiFont}</div>
+                  <div className="text-[11px] text-stone-500">{s.rashiFontHint}</div>
+                </div>
                 <button
-                  key={id}
-                  type="button"
-                  onClick={() => onUpdateSettings({ rambamTrack: id })}
-                  className={`p-2.5 ${optionClass(rambamTrack === id)}`}
+                  onClick={() => onUpdateSettings({ rashiFontScript: !settings.rashiFontScript })}
+                  className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
+                    settings.rashiFontScript ? 'bg-amber-800' : 'bg-stone-300'
+                  }`}
                 >
-                  <div className="text-xs sm:text-sm">{s.rambamTracks[id].label}</div>
-                  <div className="text-[10px] text-stone-500 font-normal mt-0.5">{s.rambamTracks[id].description}</div>
+                  <div
+                    className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${
+                      settings.rashiFontScript ? 'end-1' : 'start-1'
+                    }`}
+                  />
                 </button>
-              ))}
-            </div>
-          </div>
+              </div>
+          </SettingsTopic>
 
-          {/* Shnayim Mikra ve'Echad Targum (Friday) */}
-          <div className="space-y-2 pt-2 border-t border-stone-100">
-            <label className={sectionTitle}>
-              <BookOpen className="w-3.5 h-3.5 text-amber-800" />
-              <span>{sm.title}</span>
-            </label>
-            <label className="flex items-start gap-2 text-sm text-stone-800 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={Boolean(settings.shnayimMikra)}
-                onChange={(e) => onUpdateSettings({ shnayimMikra: e.target.checked })}
-                className="accent-amber-800 w-4 h-4 mt-0.5 shrink-0"
-              />
-              <span>{sm.enable}</span>
-            </label>
-            {settings.shnayimMikra && (
-              <label className="flex items-start gap-2 text-sm text-stone-800 cursor-pointer ms-6">
-                <input
-                  type="checkbox"
-                  checked={Boolean(settings.shnayimMikraRashi)}
-                  onChange={(e) => onUpdateSettings({ shnayimMikraRashi: e.target.checked })}
-                  className="accent-amber-800 w-4 h-4 mt-0.5 shrink-0"
-                />
-                <span>{sm.rashi}</span>
-              </label>
-            )}
-          </div>
+          <SettingsTopic id="lessons" icon={BookOpen} title={tt.lessons} summary={lessonsSummary} open={openTopic} onToggle={setOpenTopic}>
+              {/* The lessons the user learns */}
+              <div className="space-y-2 pt-2 border-t border-stone-100">
+                <label className={sectionTitle}>
+                  <BookOpen className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.myLessons}</span>
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {ALL_LESSONS.map((l) => {
+                    const current = enabledLessonKeys(settings.enabledLessons);
+                    const on = current.includes(l.key);
+                    return (
+                      <button
+                        key={l.key}
+                        type="button"
+                        onClick={() => {
+                          const next: DailyStudyKey[] = on ? current.filter((k) => k !== l.key) : [...current, l.key];
+                          if (next.length > 0) onUpdateSettings({ enabledLessons: next });
+                        }}
+                        className={`p-2.5 text-xs flex items-center justify-between gap-2 ${optionClass(on)}`}
+                      >
+                        <span>{s.lessons[l.key]}</span>
+                        {on && <Check className="w-3.5 h-3.5 text-amber-800" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-          {/* Reminders */}
-          <div className="space-y-2 pt-2 border-t border-stone-100">
-            <label className={sectionTitle}>
-              <Bell className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.reminders}</span>
-            </label>
-            <RemindersSection enabledLessons={settings.enabledLessons} />
-          </div>
+              {/* Rambam Track Selection */}
+              <div className="space-y-2 pt-2 border-t border-stone-100">
+                <label className={sectionTitle}>
+                  <Scale className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.rambamTrack}</span>
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                  {RAMBAM_TRACK_IDS.map((id) => (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => onUpdateSettings({ rambamTrack: id })}
+                      className={`p-2.5 ${optionClass(rambamTrack === id)}`}
+                    >
+                      <div className="text-xs sm:text-sm">{s.rambamTracks[id].label}</div>
+                      <div className="text-[10px] text-stone-500 font-normal mt-0.5">{s.rambamTracks[id].description}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-          {/* Optional account */}
-          <div className="space-y-2 pt-2 border-t border-stone-100">
-            <label className={sectionTitle}>
-              <UserCircle2 className="w-3.5 h-3.5 text-amber-800" />
-              <span>{s.account}</span>
-            </label>
-            <AccountSection user={accountUser} onBeforeSignIn={onBeforeSignIn} />
-          </div>
+              {/* Shnayim Mikra ve'Echad Targum (Friday) */}
+              <div className="space-y-2 pt-2 border-t border-stone-100">
+                <label className={sectionTitle}>
+                  <BookOpen className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{sm.title}</span>
+                </label>
+                <label className="flex items-start gap-2 text-sm text-stone-800 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(settings.shnayimMikra)}
+                    onChange={(e) => onUpdateSettings({ shnayimMikra: e.target.checked })}
+                    className="accent-amber-800 w-4 h-4 mt-0.5 shrink-0"
+                  />
+                  <span>{sm.enable}</span>
+                </label>
+                {settings.shnayimMikra && (
+                  <label className="flex items-start gap-2 text-sm text-stone-800 cursor-pointer ms-6">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(settings.shnayimMikraRashi)}
+                      onChange={(e) => onUpdateSettings({ shnayimMikraRashi: e.target.checked })}
+                      className="accent-amber-800 w-4 h-4 mt-0.5 shrink-0"
+                    />
+                    <span>{sm.rashi}</span>
+                  </label>
+                )}
+              </div>
+          </SettingsTopic>
+
+          <SettingsTopic id="city" icon={MapPin} title={tt.city} summary={cityDisplayName(currentCity, lang)} open={openTopic} onToggle={setOpenTopic} single>
+              {/* City */}
+              <div className="space-y-2 pt-2 border-t border-stone-100">
+                <label className={sectionTitle}>
+                  <MapPin className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.city}</span>
+                </label>
+                <div className="flex items-center justify-between gap-2 p-2.5 bg-stone-50 border border-stone-200 rounded-xl">
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-stone-900 truncate" dir="auto">
+                      {cityDisplayName(currentCity, lang)}
+                    </div>
+                    <div className="text-[11px] text-stone-500">
+                      {s.candleMinutes(currentCity.candleLightingMinutes)}
+                      {currentCity.isIsrael ? s.israel : s.abroad}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsChangingCity(!isChangingCity)}
+                    className="px-2.5 py-1 rounded-md bg-white border border-amber-300 text-amber-900 hover:bg-amber-50 text-xs font-semibold cursor-pointer shrink-0"
+                  >
+                    {isChangingCity ? s.close : s.changeCity}
+                  </button>
+                </div>
+                {isChangingCity && (
+                  <CityPicker
+                    selectedCity={currentCity}
+                    onSelect={(city) => {
+                      setCurrentCity(city);
+                      setIsChangingCity(false);
+                      onCityChanged?.(city);
+                    }}
+                  />
+                )}
+              </div>
+          </SettingsTopic>
+
+          <SettingsTopic id="reminders" icon={Bell} title={tt.reminders} open={openTopic} onToggle={setOpenTopic} single>
+              {/* Reminders */}
+              <div className="space-y-2 pt-2 border-t border-stone-100">
+                <label className={sectionTitle}>
+                  <Bell className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.reminders}</span>
+                </label>
+                <RemindersSection enabledLessons={settings.enabledLessons} />
+              </div>
+          </SettingsTopic>
+
+          <SettingsTopic id="account" icon={UserCircle2} title={tt.account} summary={accountUser ? accountUser.email || accountUser.name || '' : tt.notSignedIn} open={openTopic} onToggle={setOpenTopic} single>
+              {/* Optional account */}
+              <div className="space-y-2 pt-2 border-t border-stone-100">
+                <label className={sectionTitle}>
+                  <UserCircle2 className="w-3.5 h-3.5 text-amber-800" />
+                  <span>{s.account}</span>
+                </label>
+                <AccountSection user={accountUser} onBeforeSignIn={onBeforeSignIn} />
+              </div>
+          </SettingsTopic>
 
           {onOpenContact && (
             <button

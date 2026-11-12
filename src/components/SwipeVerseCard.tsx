@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDoubleTap } from '../hooks/useDoubleTap';
 import { vocalizeRashiHeading } from '../utils/hebrewText';
 import { motion, PanInfo } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeftRight } from 'lucide-react';
 import { ChumashVerse, StudySettings } from '../types/chitas';
 import { toHebrewNumeral } from '../utils/hebrewNumerals';
 import { useLang, useStrings, dirOf } from '../i18n';
 
 /** Interface strings of the swipe cards (the card itself stays a right-to-left Hebrew card). */
 const STRINGS = {
-  he: { swipeHint: 'החלק ימינה לסימון', done: 'הושלם ✓', rashi: 'פירוש רש״י:', targum: 'תרגום אונקלוס:' },
+  he: { swipeHint: 'החלק לסימון', done: 'הושלם ✓', rashi: 'פירוש רש״י:', targum: 'תרגום אונקלוס:' },
   en: { swipeHint: 'Swipe to mark as read', done: 'Done ✓', rashi: 'Rashi:', targum: 'Targum Onkelos:' },
   fr: { swipeHint: 'Glissez pour marquer comme lu', done: 'Terminé ✓', rashi: 'Commentaire de Rachi :', targum: 'Targoum Onkelos :' },
 };
@@ -86,9 +86,13 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
   const s = useStrings(STRINGS);
   const handleTap = useDoubleTap(() => onSwipeRight(verseIndex));
 
+  // Direction of the swipe (the card leaves that way)
+  const [exitDir, setExitDir] = useState<1 | -1>(1);
+
   const handleDragEnd = (_: any, info: PanInfo) => {
     // If dragged to the right by more than 50px or flicked quickly
-    if (info.offset.x > 50 || info.velocity.x > 200) {
+    if (Math.abs(info.offset.x) > 50 || Math.abs(info.velocity.x) > 200) {
+      setExitDir(info.offset.x < 0 || (info.offset.x === 0 && info.velocity.x < 0) ? -1 : 1);
       onSwipeRight(verseIndex);
     }
   };
@@ -105,11 +109,11 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
       lang="he"
       drag="x"
       dragDirectionLock
-      dragConstraints={{ left: 0, right: 300 }}
+      dragConstraints={{ left: -300, right: 300 }}
       dragElastic={0.4}
       onDragEnd={handleDragEnd}
         onTap={handleTap}
-      exit={{ x: 400, opacity: 0, height: 0, marginBottom: 0, transition: { duration: 0.25 } }}
+      exit={{ x: 400 * exitDir, opacity: 0, height: 0, marginBottom: 0, transition: { duration: 0.25 } }}
       className="relative select-none cursor-grab active:cursor-grabbing bg-white rounded-xl border border-stone-200/90 hover:border-amber-300 p-5 shadow-xs transition-shadow duration-200"
     >
       <div className="space-y-3">
@@ -120,7 +124,7 @@ export const SwipeVerseCard: React.FC<SwipeVerseCardProps> = ({
           </span>
 <span className={`flex items-center gap-1 text-[11px] text-stone-400 font-sans ${lang === 'he' ? 'shrink-0' : 'min-w-0'}`}>
             <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
-            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+            <ArrowLeftRight className="w-3.5 h-3.5 shrink-0" />
           </span>
         </div>
 

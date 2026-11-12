@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDoubleTap } from '../hooks/useDoubleTap';
 import { motion, PanInfo } from 'motion/react';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowLeftRight } from 'lucide-react';
 import { useLang, useStrings, dirOf } from '../i18n';
 
 /** Interface strings of the swipe cards (the card itself stays a right-to-left Hebrew card). */
 const STRINGS = {
-  he: { swipeHint: 'החלק ימינה לסימון', done: 'הושלם ✓' },
+  he: { swipeHint: 'החלק לסימון', done: 'הושלם ✓' },
   en: { swipeHint: 'Swipe to mark as read', done: 'Done ✓' },
   fr: { swipeHint: 'Glissez pour marquer comme lu', done: 'Terminé ✓' },
 };
@@ -36,8 +36,12 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
   const s = useStrings(STRINGS);
   const handleTap = useDoubleTap(() => onSwipeRight());
 
+  // Direction of the swipe (the card leaves that way)
+  const [exitDir, setExitDir] = useState<1 | -1>(1);
+
   const handleDragEnd = (_: any, info: PanInfo) => {
-    if (info.offset.x > 80 || info.velocity.x > 350) {
+    if (Math.abs(info.offset.x) > 80 || Math.abs(info.velocity.x) > 350) {
+      setExitDir(info.offset.x < 0 || (info.offset.x === 0 && info.velocity.x < 0) ? -1 : 1);
       onSwipeRight();
     }
   };
@@ -51,15 +55,20 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
       lang="he"
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, x: 260, transition: { duration: 0.28 } }}
+      exit={{ opacity: 0, x: 260 * exitDir, transition: { duration: 0.28 } }}
       className="relative overflow-hidden rounded-2xl group select-none shadow-xs"
     >
-      {/* Background reveal on swipe right */}
+      {/* Background revealed when the card is swiped (either side) */}
       <div
         data-swipe-card="true"
-        className="absolute inset-0 bg-emerald-600 flex items-center justify-start px-6 rounded-2xl"
+        className="absolute inset-0 bg-emerald-600 flex items-center justify-between px-6 rounded-2xl"
       >
         <div className="flex items-center gap-2 text-white font-bold text-base">
+          <Check className="w-5 h-5 stroke-[2.5]" />
+          <span dir={dirOf(lang)} lang={lang}>{s.done}</span>
+        </div>
+
+        <div className="flex items-center gap-2 text-white font-bold text-base" aria-hidden="true">
           <Check className="w-5 h-5 stroke-[2.5]" />
           <span dir={dirOf(lang)} lang={lang}>{s.done}</span>
         </div>
@@ -71,7 +80,7 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
         data-swipe="true"
         drag="x"
         dragDirectionLock
-        dragConstraints={{ left: 0, right: 260 }}
+        dragConstraints={{ left: -260, right: 260 }}
         dragElastic={0.2}
         onDragEnd={handleDragEnd}
         onTap={handleTap}
@@ -94,7 +103,7 @@ export const SwipeHalachaCard: React.FC<SwipeHalachaCardProps> = ({
 
             <span className={`flex items-center gap-1 text-[11px] text-stone-400 font-sans ${lang === 'he' ? 'shrink-0' : 'min-w-0'}`}>
               <span dir={dirOf(lang)} lang={lang}>{s.swipeHint}</span>
-              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+              <ArrowLeftRight className="w-3.5 h-3.5 shrink-0" />
             </span>
           </div>
 

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Chitas video stage</title>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700;900&family=Assistant:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+  body { background: linear-gradient(135deg, #fffbeb 0%, #fbf3e1 55%, #f3e2bf 100%); font-family: 'Assistant', sans-serif; }
+  .stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 140px; }
+  .phone { width: 430px; height: 932px; border-radius: 56px; background: #1c1917; padding: 14px; box-shadow: 0 30px 80px rgba(120, 53, 15, .35); }
+  .screen { width: 430px; height: 932px; border-radius: 44px; overflow: hidden; background: #fff; }
+  iframe { width: 390px; height: 845px; border: 0; transform: scale(1.1026); transform-origin: top right; }
+  .side { width: 720px; }
+  .brand { font-family: 'Frank Ruhl Libre', serif; font-weight: 900; color: #78350f; font-size: 64px; margin-bottom: 40px; }
+  .caption { font-size: 64px; font-weight: 700; color: #292524; line-height: 1.25; min-height: 240px; transition: opacity .45s ease, transform .45s ease; }
+  .caption.hide { opacity: 0; transform: translateY(18px); }
+  .sub { font-size: 34px; color: #92400e; font-weight: 600; margin-top: 18px; }
+  .card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+          background: linear-gradient(135deg, #fffbeb 0%, #fbf3e1 55%, #f3e2bf 100%); transition: opacity .7s ease; z-index: 10; text-align: center; }
+  .card.hide { opacity: 0; pointer-events: none; }
+  .card img { width: 210px; height: 210px; border-radius: 46px; box-shadow: 0 14px 40px rgba(120, 53, 15, .3); margin-bottom: 40px; }
+  .card h1 { font-family: 'Frank Ruhl Libre', serif; font-weight: 900; font-size: 150px; color: #78350f; margin: 0; line-height: 1; }
+  .card p { font-size: 46px; color: #57534e; font-weight: 600; margin: 28px 0 0; }
+  .card .s { font-size: 36px; color: #92400e; margin-top: 18px; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="side">
+      <div class="brand">חִתַּ״ת יומי</div>
+      <div id="caption" class="caption hide"></div>
+    </div>
+    <div class="phone"><div class="screen"><iframe id="app" src="/"></iframe></div></div>
+  </div>
+  <div id="card" class="card">
+    <img src="/pwa-512x512.png" alt="">
+    <h1>חִתַּ״ת יומי</h1>
+    <p id="cardLine">חומש ורש״י · תהילים · תניא · היום יום · רמב״ם</p>
+    <div id="cardSub" class="s">הלימוד היומי במקום אחד</div>
+  </div>
+<script>
+  window.setCaption = (main, sub) => {
+    const el = document.getElementById('caption');
+    el.classList.add('hide');
+    setTimeout(() => {
+      el.innerHTML = main + (sub ? '<div class="sub">' + sub + '</div>' : '');
+      el.classList.remove('hide');
+    }, 450);
+  };
+  window.showCard = (line, sub) => {
+    if (line) document.getElementById('cardLine').textContent = line;
+    if (sub !== undefined) document.getElementById('cardSub').textContent = sub;
+    document.getElementById('card').classList.remove('hide');
+  };
+  window.hideCard = () => document.getElementById('card').classList.add('hide');
+</script>
+</body>
+</html>

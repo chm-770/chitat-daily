@@ -125,7 +125,7 @@ while pos < L2:
     pos += bar2; k += 1
 m2 = reverb(m2, (0.05, 0.11, 0.17), 0.25)
 m2 *= env(len(m2), 0.6, 2.5)
-m2 /= np.max(np.abs(m2)) / 0.65
+m2 /= np.max(np.abs(m2)) / 0.9
 save('music2.wav', m2)
 
 tap = note(hz(96), 0.08, 0.45, 60, (1, .2))

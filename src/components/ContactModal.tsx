@@ -6,7 +6,7 @@ import { dirOf, useLang, useStrings } from '../i18n';
  * Contact form. Messages are sent through Web3Forms (web3forms.com) to the app's email;
  * the address itself is not in the app. The access key below only allows sending to it.
  */
-const WEB3FORMS_KEY = '';
+const WEB3FORMS_KEY = '0715539a-1233-417d-9d9b-d5da7ce5e5ad';
 
 /** The form is offered only once the key is set */
 export const CONTACT_ENABLED = WEB3FORMS_KEY.length > 0;

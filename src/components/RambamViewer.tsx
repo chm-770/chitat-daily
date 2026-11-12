@@ -190,10 +190,15 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
   };
 
   // Mark all halachot as read via white "סיימתי" button
+  // Openings ("יש בכללן…" / "ענין אלו ההלכות…") are cards of their own
+  const introIds = (lesson?.chapters || []).flatMap((ch, cIdx) =>
+    ch.mitzvotIntro ? [`rambam_${ch.id || cIdx}_intro`] : []
+  );
+
   const handleFinishAll = () => {
-    allHalachot.forEach((h) => {
-      if (!readItemIds[h.id]) {
-        onMarkItemRead(h.id);
+    [...introIds, ...allHalachot.map((h) => h.id)].forEach((id) => {
+      if (!readItemIds[id]) {
+        onMarkItemRead(id);
       }
     });
 
@@ -209,11 +214,11 @@ export const RambamViewer: React.FC<RambamViewerProps> = ({
     }
   };
 
-  // Review / reset halachot
+  // Review / reset halachot (and the openings)
   const handleReviewAgain = () => {
-    allHalachot.forEach((h) => {
-      if (readItemIds[h.id]) {
-        onMarkItemRead(h.id);
+    [...introIds, ...allHalachot.map((h) => h.id)].forEach((id) => {
+      if (readItemIds[id]) {
+        onMarkItemRead(id);
       }
     });
 

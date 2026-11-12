@@ -36,9 +36,13 @@ interface RequestDoc {
   email: string;
   lang: string;
   createdAt?: any;
+  /** Set when the request was added as a dedication */
+  addedAt?: any;
+  dedicationId?: string;
 }
 
-type Draft = Omit<Dedication, 'id'> & { id?: string };
+/** requestId: the request this dedication is created from (marked as added on save) */
+type Draft = Omit<Dedication, 'id'> & { id?: string; requestId?: string };
 
 let fb: Promise<{
   auth: typeof import('firebase/auth');
@@ -152,8 +156,17 @@ export const AdminPage: React.FC = () => {
         donor: (d.donor || '').trim(),
         updatedAt: fs.serverTimestamp(),
       };
-      if (d.id) await fs.updateDoc(fs.doc(db, 'dedications', d.id), data);
-      else await fs.addDoc(fs.collection(db, 'dedications'), { ...data, createdAt: fs.serverTimestamp() });
+      if (d.id) {
+        await fs.updateDoc(fs.doc(db, 'dedications', d.id), data);
+      } else {
+        const ref = await fs.addDoc(fs.collection(db, 'dedications'), { ...data, createdAt: fs.serverTimestamp() });
+        if (d.requestId) {
+          await fs.updateDoc(fs.doc(db, 'dedicationRequests', d.requestId), {
+            addedAt: fs.serverTimestamp(),
+            dedicationId: ref.id,
+          });
+        }
+      }
       setDraft(null);
     }, 'נשמר. ההקדשה תופיע באפליקציה.');
 
@@ -167,7 +180,7 @@ export const AdminPage: React.FC = () => {
 
   const fromRequest = (r: RequestDoc) => {
     const days = DURATIONS.find((d) => d.id === r.duration)?.days || 1;
-    setDraft({ type: r.type, text: r.text, startDate: r.startDate, endDate: addDays(r.startDate, days - 1), donor: r.donor });
+    setDraft({ type: r.type, text: r.text, startDate: r.startDate, endDate: addDays(r.startDate, days - 1), donor: r.donor, requestId: r.id });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -222,7 +235,7 @@ export const AdminPage: React.FC = () => {
         {/* Add / edit */}
         {draft ? (
           <section className="bg-white rounded-xl border border-amber-300 p-4 space-y-3">
-            <h2 className="font-bold text-stone-900">{draft.id ? 'עריכת הקדשה' : 'הקדשה חדשה'}</h2>
+            <h2 className="font-bold text-stone-900">{draft.id ? 'עריכת הקדשה' : draft.requestId ? 'הקדשה חדשה מתוך בקשה' : 'הקדשה חדשה'}</h2>
             <div className="flex flex-wrap gap-1.5">
               {DEDICATION_TYPES.map((t) => (
                 <button
@@ -295,10 +308,20 @@ export const AdminPage: React.FC = () => {
 
         {/* Requests */}
         <section className="space-y-2">
-          <h2 className="font-bold text-stone-900">בקשות שהתקבלו ({requests.length})</h2>
+          <h2 className="font-bold text-stone-900">
+            בקשות שהתקבלו ({requests.filter((r) => !r.addedAt).length} ממתינות{requests.some((r) => r.addedAt) ? `, ${requests.filter((r) => r.addedAt).length} נוספו` : ''})
+          </h2>
           {requests.length === 0 && <p className="text-xs text-stone-500">אין בקשות.</p>}
-          {requests.map((r) => (
-            <div key={r.id} className="bg-white rounded-xl border border-stone-200 p-3 space-y-1.5 text-sm">
+          {[...requests.filter((r) => !r.addedAt), ...requests.filter((r) => r.addedAt)].map((r) => (
+            <div
+              key={r.id}
+              className={`rounded-xl border p-3 space-y-1.5 text-sm ${r.addedAt ? 'bg-emerald-50/50 border-emerald-200' : 'bg-white border-stone-200'}`}
+            >
+              {r.addedAt && (
+                <div className="text-xs font-bold text-emerald-700">
+                  ✓ נוספה כהקדשה{r.addedAt?.toDate ? ` ב־${r.addedAt.toDate().toLocaleDateString('he-IL')}` : ''}
+                </div>
+              )}
               <div className="font-torah font-bold text-amber-950" dir="auto">{dedicationLine(r, 'he')}</div>
               <div className="text-xs text-stone-600 space-y-0.5">
                 <div>
@@ -309,9 +332,11 @@ export const AdminPage: React.FC = () => {
                 </div>
               </div>
               <div className="flex gap-2 pt-1">
-                <button onClick={() => fromRequest(r)} className={`${btn} bg-amber-100 text-amber-950`}>
-                  <Plus className="w-3.5 h-3.5" /> הוספה כהקדשה
-                </button>
+                {!r.addedAt && (
+                  <button onClick={() => fromRequest(r)} className={`${btn} bg-amber-100 text-amber-950`}>
+                    <Plus className="w-3.5 h-3.5" /> הוספה כהקדשה
+                  </button>
+                )}
                 <button onClick={() => remove('dedicationRequests', r.id, 'למחוק את הבקשה?')} className={`${btn} text-red-600`}>
                   <Trash2 className="w-3.5 h-3.5" /> מחיקה
                 </button>

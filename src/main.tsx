@@ -12,4 +12,18 @@ if (import.meta.env.PROD && typeof window !== 'undefined' && 'serviceWorker' in 
   }
 }
 
-createRoot(document.getElementById('root')!).render(<App />);
+import { lazy, Suspense } from 'react';
+
+// Dedications admin page (/admin), loaded only there
+const AdminPage = lazy(() => import('./components/AdminPage').then((m) => ({ default: m.AdminPage })));
+const isAdmin = window.location.pathname.replace(/\/+$/, '') === '/admin';
+
+createRoot(document.getElementById('root')!).render(
+  isAdmin ? (
+    <Suspense fallback={null}>
+      <AdminPage />
+    </Suspense>
+  ) : (
+    <App />
+  )
+);

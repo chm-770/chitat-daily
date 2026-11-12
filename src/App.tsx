@@ -8,6 +8,7 @@ import { DailyOverview } from './components/DailyOverview';
 import { ChumashViewer } from './components/ChumashViewer';
 import { ShnayimMikraViewer } from './components/ShnayimMikraViewer';
 import { CONTACT_ENABLED, ContactModal } from './components/ContactModal';
+import { DedicationBanner } from './components/Dedications';
 import { TehillimViewer } from './components/TehillimViewer';
 import { TanyaViewer } from './components/TanyaViewer';
 import { HayomYomViewer } from './components/HayomYomViewer';
@@ -469,6 +470,9 @@ export default function App() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
+
+      {/* Dedication of the displayed day */}
+      <DedicationBanner dateKey={dateKey} />
 
       {/* Main Content Area with page swipe gesture support */}
       <main

@@ -9,15 +9,12 @@ import {
   getParashaData,
   getPreviousParashaShviiAliyah,
 } from '../services/chumashService';
-import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting, getShabbatEndTime, cityDisplayName } from '../services/zmanimService';
 import { CheckCircle2, RotateCcw, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 import { useLang, useStrings } from '../i18n';
 
 const STRINGS = {
   he: {
     today: 'היום',
-    shabbatBegins: 'כניסת שבת:',
-    shabbatEnds: 'צאת שבת:',
     loading: 'טוען את פסוקי הפרשה ופירוש רש״י...',
     errorTitle: 'שגיאה בטעינת הפרשה',
     errorDefault: 'לא ניתן היה לטעון את שיעור החומש עבור פרשה זו. אנא בדוק את החיבור לרשת ונסה שוב.',
@@ -35,8 +32,6 @@ const STRINGS = {
   },
   en: {
     today: 'Today',
-    shabbatBegins: 'Shabbat begins:',
-    shabbatEnds: 'Shabbat ends:',
     loading: 'Loading the verses of the parasha and Rashi…',
     errorTitle: 'Could not load the parasha',
     errorDefault: 'The Chumash lesson for this parasha could not be loaded. Please check your connection and try again.',
@@ -54,8 +49,6 @@ const STRINGS = {
   },
   fr: {
     today: "Aujourd'hui",
-    shabbatBegins: 'Entrée de Chabbat :',
-    shabbatEnds: 'Fin de Chabbat :',
     loading: 'Chargement des versets de la Paracha et de Rachi…',
     errorTitle: 'Erreur de chargement de la Paracha',
     errorDefault: "Le cours de 'Houmach de cette Paracha n'a pas pu être chargé. Vérifiez votre connexion et réessayez.",
@@ -319,14 +312,6 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
     }
   };
 
-  // Zmanim for Friday candle lighting:
-  const currentCity = getSavedCity() || DEFAULT_CITY;
-  const isFriday = dateInfo.dayOfWeekIndex === 5;
-  const shabbatEndTime = isFriday ? getShabbatEndTime(currentCity, dateInfo.date || new Date()) : null;
-  const candleLightingTime = isFriday
-    ? getFridayCandleLighting(currentCity, dateInfo.date || new Date())
-    : null;
-
   // As requested: "בחומש אפשרי להראות רק את אותו היום וכבר לא צריך להראות את הימים האחרים"
   // Show ONLY today's aliyah, no longer displaying previous days or last week!
   const todayAliyah = !isError && parashaData.aliyot && parashaData.aliyot.length > 0
@@ -351,29 +336,13 @@ export const ChumashViewer: React.FC<ChumashViewerProps> = ({
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
-      {/* Title + Friday Shabbat candle lighting time right beside parasha name */}
+      {/* Title (the Shabbat times are on the home page) */}
       <div className="text-center py-2">
         <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4">
           <h1 className="text-3xl md:text-5xl font-bold text-stone-900 font-torah tracking-wide" dir="rtl" lang="he">
             פרשת {parashaData.name}
           </h1>
 
-          {/* Requirement 4: ביום שישי תשים ישר ליד איפה שכתוב פרשת נח או הפרשה של השבוע את זמני כניסת השבת לפי אותה העיר שלו */}
-          {isFriday && candleLightingTime && (
-            <div className="inline-flex flex-col items-start gap-0.5 px-3 py-1.5 rounded-xl bg-amber-100 text-amber-950 border border-amber-300 font-sans text-xs sm:text-sm font-semibold shadow-2xs animate-in fade-in">
-              <span className="flex items-center gap-1.5">
-                <span>🕯️</span>
-                <span>{s.shabbatBegins} {candleLightingTime}</span>
-                <span className="text-xs text-amber-800 font-normal">({cityDisplayName(currentCity, lang)})</span>
-              </span>
-              {shabbatEndTime && (
-                <span className="flex items-center gap-1.5">
-                  <span>✨</span>
-                  <span>{s.shabbatEnds} {shabbatEndTime}</span>
-                </span>
-              )}
-            </div>
-          )}
         </div>
       </div>
 

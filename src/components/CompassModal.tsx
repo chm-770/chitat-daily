@@ -21,8 +21,7 @@ const STRINGS = {
     facing: 'אתה פונה לכיוון ירושלים ✓',
     turnRight: (d: number) => `הסתובב ימינה \u2066${d}°\u2069`,
     turnLeft: (d: number) => `הסתובב שמאלה \u2066${d}°\u2069`,
-    noSensor:
-      'לא נמצא מצפן במכשיר הזה. אפשר להיעזר במעלות: הכיוון לירושלים הוא החץ, כשהצפון למעלה.',
+    noSensor: 'לא מתקבל כיוון מהמצפן. אם יש בטלפון מצפן, בדוק בהגדרות שחיישני התנועה מותרים לאפליקציה. בינתיים, החץ מראה את הכיוון לירושלים כשהצפון למעלה.',
     calibrate: 'אם הכיוון נראה לא מדויק, הזז את הטלפון בצורת הספרה 8 כדי לכייל את המצפן.',
     note: 'הכיוון הוא הקו הקצר ביותר לירושלים על פני כדור הארץ. בחוץ לארץ יש שנוהגים לפנות למזרח – כדאי לנהוג לפי מנהג המקום.',
     close: 'סגירה',
@@ -43,7 +42,7 @@ const STRINGS = {
     facing: 'You are facing Jerusalem ✓',
     turnRight: (d: number) => `Turn right ${d}°`,
     turnLeft: (d: number) => `Turn left ${d}°`,
-    noSensor: 'No compass was found on this device. The arrow shows the direction of Jerusalem with north at the top.',
+    noSensor: 'No compass reading. If your phone has a compass, check that motion sensors are allowed for the app. Meanwhile, the arrow shows the direction of Jerusalem with north at the top.',
     calibrate: 'If the direction looks wrong, move the phone in a figure 8 to calibrate the compass.',
     note: 'The direction is the shortest line to Jerusalem over the globe. Outside Israel some communities face east – follow the local custom.',
     close: 'Close',
@@ -64,7 +63,7 @@ const STRINGS = {
     facing: 'Vous êtes tourné vers Jérusalem ✓',
     turnRight: (d: number) => `Tournez à droite de ${d}°`,
     turnLeft: (d: number) => `Tournez à gauche de ${d}°`,
-    noSensor: "Aucune boussole n'a été trouvée sur cet appareil. La flèche indique Jérusalem, le nord étant en haut.",
+    noSensor: "Aucune mesure de la boussole. Si votre téléphone a une boussole, vérifiez que les capteurs de mouvement sont autorisés pour l'application. En attendant, la flèche indique Jérusalem, le nord étant en haut.",
     calibrate: 'Si la direction semble fausse, faites un 8 avec le téléphone pour calibrer la boussole.',
     note: "La direction est la ligne la plus courte vers Jérusalem sur le globe. Hors d'Israël, certaines communautés se tournent vers l'est – suivez la coutume locale.",
     close: 'Fermer',
@@ -121,29 +120,17 @@ export const CompassModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
   const km = Math.round(distanceKm(lat, lon));
 
   // Compass sensor
-  useEffect(() => {
-    if (!isOpen) return;
-    const D = (window as any).DeviceOrientationEvent;
-    if (!D) {
-      setSensor('unavailable');
-      return;
-    }
-    if (typeof D.requestPermission === 'function' && sensor !== 'active') {
-      // iPhone: needs a tap to ask permission
-      setSensor('needs-permission');
-      return;
-    }
-    return listen();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+  const cleanup = useRef<(() => void) | undefined>(undefined);
+  const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   function listen() {
+    cleanup.current?.();
     let got = false;
     const onOrient = (e: any) => {
       let h: number | null = null;
-      if (typeof e.webkitCompassHeading === 'number') h = e.webkitCompassHeading;
-      else if (e.absolute && typeof e.alpha === 'number') h = 360 - e.alpha;
-      if (h === null) return;
+      if (typeof e.webkitCompassHeading === 'number') h = e.webkitCompassHeading; // iPhone
+      else if (e.absolute && typeof e.alpha === 'number') h = 360 - e.alpha; // Android (true north)
+      if (h === null || Number.isNaN(h)) return;
       const screenAngle = (screen.orientation && screen.orientation.angle) || (window as any).orientation || 0;
       h = (h + screenAngle + 360) % 360;
       got = true;
@@ -151,36 +138,55 @@ export const CompassModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
       setHeading(h);
       // Shortest turn from the previous angle
       const target = -h;
-      let delta = ((target - roseAngle.current) % 360 + 540) % 360 - 180;
+      const delta = (((target - roseAngle.current) % 360) + 540) % 360 - 180;
       roseAngle.current += delta;
       setRoseDisplay(roseAngle.current);
     };
-    const evt = 'ondeviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation';
-    window.addEventListener(evt, onOrient, true);
+    // Android gives the true-north heading in "deviceorientationabsolute"; listen to both events
+    window.addEventListener('deviceorientationabsolute', onOrient, true);
+    window.addEventListener('deviceorientation', onOrient, true);
+    // No reading yet: say so, but keep listening (a later reading turns the compass on)
     const timer = window.setTimeout(() => {
       if (!got) setSensor('unavailable');
-    }, 2500);
-    return () => {
-      window.removeEventListener(evt, onOrient, true);
+    }, 4000);
+    cleanup.current = () => {
+      window.removeEventListener('deviceorientationabsolute', onOrient, true);
+      window.removeEventListener('deviceorientation', onOrient, true);
       window.clearTimeout(timer);
     };
   }
 
-  const cleanup = useRef<(() => void) | undefined>(undefined);
-  useEffect(() => () => cleanup.current?.(), []);
   useEffect(() => {
     if (!isOpen) {
       cleanup.current?.();
       cleanup.current = undefined;
       setHeading(null);
       setSensor('idle');
+      return;
     }
+    const D = (window as any).DeviceOrientationEvent;
+    if (!D) {
+      setSensor('unavailable');
+      return;
+    }
+    if (isIOS && typeof D.requestPermission === 'function') {
+      // iPhone: the permission can only be asked after a tap
+      setSensor('needs-permission');
+      return;
+    }
+    // Android and others: just listen (some Chrome versions also offer requestPermission; ask quietly)
+    if (typeof D.requestPermission === 'function') {
+      Promise.resolve(D.requestPermission()).catch(() => {});
+    }
+    listen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
+  useEffect(() => () => cleanup.current?.(), []);
 
   const requestSensor = async () => {
     try {
       const res = await (window as any).DeviceOrientationEvent.requestPermission();
-      if (res === 'granted') cleanup.current = listen();
+      if (res === 'granted') listen();
       else setSensor('unavailable');
     } catch {
       setSensor('unavailable');

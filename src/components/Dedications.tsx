@@ -9,6 +9,8 @@ import {
   dedicationLine,
   dedicationsForDay,
   loadDedications,
+  loadDedicationDisplay,
+  cachedDedicationDisplay,
   sendDedicationRequest,
   type Dedication,
   type DedicationDuration,
@@ -115,14 +117,19 @@ export const DedicationBanner: React.FC<{ dateKey: string; accountEmail?: string
   const s = useStrings(STRINGS);
   const lang = useLang();
   const [all, setAll] = useState<Dedication[]>([]);
+  const [display, setDisplay] = useState(() => cachedDedicationDisplay());
   const [open, setOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
     loadDedications().then(setAll);
+    loadDedicationDisplay().then(setDisplay);
   }, [dateKey]);
 
   const today = dedicationsForDay(all, dateKey);
+
+  // The manager can hide the line completely, or only on days without a dedication
+  if (!display.enabled || (today.length === 0 && !display.showEmpty)) return null;
 
   return (
     <div className="max-w-3xl mx-auto px-4 pt-3">

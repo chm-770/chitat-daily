@@ -148,6 +148,52 @@ export function loadDedications(): Promise<Dedication[]> {
   return inflight;
 }
 
+// ---------- Display settings (set by the manager in the admin page) ----------
+
+/** Kept as a special document in the dedications collection (readable by all, written by the manager). */
+export const SETTINGS_ID = '_settings';
+const SETTINGS_CACHE = 'chitas_dedication_settings';
+
+export interface DedicationDisplay {
+  /** Show the dedication line at all */
+  enabled: boolean;
+  /** On a day without a dedication, show "not dedicated yet – dedicate?" */
+  showEmpty: boolean;
+}
+export const DEFAULT_DISPLAY: DedicationDisplay = { enabled: true, showEmpty: true };
+
+export function cachedDedicationDisplay(): DedicationDisplay {
+  try {
+    return { ...DEFAULT_DISPLAY, ...JSON.parse(localStorage.getItem(SETTINGS_CACHE) || '{}') };
+  } catch {
+    return DEFAULT_DISPLAY;
+  }
+}
+
+export async function loadDedicationDisplay(): Promise<DedicationDisplay> {
+  try {
+    const r = await fetch(`${DOCS}/dedications/${SETTINGS_ID}?key=${API_KEY}`);
+    if (r.status === 404) {
+      localStorage.removeItem(SETTINGS_CACHE);
+      return DEFAULT_DISPLAY;
+    }
+    if (!r.ok) throw new Error(String(r.status));
+    const f = (await r.json()).fields || {};
+    const out: DedicationDisplay = {
+      enabled: val(f.enabled) ?? true,
+      showEmpty: val(f.showEmpty) ?? true,
+    };
+    try {
+      localStorage.setItem(SETTINGS_CACHE, JSON.stringify(out));
+    } catch {
+      // ignore
+    }
+    return out;
+  } catch {
+    return cachedDedicationDisplay();
+  }
+}
+
 export function dedicationsForDay(list: Dedication[], dateKey: string): Dedication[] {
   return list.filter((d) => d.startDate <= dateKey && d.endDate >= dateKey);
 }

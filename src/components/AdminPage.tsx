@@ -10,6 +10,9 @@ import {
   DEDICATION_TYPES,
   DURATIONS,
   TYPE_NAMES,
+  DEFAULT_DISPLAY,
+  SETTINGS_ID,
+  type DedicationDisplay,
   addDays,
   dedicationLine,
   type Dedication,
@@ -90,6 +93,7 @@ export const AdminPage: React.FC = () => {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [showPast, setShowPast] = useState(false);
+  const [display, setDisplay] = useState<DedicationDisplay>(DEFAULT_DISPLAY);
 
   useEffect(() => {
     document.title = 'ניהול הקדשות – חת״ת יומי';
@@ -109,6 +113,8 @@ export const AdminPage: React.FC = () => {
       fs.getDocs(fs.query(fs.collection(db, 'dedicationRequests'), fs.orderBy('createdAt', 'desc'))),
     ]);
     setDedications(d.docs.map((x) => ({ id: x.id, ...(x.data() as any) })));
+    const st = await fs.getDoc(fs.doc(db, 'dedications', SETTINGS_ID));
+    setDisplay({ ...DEFAULT_DISPLAY, ...((st.exists() ? st.data() : {}) as any) });
     setRequests(r.docs.map((x) => ({ id: x.id, ...(x.data() as any) })));
   };
 
@@ -178,6 +184,14 @@ export const AdminPage: React.FC = () => {
     }, 'נמחק.');
   };
 
+  const saveDisplay = (next: DedicationDisplay) => {
+    setDisplay(next);
+    run(async () => {
+      const { fs, db } = await load();
+      await fs.setDoc(fs.doc(db, 'dedications', SETTINGS_ID), { ...next, updatedAt: fs.serverTimestamp() });
+    }, 'ההגדרה נשמרה. היא תופיע באפליקציה בפתיחה הבאה.');
+  };
+
   const fromRequest = (r: RequestDoc) => {
     const days = DURATIONS.find((d) => d.id === r.duration)?.days || 1;
     setDraft({ type: r.type, text: r.text, startDate: r.startDate, endDate: addDays(r.startDate, days - 1), donor: r.donor, requestId: r.id });
@@ -231,6 +245,37 @@ export const AdminPage: React.FC = () => {
         </div>
 
         {message && <p className="text-sm text-amber-900 bg-amber-100 rounded-lg px-3 py-2">{message}</p>}
+
+        {/* Display settings */}
+        <section className="bg-white rounded-xl border border-stone-200 p-4 space-y-3">
+          <h2 className="font-bold text-stone-900">תצוגה באפליקציה</h2>
+          <label className="flex items-start gap-2.5 text-sm text-stone-800 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={display.enabled}
+              disabled={busy}
+              onChange={(e) => saveDisplay({ ...display, enabled: e.target.checked })}
+              className="accent-amber-800 w-4 h-4 mt-0.5 shrink-0"
+            />
+            <span>
+              <span className="font-semibold">להציג הקדשות באפליקציה</span>
+              <span className="block text-xs text-stone-500">כשזה כבוי, שורת ההקדשה לא מופיעה בכלל, גם לא הכפתור ״רוצים להקדיש״.</span>
+            </span>
+          </label>
+          <label className={`flex items-start gap-2.5 text-sm cursor-pointer ${display.enabled ? 'text-stone-800' : 'text-stone-400'}`}>
+            <input
+              type="checkbox"
+              checked={display.showEmpty}
+              disabled={busy || !display.enabled}
+              onChange={(e) => saveDisplay({ ...display, showEmpty: e.target.checked })}
+              className="accent-amber-800 w-4 h-4 mt-0.5 shrink-0"
+            />
+            <span>
+              <span className="font-semibold">ביום בלי הקדשה, להציג ״הלימוד היום עדיין לא הוקדש״</span>
+              <span className="block text-xs text-stone-500">כשזה כבוי, ביום בלי הקדשה לא מופיע כלום. בימים עם הקדשה היא מופיעה כרגיל.</span>
+            </span>
+          </label>
+        </section>
 
         {/* Add / edit */}
         {draft ? (

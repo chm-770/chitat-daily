@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { DailyStudyKey, RambamTrack, StudySettings, ThemeMode } from '../types/chitas';
-import { ALL_LESSONS, enabledLessonKeys, TEXT_FONTS } from '../utils/lessons';
-import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell, Languages, Mail, ChevronDown } from 'lucide-react';
+import { enabledLessonKeys, lessonsInOrder, normalizeLessonOrder, TEXT_FONTS } from '../utils/lessons';
+import { Reorder, useDragControls } from 'motion/react';
+import { X, Type, RotateCcw, MapPin, Palette, Scale, BookOpen, Check, UserCircle2, Bell, Languages, Mail, ChevronDown, GripVertical, ListOrdered } from 'lucide-react';
 import { CityConfig, DEFAULT_CITY, getSavedCity } from '../services/zmanimService';
 import { CityPicker } from './CityPicker';
 import { AccountSection } from './AccountSection';
@@ -32,6 +33,78 @@ const THEMES: { id: ThemeMode; swatch: string }[] = [
 
 const RAMBAM_TRACK_IDS: RambamTrack[] = ['three_chapters', 'one_chapter', 'sefer_hamitzvot'];
 const FONT_SIZES: StudySettings['fontSize'][] = ['small', 'medium', 'large', 'xlarge'];
+
+const ORDER_STRINGS = {
+  he: { title: 'סדר השיעורים:', hint: 'גרור את ⠿ כדי לשנות את הסדר בתפריט ובעמוד הראשי', drag: 'גרירה לשינוי הסדר', reset: 'חזרה לסדר הרגיל' },
+  en: { title: 'Order of the lessons:', hint: 'Drag ⠿ to change the order in the menu and on the home page', drag: 'Drag to reorder', reset: 'Back to the usual order' },
+  fr: { title: 'Ordre des leçons :', hint: "Faites glisser ⠿ pour changer l'ordre dans le menu et sur la page d'accueil", drag: 'Glisser pour réordonner', reset: "Revenir à l'ordre habituel" },
+};
+
+/** Drag the lessons to change their order (menu, home page, next lesson). */
+const LessonOrder: React.FC<{
+  settings: StudySettings;
+  onUpdateSettings: (s: Partial<StudySettings>) => void;
+  names: Record<DailyStudyKey, string>;
+}> = ({ settings, onUpdateSettings, names }) => {
+  const o = useStrings(ORDER_STRINGS);
+  const [items, setItems] = useState<DailyStudyKey[]>(() => normalizeLessonOrder(settings.lessonOrder));
+  useEffect(() => setItems(normalizeLessonOrder(settings.lessonOrder)), [settings.lessonOrder]);
+  const enabled = enabledLessonKeys(settings.enabledLessons);
+  const isDefault = normalizeLessonOrder(undefined).join() === items.join();
+  const commit = (next: DailyStudyKey[]) => onUpdateSettings({ lessonOrder: next });
+  return (
+    <div className="space-y-2 pt-2 border-t border-stone-100">
+      <label className={sectionTitle}>
+        <ListOrdered className="w-3.5 h-3.5 text-amber-800" />
+        <span>{o.title}</span>
+      </label>
+      <p className="text-[11px] text-stone-500">{o.hint}</p>
+      <Reorder.Group axis="y" values={items} onReorder={setItems} className="space-y-1.5">
+        {items.map((k, i) => (
+          <LessonOrderRow key={k} id={k} index={i} name={names[k]} dim={!enabled.includes(k)} dragTitle={o.drag} onDrop={() => commit(items)} />
+        ))}
+      </Reorder.Group>
+      {!isDefault && (
+        <button type="button" onClick={() => commit(normalizeLessonOrder(undefined))} className="text-[11px] text-amber-900 hover:underline cursor-pointer">
+          {o.reset}
+        </button>
+      )}
+    </div>
+  );
+};
+
+const LessonOrderRow: React.FC<{ id: DailyStudyKey; index: number; name: string; dim: boolean; dragTitle: string; onDrop: () => void }> = ({
+  id,
+  index,
+  name,
+  dim,
+  dragTitle,
+  onDrop,
+}) => {
+  const controls = useDragControls();
+  return (
+    <Reorder.Item
+      value={id}
+      dragListener={false}
+      dragControls={controls}
+      onDragEnd={onDrop}
+      className={`flex items-center gap-2.5 p-2 rounded-xl border select-none ${dim ? 'bg-stone-50 border-stone-200 text-stone-400' : 'bg-amber-50/60 border-amber-200 text-stone-800'}`}
+      whileDrag={{ scale: 1.02, boxShadow: '0 6px 16px rgba(0,0,0,0.12)', zIndex: 10 }}
+    >
+      <button
+        type="button"
+        title={dragTitle}
+        aria-label={dragTitle}
+        onPointerDown={(e) => controls.start(e)}
+        className="p-1 -m-1 text-stone-400 hover:text-stone-700 cursor-grab active:cursor-grabbing touch-none shrink-0"
+      >
+        <GripVertical className="w-5 h-5" />
+      </button>
+      <span className="w-5 h-5 rounded-full bg-amber-200/80 text-amber-900 font-bold text-[11px] flex items-center justify-center shrink-0">{index + 1}</span>
+      <span className="text-sm font-semibold">{name}</span>
+    </Reorder.Item>
+  );
+};
 
 const SM_STRINGS = {
   he: {
@@ -458,7 +531,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                   <span>{s.myLessons}</span>
                 </label>
                 <div className="grid grid-cols-2 gap-2">
-                  {ALL_LESSONS.map((l) => {
+                  {lessonsInOrder().map((l) => {
                     const current = enabledLessonKeys(settings.enabledLessons);
                     const on = current.includes(l.key);
                     return (
@@ -478,6 +551,9 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
                   })}
                 </div>
               </div>
+
+              {/* Order of the lessons */}
+              <LessonOrder settings={settings} onUpdateSettings={onUpdateSettings} names={s.lessons} />
 
               {/* Rambam Track Selection */}
               <div className="space-y-2 pt-2 border-t border-stone-100">

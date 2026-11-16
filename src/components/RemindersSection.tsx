@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { DailyStudyKey } from '../types/chitas';
-import { ALL_LESSONS, enabledLessonKeys } from '../utils/lessons';
+import { enabledLessonKeys, lessonsInOrder } from '../utils/lessons';
 import {
   loadReminderPrefs,
   notificationsSupported,
@@ -110,7 +110,7 @@ export const RemindersSection: React.FC<RemindersSectionProps> = ({ enabledLesso
   const [message, setMessage] = useState<{ text: string; ok: boolean } | null>(null);
   const [dirty, setDirty] = useState(false);
 
-  const lessons = ALL_LESSONS.filter((l) => enabledLessonKeys(enabledLessons).includes(l.key));
+  const lessons = lessonsInOrder().filter((l) => enabledLessonKeys(enabledLessons).includes(l.key));
 
   const update = (p: Partial<ReminderPrefs>) => {
     setPrefs((cur) => ({ ...cur, ...p }));

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { StudyCategory, DailyProgress, StudySettings, DailyStudyKey } from '../types/chitas';
-import { enabledLessonKeys } from '../utils/lessons';
+import { enabledLessonKeys, sectionSequence } from '../utils/lessons';
 import { Check, Undo2, Settings, Clock, CalendarDays, Compass } from 'lucide-react';
 import { PWAInstallButton } from './PWAInstallButton';
 import { useStrings } from '../i18n';
@@ -159,6 +159,13 @@ export const Header: React.FC<HeaderProps> = ({
     const key = keyOf[item.id];
     return !key || enabledLessonKeys(enabledLessons).includes(key);
   });
+  // Lessons in the order chosen in the settings (home first, Shnayim Mikra last)
+  const rank = (id: StudyCategory) => {
+    if (id === 'overview') return -1;
+    const i = sectionSequence(enabledLessons).indexOf(id);
+    return i >= 0 ? i : 99;
+  };
+  navItems.sort((a, b) => rank(a.id) - rank(b.id));
 
   return (
     <header className="sticky top-0 z-30 bg-amber-50/95 backdrop-blur-md border-b border-amber-900/10 shadow-xs">

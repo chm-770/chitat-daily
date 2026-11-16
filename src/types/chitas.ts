@@ -116,6 +116,8 @@ export interface StudySettings {
   zmanimMethod?: ZmanimMethod; // Defined in settings, defaults to 'chabad'
   /** The daily lessons the user learns (chosen on first launch, changeable in the settings) */
   enabledLessons?: DailyStudyKey[];
+  /** Order of the lessons (menu, home page, next lesson) */
+  lessonOrder?: DailyStudyKey[];
   /** The first-launch menu was completed */
   onboardingDone?: boolean;
   /** Answer of the first-launch question (Israel / Diaspora parasha); a chosen city takes precedence */

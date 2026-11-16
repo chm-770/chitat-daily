@@ -23,7 +23,7 @@ import { getSavedCity, DEFAULT_CITY } from './services/zmanimService';
 import { refreshReminders } from './services/reminders';
 import { LangProvider, detectLang, dirOf, pick, setCurrentLang } from './i18n';
 import { emptyProgress, loadProgress, localDateKey } from './utils/progress';
-import { enabledLessonKeys, nextSection, sectionSequence, textFontFamily } from './utils/lessons';
+import { enabledLessonKeys, nextSection, sectionSequence, setLessonOrder, textFontFamily } from './utils/lessons';
 import { OnboardingModal } from './components/OnboardingModal';
 import { AccountUser, pushProgress, pushSettings, syncAfterSignIn, wasSignedIn, watchUser } from './services/account';
 
@@ -441,6 +441,7 @@ export default function App() {
   // Shnayim Mikra ve'Echad Targum: on Friday, for those who turned it on in the settings
   const showShnayimMikra = Boolean(settings.shnayimMikra) && currentDate.getDay() === 5;
   setCurrentLang(lang);
+  setLessonOrder(settings.lessonOrder);
   const s = pick(STRINGS, lang);
 
   return (

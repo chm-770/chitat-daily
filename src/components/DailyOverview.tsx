@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { StudyCategory, DailyProgress, DailyStudyKey, RambamTrack } from '../types/chitas';
-import { ALL_LESSONS, enabledLessonKeys } from '../utils/lessons';
+import { enabledLessonKeys, lessonsInOrder } from '../utils/lessons';
 import { HebrewDateInfo } from '../utils/hebrewCalendar';
 import { BookOpen, Scroll, BookMarked, Sun, Scale, CheckCircle2, Circle, ArrowLeft, ArrowRight } from 'lucide-react';
 import { getSavedCity, DEFAULT_CITY, getFridayCandleLighting, getShabbatEndTime } from '../services/zmanimService';
@@ -53,8 +53,15 @@ const STRINGS = {
     hayomYomDesc: 'לוח יומי שערך הרבי מליובאוויטש עם פתגם חסידי, מנהג יומי והדרכה מעשית.',
     rambamTitle: 'הרמב״ם היומי',
     rambamDesc: 'תקנת הרמב״ם היומי של הרבי לאיחוד כל עם ישראל בלימוד כל התורה כולה ביד החזקה.',
-    next: {
+    start: {
       chumash: 'התחל לימוד חומש',
+      tehillim: 'התחל לימוד תהילים',
+      tanya: 'התחל לימוד תניא',
+      hayomYom: 'התחל בהיום יום',
+      rambam: 'התחל לימוד רמב״ם',
+    } as Record<DailyStudyKey, string>,
+    next: {
+      chumash: 'המשך לחומש',
       tehillim: 'המשך לתהילים',
       tanya: 'המשך לתניא',
       hayomYom: 'המשך להיום יום',
@@ -105,8 +112,15 @@ const STRINGS = {
     hayomYomDesc: 'A daily calendar compiled by the Lubavitcher Rebbe, with a Chassidic saying, a custom and practical guidance.',
     rambamTitle: 'Daily Rambam',
     rambamDesc: 'The Rebbe’s daily Rambam study, uniting all of Israel in learning the whole Torah through the Mishneh Torah.',
-    next: {
+    start: {
       chumash: 'Start with Chumash',
+      tehillim: 'Start with Tehillim',
+      tanya: 'Start with Tanya',
+      hayomYom: 'Start with Hayom Yom',
+      rambam: 'Start with Rambam',
+    } as Record<DailyStudyKey, string>,
+    next: {
+      chumash: 'Continue to Chumash',
       tehillim: 'Continue to Tehillim',
       tanya: 'Continue to Tanya',
       hayomYom: 'Continue to Hayom Yom',
@@ -157,8 +171,15 @@ const STRINGS = {
     hayomYomDesc: 'Un calendrier quotidien établi par le Rabbi de Loubavitch : une maxime \'hassidique, une coutume et un conseil pratique.',
     rambamTitle: 'Rambam du jour',
     rambamDesc: 'L’étude quotidienne du Rambam instituée par le Rabbi, pour unir tout le peuple juif dans l’étude de toute la Torah.',
-    next: {
+    start: {
       chumash: 'Commencer par le \'Houmach',
+      tehillim: 'Commencer par les Téhilim',
+      tanya: 'Commencer par le Tanya',
+      hayomYom: 'Commencer par Hayom Yom',
+      rambam: 'Commencer par le Rambam',
+    } as Record<DailyStudyKey, string>,
+    next: {
+      chumash: 'Continuer : \'Houmach',
       tehillim: 'Continuer : Téhilim',
       tanya: 'Continuer : Tanya',
       hayomYom: 'Continuer : Hayom Yom',
@@ -288,9 +309,11 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
 
   const NEXT_LABELS = s.next;
   const getNextStudy = (): { category: StudyCategory; label: string } => {
-    const next = ALL_LESSONS.find((l) => lessonKeys.includes(l.key) && !progress[l.key]);
-    if (next) return { category: next.category, label: NEXT_LABELS[next.key] };
-    const first = ALL_LESSONS.find((l) => lessonKeys.includes(l.key)) || ALL_LESSONS[0];
+    const next = lessonsInOrder().find((l) => lessonKeys.includes(l.key) && !progress[l.key]);
+    // Nothing done yet today: "start with…" the first lesson; otherwise "continue to…"
+    const started = lessonKeys.some((k) => progress[k]);
+    if (next) return { category: next.category, label: started ? NEXT_LABELS[next.key] : s.start[next.key] };
+    const first = lessonsInOrder().find((l) => lessonKeys.includes(l.key)) || lessonsInOrder()[0];
     return { category: first.category, label: s.allDone };
   };
 
@@ -398,7 +421,10 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {studyCards.filter((card) => lessonKeys.includes(card.key)).map((card) => {
+          {studyCards
+            .filter((card) => lessonKeys.includes(card.key))
+            .sort((a, b) => lessonKeys.indexOf(a.key) - lessonKeys.indexOf(b.key))
+            .map((card) => {
             const isCompleted = progress[card.key];
             const Icon = card.icon;
 

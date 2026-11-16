@@ -39,15 +39,34 @@ export function lessonLabel(key: DailyStudyKey, lang: Lang = getLang()): string 
   return (LESSON_LABELS[lang] || LESSON_LABELS.he)[key] || LESSON_LABELS.he[key];
 }
 
+const DEFAULT_ORDER: DailyStudyKey[] = ALL_LESSONS.map((l) => l.key);
+let order: DailyStudyKey[] = DEFAULT_ORDER;
+
+/** A complete order of the five lessons (unknown keys dropped, missing ones added at the end). */
+export function normalizeLessonOrder(o?: DailyStudyKey[]): DailyStudyKey[] {
+  const valid = (o || []).filter((k, i, a) => DEFAULT_ORDER.includes(k) && a.indexOf(k) === i);
+  return [...valid, ...DEFAULT_ORDER.filter((k) => !valid.includes(k))];
+}
+
+/** The order the user chose in the settings (set by App on every render). */
+export function setLessonOrder(o?: DailyStudyKey[]) {
+  order = normalizeLessonOrder(o);
+}
+
+/** The five lessons in the user's order. */
+export function lessonsInOrder() {
+  return order.map((k) => ALL_LESSONS.find((l) => l.key === k)!);
+}
+
 export function enabledLessonKeys(enabled?: DailyStudyKey[]): DailyStudyKey[] {
-  const list = enabled && enabled.length > 0 ? enabled : ALL_LESSONS.map((l) => l.key);
-  return ALL_LESSONS.map((l) => l.key).filter((k) => list.includes(k));
+  const list = enabled && enabled.length > 0 ? enabled : DEFAULT_ORDER;
+  return order.filter((k) => list.includes(k));
 }
 
 /** Sections in order: the home page, then the lessons the user learns. */
 export function sectionSequence(enabled?: DailyStudyKey[]): StudyCategory[] {
   const keys = enabledLessonKeys(enabled);
-  return ['overview', ...ALL_LESSONS.filter((l) => keys.includes(l.key)).map((l) => l.category)];
+  return ['overview', ...lessonsInOrder().filter((l) => keys.includes(l.key)).map((l) => l.category)];
 }
 
 /** The section after `current` (back to the home page after the last lesson). */

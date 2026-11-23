@@ -6,7 +6,7 @@ import { StudySettings } from '../types/chitas';
 import { TanyaDailyPortion, getTanyaDailyPortion } from '../services/tanyaService';
 import { CheckCircle2, RotateCcw, Check, ArrowRight } from 'lucide-react';
 import { useLang, useStrings, dirOf } from '../i18n';
-import { lessonLabel } from '../utils/lessons';
+import { nextLessonName } from '../utils/lessons';
 
 const STRINGS = {
   he: {
@@ -298,7 +298,7 @@ export const TanyaViewer: React.FC<TanyaViewerProps> = ({
                       className="px-5 py-2.5 text-sm font-bold text-white bg-emerald-800 hover:bg-emerald-900 rounded-xl transition-all shadow-xs cursor-pointer flex items-center gap-2"
                     >
                       <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
-                      <span dir={dirOf(lang)} lang={lang}>{s.finishAndContinue(lessonLabel('hayomYom', lang))}</span>
+                      <span dir={dirOf(lang)} lang={lang}>{s.finishAndContinue(nextLessonName('tanya', lang))}</span>
                     </button>
                   </div>
                 )}

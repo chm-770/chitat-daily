@@ -48,9 +48,12 @@ export function normalizeLessonOrder(o?: DailyStudyKey[]): DailyStudyKey[] {
   return [...valid, ...DEFAULT_ORDER.filter((k) => !valid.includes(k))];
 }
 
-/** The order the user chose in the settings (set by App on every render). */
-export function setLessonOrder(o?: DailyStudyKey[]) {
+let enabledNow: DailyStudyKey[] | undefined;
+
+/** The order (and the chosen lessons) from the settings, set by App on every render. */
+export function setLessonOrder(o?: DailyStudyKey[], enabled?: DailyStudyKey[]) {
   order = normalizeLessonOrder(o);
+  enabledNow = enabled;
 }
 
 /** The five lessons in the user's order. */
@@ -74,6 +77,15 @@ export function nextSection(current: StudyCategory, enabled?: DailyStudyKey[]): 
   const seq = sectionSequence(enabled);
   const i = seq.indexOf(current);
   return i >= 0 && i < seq.length - 1 ? seq[i + 1] : 'overview';
+}
+
+/** Name of the lesson that comes after `current` in the user's order ("the home page" after the last one). */
+export function nextLessonName(current: StudyCategory, lang: Lang = getLang()): string {
+  const next = nextSection(current, enabledNow);
+  const lesson = ALL_LESSONS.find((l) => l.category === next);
+  if (lesson) return lessonLabel(lesson.key, lang);
+  // Hebrew: joined to "ל" in the button ("המשך לעמוד הראשי")
+  return { he: 'עמוד הראשי', en: 'the home page', fr: "la page d'accueil" }[lang];
 }
 
 export const TEXT_FONTS: { id: TextFont; label: string; family: string }[] = [

@@ -441,7 +441,7 @@ export default function App() {
   // Shnayim Mikra ve'Echad Targum: on Friday, for those who turned it on in the settings
   const showShnayimMikra = Boolean(settings.shnayimMikra) && currentDate.getDay() === 5;
   setCurrentLang(lang);
-  setLessonOrder(settings.lessonOrder);
+  setLessonOrder(settings.lessonOrder, settings.enabledLessons);
   const s = pick(STRINGS, lang);
 
   return (

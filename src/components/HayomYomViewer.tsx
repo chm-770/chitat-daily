@@ -5,7 +5,7 @@ import { getHayomYomForHebrewDate, isAdarSectionHeading } from '../data/hayomYom
 import { CheckCircle2, RotateCcw } from 'lucide-react';
 import { HDate } from '@hebcal/core';
 import { useLang, useStrings } from '../i18n';
-import { lessonLabel } from '../utils/lessons';
+import { nextLessonName } from '../utils/lessons';
 
 const STRINGS = {
   he: {
@@ -218,7 +218,7 @@ export const HayomYomViewer: React.FC<HayomYomViewerProps> = ({
                 className="px-5 py-2.5 text-sm font-bold text-white bg-amber-800 hover:bg-amber-900 rounded-xl transition-all shadow-xs cursor-pointer flex items-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
-                <span>{s.finishAndContinue(lessonLabel('rambam', lang))}</span>
+                <span>{s.finishAndContinue(nextLessonName('hayom_yom', lang))}</span>
               </button>
             </div>
           )}
